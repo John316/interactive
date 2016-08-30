@@ -4,6 +4,7 @@
     session_start();
     require 'controlers/edituser.php';
     require 'modules/user_module.php';
+    require 'controlers/level.php';
     header("Content-type: text/html;charset=utf-8");
 ?>
 <!DOCTYPE HTML>
@@ -54,7 +55,7 @@
                      }else if($url == 'update'){
                         include ('view/form.php');
                     }else{
-                        echo 'you on mine page';
+                        include ('view/home.php');
                     }
 
                     if(!empty($massage)){
