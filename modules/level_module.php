@@ -1,5 +1,4 @@
 <?php
-require 'connectmysql.php';
 class Level{
 		private $id;
 		private $level1;
@@ -9,7 +8,7 @@ class Level{
 		private $isActive;
 
     function __construct(){
-        $connect = new ConnectMysql_temp();
+        $connect = new ConnectMysql();
         $connect->Connect();
     }
 

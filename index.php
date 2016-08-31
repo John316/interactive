@@ -2,9 +2,10 @@
     $url = $_GET['url'];
     $id = $_GET['id'];
     session_start();
-    require 'controlers/edituser.php';
+    require_once 'db/connectmysql.php';
     require 'modules/user_module.php';
-    require 'controlers/level.php';
+    require 'controllers/user_controller.php';
+    require 'controllers/level_controller.php';
     header("Content-type: text/html;charset=utf-8");
 ?>
 <!DOCTYPE HTML>
@@ -34,6 +35,7 @@
             ?>
                 <h1>Consumers</h1>
                 <div id="menu">
+                    <span><a href="index.php">Home</a></span>
                     <span><a href="index.php?url=adduser">Добавить абонента</a></span>
                     <span><a href="index.php?url=view">Просмотреть абонентов</a></span>
                     <span><a href="index.php?url=addgr">Добавить группы</a></span>
