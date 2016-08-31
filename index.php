@@ -2,10 +2,8 @@
     $url = $_GET['url'];
     $id = $_GET['id'];
     session_start();
-    require_once 'db/connectmysql.php';
     require 'modules/user_module.php';
     require 'controllers/user_controller.php';
-    require 'controllers/level_controller.php';
     header("Content-type: text/html;charset=utf-8");
 ?>
 <!DOCTYPE HTML>
@@ -13,10 +11,12 @@
 <head>
 	<meta http-equiv="content-type" content="text/html" charset="utf-8" />
 	<meta name="author" content="" />
+  <script src="scripts/jquery-3.1.0.min.js"></script>
+  <script src="scripts/script.js"></script>
 	<title>Consumer list</title>
     <style type="text/css">
-        body, a, td, th{
-            padding: 10px;
+        *{
+            padding: 5px;
         }
     </style>
 </head>

@@ -1,4 +1,5 @@
 <?php
+require_once '../db/connectmysql.php';
 class Level{
 		private $id;
 		private $level1;
