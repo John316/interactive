@@ -12,6 +12,7 @@
 	<meta http-equiv="content-type" content="text/html" charset="utf-8" />
 	<meta name="author" content="" />
   <script src="scripts/jquery-3.1.0.min.js"></script>
+  <script src="scripts/highcharts.js"></script>
   <script src="scripts/script.js"></script>
 	<title>Consumer list</title>
     <style type="text/css">

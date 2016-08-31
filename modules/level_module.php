@@ -20,4 +20,11 @@ class Level{
         return $queryid;
         //header('Location: index.php?url=view');
     }
+
+		function SelectLevel(){
+			// WHERE `time` < DATE_SUB(NOW(), INTERVAL 1 HOUR)
+			$level_row = mysql_query("SELECT level1, level2, level3 FROM level")
+			or die(mysql_error());
+			return $level_row;
+		}
 }
