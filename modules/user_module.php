@@ -1,4 +1,5 @@
-<?php	
+<?php
+require_once 'db/connectmysql.php';
 class User{
 		private $id;
 		private $login;
