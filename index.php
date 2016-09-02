@@ -11,15 +11,12 @@
 <head>
 	<meta http-equiv="content-type" content="text/html" charset="utf-8" />
 	<meta name="author" content="" />
+  <link rel="stylesheet" href="css/jquery-ui.css">
   <script src="scripts/jquery-3.1.0.min.js"></script>
+  <script src="scripts/jquery-ui.js"></script>
   <script src="scripts/highcharts.js"></script>
   <script src="scripts/script.js"></script>
 	<title>Consumer list</title>
-    <style type="text/css">
-        *{
-            padding: 5px;
-        }
-    </style>
 </head>
 
 <body>

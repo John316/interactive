@@ -11,11 +11,7 @@ if ($_POST) {
 }
 
 if($_GET){
-  $data = $level->SelectLevel();
-  $rows = array();
-  while($row = mysql_fetch_assoc($data)){
-    array_push($rows, $row);
-  }
-  echo json_encode($rows);
+  $data = $level->SelectAVGLevels();
+  echo json_encode(mysql_fetch_assoc($data));
 }
 ?>

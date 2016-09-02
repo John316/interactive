@@ -1,5 +1,12 @@
 var _INTERVAL = 5000;
 var _LEVELS = [];
+var series;
+var remLevel1 = 0;
+var remLevel2 = 0;
+var remLevel3 = 0;
+var colorNo = "#00FF00"
+var colorYes = "#FF00FF"
+
 function sendGet(url, callbeak){
   $.get(url)
   .done(function( data ) {
@@ -33,7 +40,7 @@ function cd(o) {
 }
 $( document ).ready(function() {
     $("#sendLevel").click(function(){
-      var level1 = $("#level1").val();
+      var level1 = $("#level1").val()/10;
       var level2 = $("#level2").val();
       var url = "controllers/level_controller.php";
       var data = {level1: level1, level2:level2, level3:0};
@@ -44,41 +51,74 @@ $( document ).ready(function() {
       var url = "controllers/level_controller.php?url";
       interval = setInterval(function(){
         sendGet(url, function (data) {
-          setLevels(JSON.parse(data));
+          setLevelsAndUpdate(JSON.parse(data));
         });
-        cl("get fresh res");
       }, _INTERVAL);
+
+
     });
     $("#stop").click(function(){
       clearInterval(interval);
       clearInterval(chartRefresh);
     });
+
+    $("#iDisagree").click(function(){
+      $("#level2").val(1);
+    });
+
+    $("#iAgree").click(function(){
+      $("#level2").val(10);
+    });
+
 });
 var chartRefresh;
-function setLevels(data) {
-  var tempLvl1 = 0;
-  var tempLvl2 = 0;
-  var tempLvl3 = 0;
-  for(var i = 0; data.length > i; i++){
-    tempLvl1 += parseInt(data[i].level1);
-    tempLvl2 += parseInt(data[i].level2);
-    tempLvl3 += parseInt(data[i].level3);
-  };
-
-  _LEVELS[0] = tempLvl1 / data.length;
-  _LEVELS[1] = tempLvl2 / data.length;
-  _LEVELS[2] = tempLvl3 / data.length;
-
-  cl(_LEVELS[0]);
-  cl(data.length);
-
+function setLevelsAndUpdate(data) {
+  _LEVELS = data;
+  // start Refresh chart
+  updateUnder();
+  updateAgree();
 }
 
 function getUnderLevel() {
-  return _LEVELS[0] || 0;
+  var val = parseInt(_LEVELS.lvl1);
+  if(val > 0){
+    var result = val;
+    remLevel1 = val;
+  }else{
+    var result = remLevel1;
+  }
+  return result;
 }
+
 function getAgreeLevel() {
-  return _LEVELS[1] || 0;
+  var val = parseInt(_LEVELS.lvl2);
+  if(val > 0){
+    var result = val;
+    remLevel1 = val;
+  }else{
+    var result = remLevel2;
+  }
+  return result;
+}
+
+function updateUnder() {
+  var x = (new Date()).getTime(), // current time
+      y = getUnderLevel();
+  series.addPoint([x, y], true, true);
+}
+
+function updateAgree() {
+  var agree = getAgreeLevel();
+  var disagree = 10 - agree;
+  seriesAgree.setData([{
+    y: disagree,
+    name: "No",
+    color: colorNo
+  }, {
+      y: agree,
+      name: "Yes",
+      color: colorYes
+  }], true)
 }
 
 $(function () {
@@ -96,14 +136,7 @@ $(function () {
                 marginRight: 10,
                 events: {
                     load: function () {
-
-                        // set up the updating of the chart each second
-                        var series = this.series[0];
-                        chartRefresh = setInterval(function () {
-                            var x = (new Date()).getTime(), // current time
-                                y = getUnderLevel();
-                            series.addPoint([x, y], true, true);
-                        }, _INTERVAL);
+                        series = this.series[0];
                     }
                 }
             },
@@ -140,20 +173,91 @@ $(function () {
             series: [{
                 name: 'Random data',
                 data: (function () {
-                    // generate an array of random data
-                    var data = [],
-                        time = (new Date()).getTime(),
-                        i;
+                  // generate an array of random data
+                  var data = [],
+                      time = (new Date()).getTime(),
+                      i;
 
-                    for (i = -19; i <= 0; i += 1) {
-                        data.push({
-                            x: time + i * 1000,
-                            y: Math.random()
-                        });
-                    }
-                    return data;
+                  for (i = -19; i <= 0; i += 1) {
+                      data.push({
+                          x: time + i * 1000,
+                          y: 1
+                      });
+                  }
+                  return data;
                 }())
             }]
         });
     });
 });
+var agreeChart;
+var seriesAgree;
+$(function () {
+    agreeChart = $('#agreeChart').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: 0,
+            plotShadow: false,
+            events: {
+                load: function () {
+                    seriesAgree = this.series[0];
+                }
+            }
+        },
+        title: {
+            text: 'Уровень<br>согласия<br>аудитории',
+            align: 'center',
+            verticalAlign: 'middle',
+            y: 40
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                dataLabels: {
+                    enabled: true,
+                    distance: -50,
+                    style: {
+                        fontWeight: 'bold',
+                        color: 'white',
+                        textShadow: '0px 1px 2px black'
+                    }
+                },
+                startAngle: -90,
+                endAngle: 90,
+                center: ['50%', '75%']
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Уровень',
+            innerSize: '50%',
+            data: [
+                ['Yes',   90],
+                ['No',       10],
+                {
+                    name: 'Proprietary or Undetectable',
+                    y: 0.2,
+                    dataLabels: {
+                        enabled: false
+                    }
+                }
+            ]
+        }]
+    });
+});
+
+$( function() {
+    $( "#slider-vertical" ).slider({
+      orientation: "vertical",
+      range: "min",
+      min: 0,
+      max: 100,
+      value: 60,
+      slide: function( event, ui ) {
+        $( "#level1" ).val( ui.value );
+      }
+    });
+    $( "#level1" ).val( $( "#slider-vertical" ).slider( "value" ) );
+} );

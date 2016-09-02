@@ -22,8 +22,13 @@ class Level{
     }
 
 		function SelectLevel(){
-			// WHERE `time` < DATE_SUB(NOW(), INTERVAL 1 HOUR)
 			$level_row = mysql_query("SELECT level1, level2, level3 FROM level")
+			or die(mysql_error());
+			return $level_row;
+		}
+
+		function SelectAVGLevels(){
+			$level_row = mysql_query("SELECT AVG(`level1`) AS lvl1, AVG(`level2`) AS lvl2, AVG(`level3`) AS lvl3 FROM `level` WHERE `time`>= NOW() - INTERVAL 30 SECOND")
 			or die(mysql_error());
 			return $level_row;
 		}
