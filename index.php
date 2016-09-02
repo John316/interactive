@@ -8,6 +8,7 @@
 
     if($_POST['login'] == 'admin' && $_POST['pass'] == 'admin'){
       $_SESSION['ENTER'] = 'ok';
+      $_SESSION['login'] = $_POST['login'];
     }
     if($url == 'exit'){
       $_SESSION['ENTER'] = 'none';
@@ -24,6 +25,7 @@
   <link rel="stylesheet" href="css/bootstrap-theme.css">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
+
   <script src="scripts/jquery-3.1.0.min.js"></script>
   <script src="scripts/bootstrap.min.js"></script>
   <script src="scripts/jquery-ui.js"></script>
@@ -59,24 +61,31 @@
               <li><a href="index.php?url=view">Display users</a></li>
             </ul>
           </li>
-          <li><a href="index.php?url=exit">Exit</a></li>
         </ul>
-        <form class="navbar-form navbar-right">
-          <div class="form-group">
-            <input type="text" placeholder="Email" class="form-control">
-          </div>
-          <div class="form-group">
-            <input type="password" placeholder="Password" class="form-control">
-          </div>
-          <button type="submit" class="btn btn-success">Sign in</button>
-        </form>
+        <?php if($_SESSION['ENTER'] == 'ok'){ ?>
+          <ul class="nav navbar-nav navbar-right">
+              <li><a>Hello, <?php echo $_SESSION['login']; ?></a></li>
+              <li><a href="#" id="start">Start</a></li>
+              <li><a href="#" id="stop">Stop</a></li>
+              <li><a href="index.php?url=exit">Exit</a></li>
+            </ul>
+        <?php }else{ ?>
+          <form class="navbar-form navbar-right" action="index.php" method="POST">
+            <div class="form-group">
+              <input type="text" placeholder="Login" name="login" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="password" name="pass" placeholder="Password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">Sign in</button>
+          </form>
+        <?php } ?>
       </div><!--/.navbar-collapse -->
     </div>
   </nav>
     <div id="page">
       <div class="container">
-      <?php if($_SESSION['ENTER'] == 'ok'){
-              if($url == 'adduser'){
+        <?php if($url == 'adduser'){
                   include ('view/form.php');
                 }else if($url == 'addgr'){
                     include ('view/form.php');
@@ -94,16 +103,8 @@
 
                 if(!empty($massage)){
                     echo $massage;
-                }
-             }else{ ?>
-                <form action="index.php" method="POST" >
-                    <label for="login">Login</label>
-                    <input type="text"  name="login"/>
-                    <label for="pass">Password</label>
-                    <input type="password"  name="pass"/>
-                    <input type="submit"  value="OK"/>
-                </form>
-           <? }?>
+                } ?>
+
         </div>
     </div>
 

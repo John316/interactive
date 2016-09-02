@@ -6,7 +6,7 @@ var remLevel2 = 0;
 var remLevel3 = 0;
 var colorNo = "#00FF00"
 var colorYes = "#FF00FF"
-
+var agreeOrNo = 10;
 function sendGet(url, callbeak){
   $.get(url)
   .done(function( data ) {
@@ -48,26 +48,29 @@ $( document ).ready(function() {
     });
     var interval;
     $("#start").click(function(){
+      $(".blink").show();
       var url = "controllers/level_controller.php?url";
       interval = setInterval(function(){
         sendGet(url, function (data) {
           setLevelsAndUpdate(JSON.parse(data));
         });
       }, _INTERVAL);
-
-
     });
+
+    $("#checkboxAgree").click(function(){
+      if(agreeOrNo === 10){
+        agreeOrNo = 1;
+      }else{
+        agreeOrNo = 10;
+      }
+      $("#level2").val(agreeOrNo);
+      initSendInfo();
+    });
+
     $("#stop").click(function(){
+      $(".blink").hide();
       clearInterval(interval);
       clearInterval(chartRefresh);
-    });
-
-    $("#iDisagree").click(function(){
-      $("#level2").val(1);
-    });
-
-    $("#iAgree").click(function(){
-      $("#level2").val(10);
     });
 
 });
@@ -77,6 +80,27 @@ function setLevelsAndUpdate(data) {
   // start Refresh chart
   updateUnder();
   updateAgree();
+}
+var sendTimout, isActive;
+function initSendInfo() {
+  if(isActive){
+    clearTimeout(sendTimout);
+    tryToSend();
+  }else{
+    tryToSend();
+  }
+
+}
+function tryToSend() {
+  isActive = true;
+  sendTimout = setTimeout(function(){
+    var level1 = $("#level1").val()/10;
+    var level2 = $("#level2").val();
+    var url = "controllers/level_controller.php";
+    var data = {level1: level1, level2:level2, level3:0};
+    sendPost(url, data, function () { isActive = false; });
+
+  }, 2000);
 }
 
 function getUnderLevel() {
@@ -120,6 +144,35 @@ function updateAgree() {
       color: colorYes
   }], true)
 }
+
+$( function() {
+    $( "#slider-vertical" ).slider({
+      orientation: "horizontal",
+      range: "min",
+      min: 0,
+      max: 100,
+      value: 60,
+      slide: function( event, ui ) {
+        $( "#level1" ).val( ui.value );
+        initSendInfo();
+      }
+    });
+    $( "#level1" ).val( $( "#slider-vertical" ).slider( "value" ) );
+} );
+
+$( function() {
+    $( "#interest-slider" ).slider({
+      orientation: "horizontal",
+      range: "min",
+      min: 0,
+      max: 100,
+      value: 60,
+      slide: function( event, ui ) {
+        $( "#level3" ).val( ui.value );
+      }
+    });
+    $( "#level3" ).val( $( "#interest-slider" ).slider( "value" ) );
+} );
 
 $(function () {
     $(document).ready(function () {
@@ -205,7 +258,7 @@ $(function () {
             }
         },
         title: {
-            text: 'Уровень<br>согласия<br>аудитории',
+            text: ' <br>The level<br>of agreement',
             align: 'center',
             verticalAlign: 'middle',
             y: 40
@@ -247,31 +300,3 @@ $(function () {
         }]
     });
 });
-
-$( function() {
-    $( "#slider-vertical" ).slider({
-      orientation: "horizontal",
-      range: "min",
-      min: 0,
-      max: 100,
-      value: 60,
-      slide: function( event, ui ) {
-        $( "#level1" ).val( ui.value );
-      }
-    });
-    $( "#level1" ).val( $( "#slider-vertical" ).slider( "value" ) );
-} );
-
-$( function() {
-    $( "#interest-slider" ).slider({
-      orientation: "horizontal",
-      range: "min",
-      min: 0,
-      max: 100,
-      value: 60,
-      slide: function( event, ui ) {
-        $( "#level3" ).val( ui.value );
-      }
-    });
-    $( "#level3" ).val( $( "#interest-slider" ).slider( "value" ) );
-} );
