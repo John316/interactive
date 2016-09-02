@@ -250,7 +250,7 @@ $(function () {
 
 $( function() {
     $( "#slider-vertical" ).slider({
-      orientation: "vertical",
+      orientation: "horizontal",
       range: "min",
       min: 0,
       max: 100,
@@ -260,4 +260,18 @@ $( function() {
       }
     });
     $( "#level1" ).val( $( "#slider-vertical" ).slider( "value" ) );
+} );
+
+$( function() {
+    $( "#interest-slider" ).slider({
+      orientation: "horizontal",
+      range: "min",
+      min: 0,
+      max: 100,
+      value: 60,
+      slide: function( event, ui ) {
+        $( "#level3" ).val( ui.value );
+      }
+    });
+    $( "#level3" ).val( $( "#interest-slider" ).slider( "value" ) );
 } );
