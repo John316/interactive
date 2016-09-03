@@ -1,7 +1,15 @@
 #page{
   margin-top: 65px;
 }
-
+#vertical-radio input[name="radio"]{
+  height: 35px;
+  width: 35px;
+  margin: 5px;
+}
+#vertical-radio label{
+  font-size: 20px;
+  margin: 3px 17px;
+}
 .blink {
   animation: blink-animation 2s steps(5, start) infinite;
   -webkit-animation: blink-animation 2s steps(5, start) infinite;

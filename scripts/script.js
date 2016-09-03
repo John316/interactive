@@ -7,13 +7,16 @@ var remLevel3 = 0;
 var colorNo = "#00FF00"
 var colorYes = "#FF00FF"
 var agreeOrNo = 10;
+var isActiveState = false;
+var flag = true;
+var isactiveInterval, intervalSelectLevels, sendTimout, isActiveSend, intervalInitSend;
+
 function sendGet(url, callbeak){
   $.get(url)
   .done(function( data ) {
     if(callbeak){
       callbeak(data);
     }
-    cl( "Data Loaded.");
   })
   .fail(function() {
     cl( "error" );
@@ -26,7 +29,6 @@ function sendPost(url, data, callbeak){
     if(callbeak){
       callbeak(data);
     }
-    cl( "Post request done.");
   })
   .fail(function() {
     cl( "error" );
@@ -39,23 +41,40 @@ function cd(o) {
   console.dir(o);
 }
 $( document ).ready(function() {
-    $("#sendLevel").click(function(){
-      var level1 = $("#level1").val()/10;
-      var level2 = $("#level2").val();
-      var url = "controllers/level_controller.php";
-      var data = {level1: level1, level2:level2, level3:0};
-      sendPost(url, data);
+
+    isactiveInterval = setInterval(function(){
+      var url = "controllers/level_controller.php?url=isactive";
+      sendGet(url, function (data) {
+        if(data == "active" && !isActiveState){
+          initStart();
+        }else if(data == "not active" && isActiveState){
+          initStop();
+        }
+      });
+    }, 10000);
+
+    $("#start").click(function() {
+      sendGet("controllers/level_controller.php?url=start");
+      initStart();
     });
-    var interval;
-    $("#start").click(function(){
+    $("#stop").click(function () {
+      sendGet("controllers/level_controller.php?url=stop");
+      initStop();
+    });
+
+    function initStart() {
       $(".blink").show();
-      var url = "controllers/level_controller.php?url";
-      interval = setInterval(function(){
-        sendGet(url, function (data) {
-          setLevelsAndUpdate(JSON.parse(data));
-        });
-      }, _INTERVAL);
-    });
+      isActiveState = true;
+      regularEvents();
+    }
+
+    function initStop() {
+      $(".blink").hide();
+      isActiveState = false;
+      clearInterval(intervalSelectLevels);
+      clearInterval(intervalInitSend);
+      flag = false;
+    }
 
     $("#checkboxAgree").click(function(){
       if(agreeOrNo === 10){
@@ -66,24 +85,37 @@ $( document ).ready(function() {
       $("#level2").val(agreeOrNo);
       initSendInfo();
     });
-
-    $("#stop").click(function(){
-      $(".blink").hide();
-      clearInterval(interval);
-      clearInterval(chartRefresh);
+    $("[name='radio']").click(function(){
+        initSendInfo();
     });
+    function regularEvents() {
+      if(flag){
+        flag = false;
+        intervalSelectLevels = setInterval(function(){
+          var url = "controllers/level_controller.php?url=selectLevels";
+          sendGet(url, function (data) {
+            setLevelsAndUpdate(JSON.parse(data));
+          });
+        }, 5000);
 
+        intervalInitSend = setInterval(function(){
+          if(!isActiveSend){
+            tryToSend();
+          }
+        }, 20000);
+      }
+    }
 });
-var chartRefresh;
+
 function setLevelsAndUpdate(data) {
   _LEVELS = data;
   // start Refresh chart
   updateUnder();
   updateAgree();
 }
-var sendTimout, isActive;
+
 function initSendInfo() {
-  if(isActive){
+  if(isActiveSend){
     clearTimeout(sendTimout);
     tryToSend();
   }else{
@@ -94,9 +126,9 @@ function initSendInfo() {
 function tryToSend() {
   isActive = true;
   sendTimout = setTimeout(function(){
-    var level1 = $("#level1").val()/10;
+    var level1 = $('[name="radio"]:checked').val();
     var level2 = $("#level2").val();
-    var url = "controllers/level_controller.php";
+    var url = "controllers/level_controller.php?url=addLevel";
     var data = {level1: level1, level2:level2, level3:0};
     sendPost(url, data, function () { isActive = false; });
 
@@ -104,7 +136,7 @@ function tryToSend() {
 }
 
 function getUnderLevel() {
-  var val = parseInt(_LEVELS.lvl1);
+  var val = parseFloat(_LEVELS.lvl1);
   if(val > 0){
     var result = val;
     remLevel1 = val;
@@ -115,7 +147,7 @@ function getUnderLevel() {
 }
 
 function getAgreeLevel() {
-  var val = parseInt(_LEVELS.lvl2);
+  var val = parseFloat(_LEVELS.lvl2);
   if(val > 0){
     var result = val;
     remLevel1 = val;
@@ -145,35 +177,6 @@ function updateAgree() {
   }], true)
 }
 
-$( function() {
-    $( "#slider-vertical" ).slider({
-      orientation: "horizontal",
-      range: "min",
-      min: 0,
-      max: 100,
-      value: 60,
-      slide: function( event, ui ) {
-        $( "#level1" ).val( ui.value );
-        initSendInfo();
-      }
-    });
-    $( "#level1" ).val( $( "#slider-vertical" ).slider( "value" ) );
-} );
-
-$( function() {
-    $( "#interest-slider" ).slider({
-      orientation: "horizontal",
-      range: "min",
-      min: 0,
-      max: 100,
-      value: 60,
-      slide: function( event, ui ) {
-        $( "#level3" ).val( ui.value );
-      }
-    });
-    $( "#level3" ).val( $( "#interest-slider" ).slider( "value" ) );
-} );
-
 $(function () {
     $(document).ready(function () {
         Highcharts.setOptions({
@@ -184,12 +187,11 @@ $(function () {
 
         $('#understandChart').highcharts({
             chart: {
-                type: 'spline',
-                animation: Highcharts.svg, // don't animate in old IE
-                marginRight: 10,
+                marginLeft: 35,
+                marginRight: 0,
                 events: {
                     load: function () {
-                        series = this.series[0];
+                      series = this.series[0];
                     }
                 }
             },
@@ -197,19 +199,43 @@ $(function () {
                 text: 'Level of understanding'
             },
             xAxis: {
-                type: 'datetime',
-                tickPixelInterval: 150
+                type: 'datetime'
             },
             yAxis: {
                 title: {
-                    text: 'Level'
-                },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
+                    text: 'rate'
+                }
             },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                area: {
+                    fillColor: {
+                        linearGradient: {
+                            x1: 0,
+                            y1: 0,
+                            x2: 0,
+                            y2: 1
+                        },
+                        stops: [
+                            [0, Highcharts.getOptions().colors[0]],
+                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        ]
+                    },
+                    marker: {
+                        radius: 2
+                    },
+                    lineWidth: 1,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    threshold: null
+                }
+            },
+
             tooltip: {
                 formatter: function () {
                     return '<b>' + this.series.name + '</b><br/>' +
@@ -217,27 +243,23 @@ $(function () {
                         Highcharts.numberFormat(this.y, 2);
                 }
             },
-            legend: {
-                enabled: false
-            },
-            exporting: {
-                enabled: false
-            },
-            series: [{
-                name: 'Random data',
-                data: (function () {
-                  // generate an array of random data
-                  var data = [],
-                      time = (new Date()).getTime(),
-                      i;
 
-                  for (i = -19; i <= 0; i += 1) {
-                      data.push({
-                          x: time + i * 1000,
-                          y: 1
-                      });
-                  }
-                  return data;
+            series: [{
+                type: 'area',
+                name: 'Level',
+                data: (function () {
+                    // generate an array of data
+                    var data = [],
+                        time = (new Date()).getTime(),
+                        i;
+
+                    for (i = -50; i <= 0; i += 1) {
+                        data.push({
+                            x: time + i * 1000,
+                            y: 4.9
+                        });
+                    }
+                    return data;
                 }())
             }]
         });
@@ -261,7 +283,8 @@ $(function () {
             text: ' <br>The level<br>of agreement',
             align: 'center',
             verticalAlign: 'middle',
-            y: 40
+            y: 40,
+            style:{"fontSize": "14px" }
         },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'

@@ -2,10 +2,9 @@
     $url = $_GET['url'];
     $id = $_GET['id'];
     session_start();
+    header("Content-type: text/html;charset=utf-8");
     require 'modules/user_module.php';
     require 'controllers/user_controller.php';
-    header("Content-type: text/html;charset=utf-8");
-
     if($_POST['login'] == 'admin' && $_POST['pass'] == 'admin'){
       $_SESSION['ENTER'] = 'ok';
       $_SESSION['login'] = $_POST['login'];
@@ -20,7 +19,6 @@
 	<meta http-equiv="content-type" content="text/html" charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="author" content="" />
-  <link rel="stylesheet" href="css/jquery-ui.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/bootstrap-theme.css">
   <link rel="stylesheet" href="css/normalize.css">
@@ -28,7 +26,6 @@
 
   <script src="scripts/jquery-3.1.0.min.js"></script>
   <script src="scripts/bootstrap.min.js"></script>
-  <script src="scripts/jquery-ui.js"></script>
   <script src="scripts/highcharts.js"></script>
   <script src="scripts/script.js"></script>
 	<title>Consumer list</title>

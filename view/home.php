@@ -1,6 +1,5 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="jumbotron">
-  <div class="container">
+
     <div class="row">
       <div class="col-md-8">
         <div class="circle blink"></div>
@@ -10,8 +9,7 @@
         <div id="agreeChart"></div>
       </div>
     </div>
-  </div>
-</div>
+
 
 <div class="main-content">
   <!-- Example row of columns -->
@@ -22,10 +20,26 @@
           <h3 class="panel-title"><strong>The level of understanding</strong></h3>
         </div>
         <div class="panel-body">
-          <p>Please select the level of understanding of the speaker.</p>
-          <label for="level1">I understand on:</label>
+          <p>Please select the level of understanding</p>
+          <!-- <label for="level1">I understand on:</label>
           <input type="text" id="level1" readonly style="width: 23px; border:0; color:#f6931f; font-weight:bold;">%
-          <div id="slider-vertical"></div>
+          <div id="slider-vertical"></div> -->
+          <div id="vertical-radio">
+            <div class="for-labels">
+              <label for="radio1">1</label>
+              <label for="radio2">2</label>
+              <label for="radio3">3</label>
+              <label for="radio4">4</label>
+              <label for="radio4">5</label>
+            </div>
+            <div class="for-radios">
+              <input type="radio" name="radio" value="1" id="radio1"/>
+              <input type="radio" name="radio" value="2" id="radio2"/>
+              <input type="radio" name="radio" value="3" id="radio3"/>
+              <input type="radio" checked="checked" value="4" name="radio" id="radio4"/>
+              <input type="radio" name="radio" value="5" id="radio5"/>
+            </div>
+          </div>
         </div>
       </div>
     </div>
