@@ -40,8 +40,9 @@ function cl(m) {
 function cd(o) {
   console.dir(o);
 }
-$( document ).ready(function() {
 
+$( document ).ready(function() {
+    changeLang();
     isactiveInterval = setInterval(function(){
       var url = "controllers/level_controller.php?url=isactive";
       sendGet(url, function (data) {
@@ -91,6 +92,7 @@ $( document ).ready(function() {
     function regularEvents() {
       if(flag){
         flag = false;
+        tryToSend();
         intervalSelectLevels = setInterval(function(){
           var url = "controllers/level_controller.php?url=selectLevels";
           sendGet(url, function (data) {
@@ -168,13 +170,59 @@ function updateAgree() {
   var disagree = 10 - agree;
   seriesAgree.setData([{
     y: disagree,
-    name: "No",
+    name:  getTranslate("NO"),
     color: colorNo
   }, {
       y: agree,
-      name: "Yes",
+      name: getTranslate("YES"),
       color: colorYes
   }], true)
+}
+
+function dw(m) {
+  return document.write(m);
+}
+
+function getCookie(name) {
+  var matches = document.cookie.match(new RegExp(
+    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+  ));
+  return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+function setCookie(name, value, options) {
+  options = options || {};
+
+  var expires = options.expires;
+
+  if (typeof expires == "number" && expires) {
+    var d = new Date();
+    d.setTime(d.getTime() + expires * 1000);
+    expires = options.expires = d;
+  }
+  if (expires && expires.toUTCString) {
+    options.expires = expires.toUTCString();
+  }
+
+  value = encodeURIComponent(value);
+
+  var updatedCookie = name + "=" + value;
+
+  for (var propName in options) {
+    updatedCookie += "; " + propName;
+    var propValue = options[propName];
+    if (propValue !== true) {
+      updatedCookie += "=" + propValue;
+    }
+  }
+
+  document.cookie = updatedCookie;
+}
+
+function deleteCookie(name) {
+  setCookie(name, "", {
+    expires: -1
+  })
 }
 
 $(function () {
@@ -196,14 +244,14 @@ $(function () {
                 }
             },
             title: {
-                text: 'Level of understanding'
+                text: getTranslate('LEVEL_OF_UNDERSTANDING')
             },
             xAxis: {
                 type: 'datetime'
             },
             yAxis: {
                 title: {
-                    text: 'rate'
+                    text: getTranslate('LEVEL')
                 }
             },
             legend: {
@@ -246,7 +294,7 @@ $(function () {
 
             series: [{
                 type: 'area',
-                name: 'Level',
+                name: getTranslate('LEVEL'),
                 data: (function () {
                     // generate an array of data
                     var data = [],
@@ -280,7 +328,7 @@ $(function () {
             }
         },
         title: {
-            text: ' <br>The level<br>of agreement',
+            text: getTranslate('THE_LEVEL_OF_AGREEMENT'),
             align: 'center',
             verticalAlign: 'middle',
             y: 40,
@@ -307,7 +355,7 @@ $(function () {
         },
         series: [{
             type: 'pie',
-            name: 'Уровень',
+            name: getTranslate('LEVEL'),
             innerSize: '50%',
             data: [
                 ['Yes',   90],

@@ -17,10 +17,10 @@
     <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title"><strong>The level of understanding</strong></h3>
+          <h3 class="panel-title"><strong><span class="lang" text="THE_TITLE_OF_1">The level of understanding</span></strong></h3>
         </div>
         <div class="panel-body">
-          <p>Please select the level of understanding</p>
+          <p><span class="lang" text="THE_TEXT_OF_1">Please select the level of understanding</span></p>
           <!-- <label for="level1">I understand on:</label>
           <input type="text" id="level1" readonly style="width: 23px; border:0; color:#f6931f; font-weight:bold;">%
           <div id="slider-vertical"></div> -->
@@ -59,10 +59,10 @@
     <div class="col-md-6">
       <div class="panel panel-warning">
         <div class="panel-heading">
-          <h3 class="panel-title"><strong>The level of agreement</strong></h3>
+          <h3 class="panel-title"><strong><span class="lang" text="THE_TITLE_OF_2">The level of agreement</span></strong></h3>
         </div>
         <div class="panel-body">
-          <p>Are you agree with the speaker?</p>
+          <p><span class="lang" text="THE_TEXT_OF_2">Are you agree with the speaker?</span></p>
           <p>
             <div class="onoffswitch">
               <form class="" action="index.html" method="post">
