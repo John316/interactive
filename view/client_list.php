@@ -75,7 +75,7 @@
             <td><? echo $row1['Email']; ?></td>
             <td><? echo $group; ?></td>
             <td><? echo $row1['account_expired']; ?></td>
-            <td><img src="<? echo $avatar;?>" width="50px"/></td>
+            <td><img class="img-rounded" src="<? echo $avatar;?>" width="50px"/></td>
             <td><? echo "<a href='index.php?url=del&id=$id_user' onClick='window.location.reload( true );'>Del</a>"; ?></td>
         </tr>
         <?

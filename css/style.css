@@ -1,15 +1,35 @@
 #page{
   margin-top: 65px;
 }
-#vertical-radio input[name="radio"]{
+#vertical-rate1 input[name="rate1"], #vertical-rate2 input[name="rate2"], #vertical-rate3 input[name="rate3"]{
   height: 35px;
   width: 35px;
   margin: 5px;
 }
-#vertical-radio label{
+#vertical-rate1 label, #vertical-rate2 label, #vertical-rate3 label{
   font-size: 20px;
   margin: 3px 17px;
 }
+
+.body-of-chart-2, .body-of-chart-3{
+}
+
+.navbar-right .form-group input.form-control{
+  width: 150px;
+}
+
+.header-chart-1 span, .header-chart-2 span, .header-chart-3 span{
+  text-align: center;
+  color: #777;
+  font-size: 1.3em;
+}
+
+.header-chart-1, .header-chart-2, .header-chart-3{
+  width: 220px;
+  margin: auto;
+  text-align: center;
+}
+
 .blink {
   animation: blink-animation 2s steps(5, start) infinite;
   -webkit-animation: blink-animation 2s steps(5, start) infinite;
@@ -37,6 +57,7 @@
   opacity: 0.7;
   display: none;
 }
+
 .onoffswitch {
     position: relative; width: 97px;
     -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;

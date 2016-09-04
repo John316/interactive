@@ -15,15 +15,15 @@ var lang = {
   "STOP" : ["Stop", "Стоп", "Стоп"],
   "EXIT" : ["Exit", "Выход", "Вхід"],
   "SIGN_IN" : ["Sign in", "Войти", "Увійти"],
-  "LEVEL_OF_UNDERSTANDING" : ["Level of understanding", "Уровень понимания", "Рівень розуміння"],
-  "THE_LEVEL_OF_AGREEMENT" : ["The level<br>of agreement", "Уровень согласия", "Рівень згоди"],
   "LEVEL" : ["Level", "Уровень", "Рівень"],
   "NO" : ["No", "Нет", "Ні"],
   "YES" : ["Yes", "Да", "Так"],
   "THE_TITLE_OF_1" : ["The level of understanding", "Уровень понимания", "Рівень розуміння"],
-  "THE_TITLE_OF_2" : ["The level of agreement", "Уровень согласия", "Рівень згоди"],
-  "THE_TEXT_OF_1" : ["Please select the level of understanding", "Пожалуйста, выберите уровень понимания", "Будь ласка, оберіть рівень розуміння"],
-  "THE_TEXT_OF_2" : ["Are you agree with the speaker?", "Вы согласны с докладчиком?", "Ви згодні з доповідачем?"]
+  "THE_TEXT_OF_1" : ["Please select the level of understanding.", "Выберите, пожалуйста, уровень понимания доклада.", "Оберіть, будь ласка, рівень розуміння доповіді."],
+  "THE_TITLE_OF_2" : ["The level of relevance", "Уровень актуальности", "Рівень актуальності"],
+  "THE_TEXT_OF_2" : ["Please rate the level of relevance for you?", "Оцените, пожалуйста, актуальность темы для Вас?", "Оцініть, будь ласка, рівень актуальності теми для Вас?"],
+  "THE_TITLE_OF_3" : ["The level of interest", "Уровень интереса", "Рівень цікавості"],
+  "THE_TEXT_OF_3" : ["Please rate the level of interest for you?", "Пожалуйста, оцените на сколько Вам интересна тема?", "Будь ласка, оцініть на скільки Вам цікава тема?"],
 }
 function getTranslate(text) {
   var number = getCookie("lang");
