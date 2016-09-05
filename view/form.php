@@ -1,40 +1,58 @@
-<?php 
-//require_once('controlers/edituser.php');
-
+<div class="row">
+  <div class="col-md-12">
+    <?php
     // Добавление абонента
-    if($url == 'adduser'){ 
+    if($url == 'adduser'){
     $select_all_group = new Group();
-    $groups = $select_all_group->SelectAllGroup('Name');
-    
-        ?>
-        <form enctype="multipart/form-data" action="index.php?url=add" method="POST">
-            
-            <label for="login">Логин</label>
-            <input type="text" name="login"/><br />
-           
-            <label for="password">Пароль</label>
-            <input type="password" name="password" /><br />
-            
-            <label for="email">E-mail</label>
-            <input type="email" name="email" /><br />
-            
-            <label for="date">Date</label>
-            <input type="date" name="date" /><br />
-            <br />
-            <select name="id_group" size="1">
-                <?php
-                while($row = mysql_fetch_assoc($groups)){ ?>
-                <option value="<? echo $row['id']; ?>"><? echo $row['Name']; ?></option>
-               <?php } ?>
-            </select>
-            Отправить этот файл: <input name="myfile" type="file" /><br />
-            <input type="submit" value="Добавить клиента" />
-        </form>
-        <?php 
-    }
-    
+    $groups = $select_all_group->SelectAllGroup('Name'); ?>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Add user</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-3">
+            <form enctype="multipart/form-data" action="index.php?url=add" method="POST">
+              <div class="form-group">
+                <label for="login">Login</label>
+                <input class="form-control" type="text" name="login"/>
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password" />
+              </div>
+              <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" name="email" />
+              </div>
+              <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" class="form-control" name="date" />
+              </div>
+              <div class="form-group">
+                <label for="id_group">Select group</label>
+                <select name="id_group" class="form-control" id="id_group" size="1">
+                    <?php
+                    while($row = mysql_fetch_assoc($groups)){ ?>
+                    <option value="<? echo $row['id']; ?>"><? echo $row['Name']; ?></option>
+                   <?php } ?>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="file">Attach avatar:</label>
+                 <input name="myfile" type="file" id="file" />
+              </div>
+              <input type="submit" class="btn btn-sm btn-default" value="Submit" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+<?php }
+
     // Обновление абонента
-    if($url == 'update'){ 
+    if($url == 'update'){
         $select = new User;
         $user = $select->SelectUser($id);
         // get selected group
@@ -43,60 +61,93 @@
         $user_group = $selGroup->SelectGroup($group_id);
         $allGroups = $selGroup->SelectAllGroup('id');
         ?>
-    <img  src="<? echo $user['avatar_extension']; ?>" width="200px"/>
-    <form enctype="multipart/form-data" action="index.php?url=up&id=<?echo $id;?>" method="POST">
-        
-        <label for="login">Логин update</label>
-        <input type="text" name="login" value="<? echo $user['Login']; ?>" /><br />
-       
-        <label for="password">Пароль</label>
-        <input type="password" name="password" value="<? echo $user['Password']; ?>" /><br />
-        
-        <label for="email">E-mail</label>
-        <input type="email" name="email" value="<? echo $user['Email']; ?>" /><br />
-        
-        <label for="date">Date</label>
-        <input type="date" name="date" value="<? echo $user['account_expired']; ?>" /><br />
-        <br />
-        <label for="id_group">Группа: </label>
-        <select name="id_group" size="1">
-            <option selected="selected" value="<? echo $group_id; ?>"><? echo $user_group; ?></option>
-            <?php
-            while($row_gr = mysql_fetch_assoc($allGroups)){ ?>
-            <option value="<? echo $row_gr['id']; ?>"><? echo $row_gr['Name']; ?></option>
-           <?php } ?>
-        </select><br /><br />
-        <input type="hidden" name="image" value="<? echo $user['avatar_extension']; ?>" />
-        Отправить картинку файл: <input type='file' name='myfile' id='myfile' class='input'/><br />
-        <input type="submit" value="Обновить клиента" />
-    </form>
-        
-    <? } 
-    
+        <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Update user</h3>
+            </div>
+            <div class="panel-body">
+              <img class="img-rounded" src="<? echo $user['avatar_extension']; ?>" width="200px"/>
+              <br />
+              <br />
+              <form enctype="multipart/form-data" action="index.php?url=up&id=<?echo $id;?>" method="POST">
+                <div class="form-group">
+                  <label for="login">Login update</label>
+                  <input type="text" class="form-control" name="login" value="<? echo $user['Login']; ?>" />
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" name="password" value="<? echo $user['Password']; ?>" />
+                </div>
+                <div class="form-group">
+                  <label for="email">E-mail</label>
+                  <input type="email" class="form-control" name="email" value="<? echo $user['Email']; ?>" />
+                </div>
+                <div class="form-group">
+                  <label for="date">Date</label>
+                  <input type="date" class="form-control" name="date" value="<? echo $user['account_expired']; ?>" />
+                </div>
+                <div class="form-group">
+                  <label for="id_group">Group: </label>
+                  <select class="form-control" name="id_group" size="1">
+                      <option selected="selected" value="<? echo $group_id; ?>"><? echo $user_group; ?></option>
+                      <?php
+                      while($row_gr = mysql_fetch_assoc($allGroups)){ ?>
+                      <option value="<? echo $row_gr['id']; ?>"><? echo $row_gr['Name']; ?></option>
+                     <?php } ?>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="myfile">Attach avatar:</label>
+                  <input type='file' name='myfile' id='myfile' class='input'/>
+                  <input type="hidden" name="image" value="<? echo $user['avatar_extension']; ?>" />
+                </div>
+                  <input class="btn btn-sm btn-default" type="submit" value="Update" />
+              </form>
+            </div>
+          </div>
+    <? }
+
     // Добавление группы
     if($url == 'addgr'){ ?>
-       
-       <form enctype="multipart/form-data" action="index.php?url=addgroup" method="POST">
-            <label for="name">Название групы</label>
-            <input type="text" name="name"/><br />
-            <input type="submit" value="Добавить группу" />
-        </form>
- 
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Add group</h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            Please enter name of group.
+          </p>
+          <form class="form-inline" enctype="multipart/form-data" action="index.php?url=addgroup" method="POST">
+            <div class="form-group">
+               <label for="name">Group name</label>
+               <input class="form-control" type="text" name="name"/>
+               <input type="submit" class="btn btn-sm btn-default" value="Add group" />
+           </form>
+        </div>
+      </div>
     <? }
-    
+
     // Обновление группы
     if($url == 'updategr'){
         $id = strip_tags($_GET['id']);
        $group1 = new Group;
        $grName = $group1->SelectGroup($id);
         ?>
-       <form enctype="multipart/form-data" action="index.php?url=upgroup" method="POST">
-            <label for="name">Название групы</label>
-            <input type="text" name="name" value="<? echo $grName; ?>"/><br />
-            <input type="hidden" name="id" value="<? echo $id; ?>"/>
-            <input type="submit" value="Обновить группу" />
-        </form>
- 
-    <? }
-    
-?>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Update group</h3>
+            </div>
+            <div class="panel-body">
+              <form class="form-inline" enctype="multipart/form-data" action="index.php?url=upgroup" method="POST">
+                <div class="form-group">
+                   <label for="name">Group name</label>
+                   <input class="form-control" type="text" name="name" value="<? echo $grName; ?>"/><br />
+                   <input type="hidden" name="id" value="<? echo $id; ?>"/>
+                   <input type="submit" class="btn btn-sm btn-default" value="Update" />
+                 </div>
+               </form>
+            </div>
+          </div>
+    <?php } ?>
+  </div>
+</div>

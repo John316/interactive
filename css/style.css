@@ -1,0 +1,92 @@
+#page{
+  margin-top: 65px;
+}
+#vertical-rate1 input[name="rate1"], #vertical-rate2 input[name="rate2"], #vertical-rate3 input[name="rate3"]{
+  height: 35px;
+  width: 35px;
+  margin: 5px;
+}
+#vertical-rate1 label, #vertical-rate2 label, #vertical-rate3 label{
+  font-size: 20px;
+  margin: 3px 17px;
+}
+
+.body-of-chart-2, .body-of-chart-3{
+}
+
+.navbar-right .form-group input.form-control{
+  width: 150px;
+}
+
+.header-chart-1 span, .header-chart-2 span, .header-chart-3 span{
+  text-align: center;
+  color: #777;
+  font-size: 1.3em;
+}
+
+.header-chart-1, .header-chart-2, .header-chart-3{
+  width: 220px;
+  margin: auto;
+  text-align: center;
+}
+
+.blink {
+  animation: blink-animation 2s steps(5, start) infinite;
+  -webkit-animation: blink-animation 2s steps(5, start) infinite;
+}
+@keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+@-webkit-keyframes blink-animation {
+  to {
+    visibility: hidden;
+  }
+}
+
+.circle {
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+  background-color: red;
+  position: absolute;
+  top:15px;
+  right: 30px;
+  z-index: 5;
+  opacity: 0.7;
+  display: none;
+}
+
+.onoffswitch {
+    position: relative; width: 97px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    height: 36px; padding: 0; line-height: 36px;
+    border: 2px solid #CCCCCC; border-radius: 36px;
+    background-color: #FFFFFF;
+    transition: background-color 0.3s ease-in;
+}
+.onoffswitch-label:before {
+    content: "";
+    display: block; width: 36px; margin: 0px;
+    background: #FFFFFF;
+    position: absolute; top: 0; bottom: 0;
+    right: 59px;
+    border: 2px solid #CCCCCC; border-radius: 36px;
+    transition: all 0.3s ease-in 0s;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label {
+    background-color: #49E845;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label, .onoffswitch-checkbox:checked + .onoffswitch-label:before {
+   border-color: #49E845;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label:before {
+    right: 0px;
+}
