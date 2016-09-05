@@ -46,6 +46,7 @@
   <script src="scripts/bootstrap.min.js"></script>
   <script src="scripts/highcharts.js"></script>
   <script src="scripts/script.js"></script>
+  <script src="scripts/charts.js"></script>
   <script src="scripts/lang.js"></script>
 	<title>Interactive service</title>
 </head>

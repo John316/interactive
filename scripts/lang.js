@@ -24,6 +24,9 @@ var lang = {
   "THE_TEXT_OF_2" : ["Please rate the level of relevance for you?", "Оцените, пожалуйста, актуальность темы для Вас?", "Оцініть, будь ласка, рівень актуальності теми для Вас?"],
   "THE_TITLE_OF_3" : ["The level of interest", "Уровень интереса", "Рівень цікавості"],
   "THE_TEXT_OF_3" : ["Please rate the level of interest for you?", "Пожалуйста, оцените на сколько Вам интересна тема?", "Будь ласка, оцініть на скільки Вам цікава тема?"],
+  "RELEVANCE" : ["Relevance", "Актуальность", "Актуальність"],
+  "INTEREST" : ["Interest", "Интерес", "Цікавість"],
+  "UNDERSTANDING" : ["Understanding of people", "Понимение аудитории", "Зрозумілість аудіторії"],
 }
 function getTranslate(text) {
   var number = getCookie("lang");

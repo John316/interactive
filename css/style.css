@@ -1,12 +1,20 @@
+body, html{
+  margin: 0;
+  padding: 0;
+}
 #page{
   margin-top: 65px;
 }
-#vertical-rate1 input[name="rate1"], #vertical-rate2 input[name="rate2"], #vertical-rate3 input[name="rate3"]{
+#vertical-rate1 input[name="rate1"],
+#vertical-rate2 input[name="rate2"],
+#vertical-rate3 input[name="rate3"]{
   height: 35px;
   width: 35px;
   margin: 5px;
 }
-#vertical-rate1 label, #vertical-rate2 label, #vertical-rate3 label{
+#vertical-rate1 label,
+#vertical-rate2 label,
+#vertical-rate3 label{
   font-size: 20px;
   margin: 3px 17px;
 }
@@ -18,7 +26,9 @@
   width: 150px;
 }
 
-.header-chart-1 span, .header-chart-2 span, .header-chart-3 span{
+.header-chart-1 span,
+.header-chart-2 span,
+.header-chart-3 span{
   text-align: center;
   color: #777;
   font-size: 1.3em;
@@ -28,6 +38,44 @@
   width: 220px;
   margin: auto;
   text-align: center;
+}
+
+.tools-frame{
+  width: 100%;
+  height: 200px;
+  opacity: 0.5;
+}
+
+.tools-frame #chart-1{
+  float: left;
+}
+.tools-frame #chart-2{
+  float: right;
+}
+.img-slide{
+  display: none;
+}
+.img-slide.active{
+  display: inherit;
+}
+
+.main-window{
+  width: 100%;
+}
+.main-window .image-frame{
+  width: 800px;
+  margin: auto;
+}
+.image-frame img{
+  width: 800px;
+}
+.body{
+  overflow: hidden;
+  background: #000;
+}
+
+.tools-frame .highcharts-legend{
+  display: none;
 }
 
 .blink {
