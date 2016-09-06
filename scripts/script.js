@@ -270,7 +270,6 @@ function initPrevSlide() {
   });
 }
 
-
 function dw(m) {
   return document.write(m);
 }
