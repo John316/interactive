@@ -226,9 +226,12 @@ addEventListener("keyup", function(event) {
     var backword = 37;
     var down = 40;
     var up = 38;
-    if(event.keyCode == forword || event.keyCode == down){
+    var controlFF = 34;
+    var controlBK = 33;
+    cl(event.keyCode);
+    if(event.keyCode == forword || event.keyCode == down || event.keyCode == controlFF){
       initNextSlide();
-    }else if (event.keyCode == backword || event.keyCode == up) {
+    }else if (event.keyCode == backword || event.keyCode == up || event.keyCode == controlBK) {
       initPrevSlide();
     }
 });

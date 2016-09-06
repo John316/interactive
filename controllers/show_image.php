@@ -16,4 +16,12 @@ if (is_dir($dir)) {
       closedir($dh);
   }
 }
+
+// $files = array_values(array_filter(scandir($path), function($file) {
+//     return !is_dir($file);
+// }));
+//
+// foreach($files as $file){
+//     echo $file;
+// }
 ?>
