@@ -1,6 +1,6 @@
 var _INTERVAL = 5000;
 var _LEVELS = [];
-var seriesChart1, seriesChart2, seriesChart3;
+var seriesChart1, seriesChart2, seriesChart3, demoChart1, demoChart2;
 var remLevel1 = 0;
 var remLevel2 = 0;
 var remLevel3 = 0;
@@ -74,7 +74,7 @@ $( document ).ready(function() {
       isActiveState = false;
       clearInterval(intervalSelectLevels);
       clearInterval(intervalInitSend);
-      flag = false;
+      flag = true;
     }
 
     $("[name='rate1'], [name='rate2'], [name='rate3']").click(function(){
@@ -104,9 +104,16 @@ $( document ).ready(function() {
 function setLevelsAndUpdate(data) {
   _LEVELS = data;
   // start Refresh chart
-  updateLevel1();
-  updateLevel2();
-  updateLevel3();
+  if(seriesChart1)
+    updateLevel1();
+  if(seriesChart2)
+    updateLevel2();
+  if(seriesChart3)
+    updateLevel3();
+  if(demoChart1)
+    updateDemoChart1();
+  if(demoChart2)
+    updateDemoChart2();
 }
 
 function initSendInfo() {
@@ -165,12 +172,14 @@ function getLevel3() {
 }
 
 function updateLevel1() {
+  // chart of understanding
   var x = (new Date()).getTime(), // current time
       y = getLevel1();
   seriesChart1.addPoint([x, y], true, true);
 }
 
 function updateLevel2() {
+  // chart of relevance
   var _level = getLevel2();
   var res = 100 - _level;
   seriesChart2.setData([{
@@ -185,6 +194,7 @@ function updateLevel2() {
 }
 
 function updateLevel3() {
+  // chart of interest
   var _level = getLevel3();
   var res = 100 - _level;
   seriesChart3.setData([{
@@ -197,6 +207,68 @@ function updateLevel3() {
       color: '#90ed7d'
   }], true)
 }
+
+function updateDemoChart1() {
+  // chart of understanding
+  var x = (new Date()).getTime(), // current time
+      y = getLevel1();
+  demoChart1.addPoint([x, y], true, true);
+}
+
+function updateDemoChart2() {
+  var _level2 = getLevel2()/10;
+  var _level3 = getLevel3()/10;
+  demoChart2.setData([_level2, _level3], true);
+}
+
+addEventListener("keyup", function(event) {
+    var forword = 39;
+    var backword = 37;
+    var down = 40;
+    var up = 38;
+    var controlFF = 34;
+    var controlBK = 33;
+    cl(event.keyCode);
+    if(event.keyCode == forword || event.keyCode == down || event.keyCode == controlFF){
+      initNextSlide();
+    }else if (event.keyCode == backword || event.keyCode == up || event.keyCode == controlBK) {
+      initPrevSlide();
+    }
+});
+
+function initNextSlide() {
+  var flag1 = false;
+  var elArr = $(".img-slide");
+  $(elArr).each(function(i) {
+    if(flag1){
+      $(this).addClass('active');
+      return false;
+    }else{
+      if($(this).hasClass('active')){
+        if(i < elArr.length - 1){
+          $(this).removeClass('active');
+        }
+        flag1 = true;
+      }
+    }
+  });
+}
+
+function initPrevSlide() {
+  var prevEl = false;
+  $(".img-slide").each(function(i) {
+      if($(this).hasClass('active')){
+        if(i>0){
+          $(this).removeClass('active');
+          $(prevEl).addClass('active');
+        }
+        return false;
+      }else{
+        prevEl = this;
+      }
+  });
+}
+
 
 function dw(m) {
   return document.write(m);
@@ -243,202 +315,3 @@ function deleteCookie(name) {
     expires: -1
   })
 }
-
-$(function () {
-    $(document).ready(function () {
-        Highcharts.setOptions({
-            global: {
-                useUTC: false
-            }
-        });
-
-      $('#chart-object-1').highcharts({
-            chart: {
-                marginLeft: 35,
-                marginRight: 0,
-                events: {
-                    load: function () {
-                      seriesChart1 = this.series[0];
-                    }
-                }
-            },
-            title: {
-                text: ""//getTranslate('LEVEL_OF_UNDERSTANDING')
-            },
-            xAxis: {
-                type: 'datetime'
-            },
-            yAxis: {
-                title: {
-                    text: getTranslate('LEVEL')
-                }
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                area: {
-                    fillColor: {
-                        linearGradient: {
-                            x1: 0,
-                            y1: 0,
-                            x2: 0,
-                            y2: 1
-                        },
-                        stops: [
-                            [0, Highcharts.getOptions().colors[0]],
-                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                        ]
-                    },
-                    marker: {
-                        radius: 2
-                    },
-                    lineWidth: 1,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    },
-                    threshold: null
-                }
-            },
-
-            tooltip: {
-                formatter: function () {
-                    return '<b>' + this.series.name + '</b><br/>' +
-                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
-                        Highcharts.numberFormat(this.y, 2);
-                }
-            },
-
-            series: [{
-                type: 'area',
-                name: getTranslate('LEVEL'),
-                data: (function () {
-                    // generate an array of data
-                    var data = [],
-                        time = (new Date()).getTime(),
-                        i;
-
-                    for (i = -50; i <= 0; i += 1) {
-                        data.push({
-                            x: time + i * 1000,
-                            y: 4.9
-                        });
-                    }
-                    return data;
-                }())
-            }]
-        });
-    });
-});
-
-$(function () {
-    agreeChart = $('#chart-object-2').highcharts({
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: 0,
-            plotShadow: false,
-            events: {
-                load: function () {
-                    seriesChart2 = this.series[0];
-                }
-            }
-        },
-        title: {
-            text: "",//getTranslate('THE_LEVEL_OF_AGREEMENT'),
-            align: 'center',
-            verticalAlign: 'middle',
-            y: 40,
-            style:{"fontSize": "14px" }
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                dataLabels: {
-                    enabled: true,
-                    distance: -50,
-                    style: {
-                        fontWeight: 'bold',
-                        color: 'white',
-                        textShadow: '0px 1px 2px black'
-                    }
-                },
-                startAngle: -90,
-                endAngle: 90,
-                center: ['50%', '75%']
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: getTranslate('LEVEL'),
-            innerSize: '50%',
-            data: [{
-              y: 10,
-              name:  getTranslate("NO"),
-              color: '#f7a35c'
-            }, {
-                y: 90,
-                name: getTranslate("YES"),
-                color: '#90ed7d'
-            }]
-        }]
-    });
-});
-
-$(function () {
-    agreeChart = $('#chart-object-3').highcharts({
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: 0,
-            plotShadow: false,
-            events: {
-                load: function () {
-                    seriesChart3 = this.series[0];
-                }
-            }
-        },
-        title: {
-            text: "",//getTranslate('THE_LEVEL_OF_AGREEMENT'),
-            align: 'center',
-            verticalAlign: 'middle',
-            y: 40,
-            style:{"fontSize": "14px" }
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                dataLabels: {
-                    enabled: true,
-                    distance: -50,
-                    style: {
-                        fontWeight: 'bold',
-                        color: 'white',
-                        textShadow: '0px 1px 2px black'
-                    }
-                },
-                startAngle: -90,
-                endAngle: 90,
-                center: ['50%', '75%']
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: getTranslate('LEVEL'),
-            innerSize: '50%',
-            data: [{
-              y: 10,
-              name:  getTranslate("NO"),
-              color: '#f15c80'
-            }, {
-                y: 90,
-                name: getTranslate("YES"),
-                color: '#7cb5ec'
-            }]
-        }]
-    });
-});
