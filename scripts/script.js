@@ -183,7 +183,7 @@ function updateLevel1() {
 function updateLevel2() {
   // chart of relevance
   var _level = getLevel2();
-  var res = 100 - _level;
+  var res = 5 - _level;
   seriesChart2.setData([{
     y: res,
     name:  getTranslate("NO"),
@@ -198,7 +198,7 @@ function updateLevel2() {
 function updateLevel3() {
   // chart of interest
   var _level = getLevel3();
-  var res = 100 - _level;
+  var res = 5 - _level;
   seriesChart3.setData([{
     y: res,
     name:  getTranslate("NO"),
@@ -218,8 +218,8 @@ function updateDemoChart1() {
 }
 
 function updateDemoChart2() {
-  var _level2 = getLevel2()/10;
-  var _level3 = getLevel3()/10;
+  var _level2 = getLevel2();
+  var _level3 = getLevel3();
   demoChart2.setData([_level2, _level3], true);
 }
 

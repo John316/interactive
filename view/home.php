@@ -74,11 +74,11 @@
               <label for="rate2_5">5</label>
             </div>
             <div class="for-radios">
-              <input type="radio" name="rate2" value="20" id="rate2_1"/>
-              <input type="radio" name="rate2" value="40" id="rate2_2"/>
-              <input type="radio" name="rate2" value="60" id="rate2_3"/>
-              <input type="radio" checked="checked" value="80" name="rate2" id="rate2_4"/>
-              <input type="radio" name="rate2" value="100" id="rate2_5"/>
+              <input type="radio" name="rate2" value="1" id="rate2_1"/>
+              <input type="radio" name="rate2" value="2" id="rate2_2"/>
+              <input type="radio" name="rate2" value="3" id="rate2_3"/>
+              <input type="radio" checked="checked" value="4" name="rate2" id="rate2_4"/>
+              <input type="radio" name="rate2" value="5" id="rate2_5"/>
             </div>
           </div>
         </div>
@@ -101,11 +101,11 @@
               <label for="rate3_4">5</label>
             </div>
             <div class="for-radios">
-              <input type="radio" name="rate3" value="20" id="rate3_1"/>
-              <input type="radio" name="rate3" value="40" id="rate3_2"/>
-              <input type="radio" name="rate3" value="60" id="rate3_3"/>
-              <input type="radio" checked="checked" value="80" name="rate3" id="rate3_4"/>
-              <input type="radio" name="rate3" value="100" id="rate3_5"/>
+              <input type="radio" name="rate3" value="1" id="rate3_1"/>
+              <input type="radio" name="rate3" value="2" id="rate3_2"/>
+              <input type="radio" name="rate3" value="3" id="rate3_3"/>
+              <input type="radio" checked="checked" value="4" name="rate3" id="rate3_4"/>
+              <input type="radio" name="rate3" value="5" id="rate3_5"/>
             </div>
           </div>
         </div>
