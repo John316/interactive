@@ -126,16 +126,18 @@ function initSendInfo() {
 
 }
 function tryToSend() {
-  isActive = true;
-  sendTimout = setTimeout(function(){
-    var level1 = $('[name="rate1"]:checked').val();
-    var level2 = $('[name="rate2"]:checked').val();
-    var level3 = $('[name="rate3"]:checked').val();
-    var url = "controllers/level_controller.php?url=addLevel";
-    var data = {level1: level1, level2:level2, level3:level3};
-    sendPost(url, data, function () { isActive = false; });
+  if(!demoChart1){
+    isActive = true;
+    sendTimout = setTimeout(function(){
+      var level1 = $('[name="rate1"]:checked').val();
+      var level2 = $('[name="rate2"]:checked').val();
+      var level3 = $('[name="rate3"]:checked').val();
+      var url = "controllers/level_controller.php?url=addLevel";
+      var data = {level1: level1, level2:level2, level3:level3};
+      sendPost(url, data, function () { isActive = false; });
 
-  }, 2000);
+    }, 2000);
+  }
 }
 
 function getLevel1() {
@@ -228,7 +230,6 @@ addEventListener("keyup", function(event) {
     var up = 38;
     var controlFF = 34;
     var controlBK = 33;
-    cl(event.keyCode);
     if(event.keyCode == forword || event.keyCode == down || event.keyCode == controlFF){
       initNextSlide();
     }else if (event.keyCode == backword || event.keyCode == up || event.keyCode == controlBK) {
