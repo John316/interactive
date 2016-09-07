@@ -13,7 +13,7 @@ Presentation slides should be placed in the folder upload.
 
 Also available is multi language. There are translations into English, Ukrainian and Russian languages.
 
-### Here is the demonstration on the projector screen.
+### Here is the main page with graphs. It is fully responsive and available in a convenient way for viewing on your phone.
 
 ![New display](https://raw.githubusercontent.com/John316/interactive/master/images/intro3.png)
 
@@ -21,6 +21,6 @@ Also available is multi language. There are translations into English, Ukrainian
 
 ![New display](https://raw.githubusercontent.com/John316/interactive/master/images/intro4.png)
 
-### Here is the main page with graphs. It is fully responsive and available in a convenient way for viewing on your phone.
+### Here is the demonstration on the projector screen.
 
 ![New display](https://raw.githubusercontent.com/John316/interactive/master/images/intro.png)
