@@ -1,12 +1,26 @@
-# interactive
-This is app for make interaction between users and admins.
+# Interactive
 
-## Screenshots of app
+> __This application is used in reports, presentations, classes, etc. to estimate in real time some important parameters.__
+
+In this release, there is a vote on three parameters: 
+
+* Understanding, 
+* Relevance, 
+* Interest.
+
+There is also a special page for the demonstration on the screen of the projector, which contains the slides as images and graphs the audience voting.
+Presentation slides should be placed in the folder upload.
+
+Also available is multi language. There are translations into English, Ukrainian and Russian languages.
+
+### Here is the demonstration on the projector screen.
 
 ![New display](https://raw.githubusercontent.com/John316/interactive/master/images/intro3.png)
 
+### So look for voting tools.
+
 ![New display](https://raw.githubusercontent.com/John316/interactive/master/images/intro4.png)
 
-## Demonstartion view for output on projector.
+### Here is the main page with graphs. It is fully responsive and available in a convenient way for viewing on your phone.
 
 ![New display](https://raw.githubusercontent.com/John316/interactive/master/images/intro.png)
