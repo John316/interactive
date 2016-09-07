@@ -27,6 +27,7 @@ var lang = {
   "RELEVANCE" : ["Relevance", "Актуальность", "Актуальність"],
   "INTEREST" : ["Interest", "Интерес", "Цікавість"],
   "UNDERSTANDING" : ["Understanding of people", "Понимение аудитории", "Зрозумілість аудіторії"],
+  "CONNECT_TO_WIFI" : ["Connect to a WiFi network - Mne_ne_zhalko and enter in the browser the address: ", "Подключитесь к сети WiFi - Mne_ne_zhalko и введите в браузере адрес: ", "Підключіться до мережі WiFi - Mne_ne_zhalko і введіть в браузері адресу: "],
 }
 function getTranslate(text) {
   var number = getCookie("lang");

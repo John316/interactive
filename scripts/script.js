@@ -126,16 +126,18 @@ function initSendInfo() {
 
 }
 function tryToSend() {
-  isActive = true;
-  sendTimout = setTimeout(function(){
-    var level1 = $('[name="rate1"]:checked').val();
-    var level2 = $('[name="rate2"]:checked').val();
-    var level3 = $('[name="rate3"]:checked').val();
-    var url = "controllers/level_controller.php?url=addLevel";
-    var data = {level1: level1, level2:level2, level3:level3};
-    sendPost(url, data, function () { isActive = false; });
+  if(!demoChart1){
+    isActive = true;
+    sendTimout = setTimeout(function(){
+      var level1 = $('[name="rate1"]:checked').val();
+      var level2 = $('[name="rate2"]:checked').val();
+      var level3 = $('[name="rate3"]:checked').val();
+      var url = "controllers/level_controller.php?url=addLevel";
+      var data = {level1: level1, level2:level2, level3:level3};
+      sendPost(url, data, function () { isActive = false; });
 
-  }, 2000);
+    }, 2000);
+  }
 }
 
 function getLevel1() {
@@ -181,7 +183,7 @@ function updateLevel1() {
 function updateLevel2() {
   // chart of relevance
   var _level = getLevel2();
-  var res = 100 - _level;
+  var res = 5 - _level;
   seriesChart2.setData([{
     y: res,
     name:  getTranslate("NO"),
@@ -196,7 +198,7 @@ function updateLevel2() {
 function updateLevel3() {
   // chart of interest
   var _level = getLevel3();
-  var res = 100 - _level;
+  var res = 5 - _level;
   seriesChart3.setData([{
     y: res,
     name:  getTranslate("NO"),
@@ -216,8 +218,8 @@ function updateDemoChart1() {
 }
 
 function updateDemoChart2() {
-  var _level2 = getLevel2()/10;
-  var _level3 = getLevel3()/10;
+  var _level2 = getLevel2();
+  var _level3 = getLevel3();
   demoChart2.setData([_level2, _level3], true);
 }
 
@@ -228,7 +230,6 @@ addEventListener("keyup", function(event) {
     var up = 38;
     var controlFF = 34;
     var controlBK = 33;
-    cl(event.keyCode);
     if(event.keyCode == forword || event.keyCode == down || event.keyCode == controlFF){
       initNextSlide();
     }else if (event.keyCode == backword || event.keyCode == up || event.keyCode == controlBK) {
@@ -268,7 +269,6 @@ function initPrevSlide() {
       }
   });
 }
-
 
 function dw(m) {
   return document.write(m);

@@ -36,21 +36,8 @@
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-TileImage" content="/images/favicon/ms-icon-144x144.png">
   <meta name="theme-color" content="#ffffff">
-
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/bootstrap-theme.css">
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/style.css">
-
-  <script src="scripts/jquery-3.1.0.min.js"></script>
-  <script src="scripts/bootstrap.min.js"></script>
-  <script src="scripts/highcharts.js"></script>
-  <script src="scripts/script.js"></script>
-  <script src="scripts/charts.js"></script>
-  <script src="scripts/lang.js"></script>
-	<title>Interactive service</title>
+	<title>Interactive</title>
 </head>
-
 <body>
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -91,6 +78,7 @@
         <?php if($_SESSION['ENTER'] == 'ok'){ ?>
           <ul class="nav navbar-nav navbar-right">
               <li><a><span class="lang" text="HELLO">Hello</span>, <?php echo $_SESSION['login']; ?></a></li>
+              <li><a href="/presentation.php" target="_blank">Demo</a></li>
               <li><a href="#" id="start"><span class="lang" text="START">Start</span></a></li>
               <li><a href="#" id="stop"><span class="lang" text="STOP">Stop</span></a></li>
               <li><a href="index.php?url=exit"><span class="lang" text="EXIT">Exit</span></a></li>
@@ -130,11 +118,17 @@
                 if(!empty($massage)){
                     echo $massage;
                 } ?>
-
         </div>
     </div>
-
-
-
 </body>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap-theme.css">
+<link rel="stylesheet" href="css/normalize.css">
+<link rel="stylesheet" href="css/style.css">
+<script src="scripts/jquery-3.1.0.min.js"></script>
+<script src="scripts/bootstrap.min.js"></script>
+<script src="scripts/highcharts.js"></script>
+<script src="scripts/script.js"></script>
+<script src="scripts/charts.js"></script>
+<script src="scripts/lang.js"></script>
 </html>

@@ -18,7 +18,16 @@ body, html{
   font-size: 20px;
   margin: 3px 17px;
 }
-
+.message{
+  color: #adadad;
+  font-size: 16px;
+  font-family: arial;
+  width: 100%;
+  position: absolute;
+  bottom: 5px;
+  left: 200px;
+  z-index: 7;
+}
 .body-of-chart-2, .body-of-chart-3{
 }
 
