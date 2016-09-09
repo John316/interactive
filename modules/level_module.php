@@ -13,16 +13,16 @@ class Level{
         $connect->Connect();
     }
 
-    function AddLevel($userId, $level1, $level2, $level3){
-		    $query = mysql_query("INSERT INTO `level` (level1, level2, level3, isActive, userId) VALUES ( $level1, $level2, $level3, true, $userId)")
+    function AddLevel($userId, $clientIP, $level1, $level2, $level3){
+		    $query = mysql_query("INSERT INTO `level` (level1, level2, level3, isActive, userId, clientIP) VALUES ( $level1, $level2, $level3, true, $userId, '$clientIP')")
         or die(mysql_error());
         $queryid = mysql_insert_id();
         return $queryid;
         //header('Location: index.php?url=view');
     }
 
-		function SelectLevel(){
-			$level_row = mysql_query("SELECT level1, level2, level3 FROM level")
+		function SelectUniqueClients(){
+			$level_row = mysql_query("SELECT COUNT( DISTINCT clientIP ) AS clients FROM level")
 			or die(mysql_error());
 			return $level_row;
 		}

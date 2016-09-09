@@ -24,7 +24,8 @@ if($url === 'start'){
     $level1 = $_POST['level1'];
     $level2 = $_POST['level2'];
     $level3 = $_POST['level3'];
-    $id = $level->AddLevel(1, $level1, $level2, $level3);
+    $clientIP  = $_POST['clientIP'];
+    $id = $level->AddLevel(0, $clientIP, $level1, $level2, $level3);
     return $id;
 
 } else if($url === 'selectLevels'){
@@ -34,9 +35,17 @@ if($url === 'start'){
   echo json_encode(mysql_fetch_assoc($data));
 
 }else if($url === 'isactive'){
+
   $myfile = fopen("../db/isActive.txt", "r") or die("Unable to open file!");
   echo fread($myfile,filesize("../db/isActive.txt"));
   fclose($myfile);
+
+}else if($url === 'clientCount'){
+
+  $level = new Level();
+  $data = $level->SelectUniqueClients();
+  echo json_encode(mysql_fetch_assoc($data));
+
 }
 
 ?>

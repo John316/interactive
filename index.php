@@ -120,7 +120,9 @@
                 } ?>
         </div>
     </div>
-
+  <script type="text/javascript">
+    var clientIP = "<? echo $_SERVER["REMOTE_ADDR"];?>";
+  </script>
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="css/normalize.css">
@@ -131,5 +133,6 @@
   <script src="scripts/script.js"></script>
   <script src="scripts/charts.js"></script>
   <script src="scripts/lang.js"></script>
+
 </body>
 </html>
