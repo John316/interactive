@@ -16,8 +16,6 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/bootstrap-theme.css">
 	<meta http-equiv="content-type" content="text/html" charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="author" content="" />
@@ -122,13 +120,16 @@
                 } ?>
         </div>
     </div>
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="scripts/jquery-3.1.0.min.js"></script>
+  <script src="scripts/bootstrap.min.js"></script>
+  <script src="scripts/highcharts.js"></script>
+  <script src="scripts/script.js"></script>
+  <script src="scripts/charts.js"></script>
+  <script src="scripts/lang.js"></script>
 </body>
-<link rel="stylesheet" href="css/normalize.css">
-<link rel="stylesheet" href="css/style.css">
-<script src="scripts/jquery-3.1.0.min.js"></script>
-<script src="scripts/bootstrap.min.js"></script>
-<script src="scripts/highcharts.js"></script>
-<script src="scripts/script.js"></script>
-<script src="scripts/charts.js"></script>
-<script src="scripts/lang.js"></script>
 </html>

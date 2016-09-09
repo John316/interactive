@@ -5,6 +5,10 @@ body, html{
 #page{
   margin-top: 65px;
 }
+.main-window{
+  max-width: 1024px;
+  margin: auto;
+}
 #vertical-rate1 input[name="rate1"],
 #vertical-rate2 input[name="rate2"],
 #vertical-rate3 input[name="rate3"]{

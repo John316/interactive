@@ -11,7 +11,7 @@
       <div class="col-md-4">
         <div class="chart-2">
           <div class="header-chart-2">
-            <span class="lang" text="THE_TITLE_OF_2">The level of relevance</span>
+            <span class="lang" text="THE_TITLE_OF_2">Level of relevance</span>
           </div>
           <div class="body-of-chart-2">
             <div id="chart-object-2" style="height:200px;"></div>
@@ -19,7 +19,7 @@
         </div>
         <div class="chart-3">
           <div class="header-chart-3">
-            <span class="lang" text="THE_TITLE_OF_3">The level of interest</span>
+            <span class="lang" text="THE_TITLE_OF_3">Level of interest</span>
           </div>
           <div class="body-of-chart-3">
             <div id="chart-object-3" style="height:200px"></div>
@@ -34,10 +34,10 @@
     <div class="col-md-4">
       <div class="panel panel-warning">
         <div class="panel-heading">
-          <h3 class="panel-title"><strong><span class="lang" text="THE_TITLE_OF_1">The level of understanding</span></strong></h3>
+          <h3 class="panel-title"><strong><span class="lang" text="THE_TITLE_OF_1">Level of understanding</span></strong></h3>
         </div>
         <div class="panel-body">
-          <p><span class="lang" text="THE_TEXT_OF_1">Please select the level of understanding</span></p>
+          <p><span class="lang" text="THE_TEXT_OF_1">Please estimate the level of understanding</span></p>
           <div id="vertical-rate1">
             <div class="for-labels">
               <label for="rate1_1">1</label>
@@ -64,7 +64,7 @@
           <h3 class="panel-title"><strong><span class="lang" text="THE_TITLE_OF_2">Level of relevance</span></strong></h3>
         </div>
         <div class="panel-body">
-          <p><span class="lang" text="THE_TEXT_OF_2">Please rate the level of relevance.</span></p>
+          <p><span class="lang" text="THE_TEXT_OF_2">Please estimate the level of relevance.</span></p>
           <div id="vertical-rate2">
             <div class="for-labels">
               <label for="rate2_1">1</label>
@@ -91,7 +91,7 @@
           <h3 class="panel-title"><strong><span class="lang" text="THE_TITLE_OF_3">Level of interest</span></strong></h3>
         </div>
         <div class="panel-body">
-          <p><span class="lang" text="THE_TEXT_OF_3">Please rate the level of interest.</span></p>
+          <p><span class="lang" text="THE_TEXT_OF_3">Please estimate the level of interest.</span></p>
           <div id="vertical-rate3">
             <div class="for-labels">
               <label for="rate3_1">1</label>
