@@ -16,6 +16,8 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/bootstrap-theme.css">
 	<meta http-equiv="content-type" content="text/html" charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="author" content="" />
@@ -121,8 +123,6 @@
         </div>
     </div>
 </body>
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/bootstrap-theme.css">
 <link rel="stylesheet" href="css/normalize.css">
 <link rel="stylesheet" href="css/style.css">
 <script src="scripts/jquery-3.1.0.min.js"></script>
