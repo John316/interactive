@@ -15,12 +15,8 @@ Also available is multi language. There are translations into English, Ukrainian
 
 ### Here is the main page with graphs. It is fully responsive and available in a convenient way for viewing on your phone.
 
-![New display](https://raw.githubusercontent.com/John316/interactive/master/images/intro3.png)
-
-### So look for voting tools.
-
-![New display](https://raw.githubusercontent.com/John316/interactive/master/images/intro4.png)
+![New display](https://raw.githubusercontent.com/John316/interactive/master/images/intro5.png)
 
 ### Here is the demonstration on the projector screen.
 
-![New display](https://raw.githubusercontent.com/John316/interactive/master/images/intro.png)
+![New display](https://raw.githubusercontent.com/John316/interactive/master/images/intro1.png)
