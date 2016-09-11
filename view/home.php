@@ -112,6 +112,14 @@
       </div>
     </div>
   </div>
+  <p class="bg-primary info-sent">Your question was sent. Thank you!</p>
+  <form id="question_form">
+    <div class="form-group">
+      <label for="enter_question">Ask question</label>
+      <input type="text" class="form-control" id="enter_question" placeholder="Enter question">
+    </div>
+    <button type="button" id="send_question" class="btn btn-default">Submit</button>
+  </form>
   <hr>
   <footer>
     <p>&copy; 2016 Company, Inc.</p>

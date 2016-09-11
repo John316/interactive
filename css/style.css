@@ -9,6 +9,10 @@ body, html{
   max-width: 1024px;
   margin: auto;
 }
+.info-sent{
+  display: none;
+  padding: 15px;
+}
 #vertical-rate1 input[name="rate1"],
 #vertical-rate2 input[name="rate2"],
 #vertical-rate3 input[name="rate3"]{
@@ -22,15 +26,14 @@ body, html{
   font-size: 20px;
   margin: 3px 17px;
 }
-.message{
+.demo-info{
   color: #adadad;
-  font-size: 16px;
+  font-size: 14px;
+  margin: 15px;
   font-family: arial;
-  width: 100%;
-  position: absolute;
-  bottom: 5px;
-  left: 200px;
-  z-index: 7;
+  width: 800px;
+  text-transform: uppercase;
+  text-align: center;
 }
 .body-of-chart-2, .body-of-chart-3{
 }
@@ -76,12 +79,43 @@ body, html{
   width: 100%;
 }
 .main-window .image-frame{
-  width: 1024px;
-  margin: auto;
+  width: 800px;
+  float: left;
 }
 .image-frame img{
-  width: 1024px;
+  width: 800px;
 }
+#message-aside{
+  float: right;
+  width: 224px;
+}
+.message-body{
+  color: #adadad;
+  font-family: Helvetica,Arial,sans-serif;
+  border: solid 2px #adadad;
+  border-radius: 8px;
+  padding: 10px 25px 10px 10px;
+  margin: 10px;
+  font-size: 16px;
+  position: relative;
+}
+
+.mess-cancel{
+  border: solid 2px #adadad;
+  border-radius: 15px;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  right: 3px;
+  top: 7px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.clear{
+  clear: both;
+}
+
 .body{
   overflow: hidden;
   background: #000;

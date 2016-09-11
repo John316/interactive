@@ -8,14 +8,15 @@ var colorNo = "#00FF00"
 var colorYes = "#FF00FF"
 var agreeOrNo = 10;
 var isActiveState = false;
+var demonstration = false;
 var flag = true;
 var isactiveInterval, intervalSelectLevels, sendTimout, isActiveSend, intervalInitSend;
 
-function sendGet(url, callbeak){
+function sendGet(url, callback){
   $.get(url)
   .done(function( data ) {
-    if(callbeak){
-      callbeak(data);
+    if(callback){
+      callback(data);
     }
   })
   .fail(function() {
@@ -23,11 +24,11 @@ function sendGet(url, callbeak){
   });
 }
 
-function sendPost(url, data, callbeak){
+function sendPost(url, data, callback){
   $.post(url, data)
   .done(function( data ) {
-    if(callbeak){
-      callbeak(data);
+    if(callback){
+      callback(data);
     }
   })
   .fail(function() {
@@ -54,6 +55,18 @@ $( document ).ready(function() {
       });
     }, 10000);
 
+    if(demonstration){
+      setInterval(function(){
+        var url = "controllers/message_controller.php?url=selectMessage";
+        sendGet(url, function (data) {
+          cd(JSON.parse(data));
+          if(data){
+            outputMessage(JSON.parse(data))
+          }
+        });
+      }, 15000);
+    }
+
     $("#start").click(function() {
       sendGet("controllers/level_controller.php?url=start");
       initStart();
@@ -61,6 +74,19 @@ $( document ).ready(function() {
     $("#stop").click(function () {
       sendGet("controllers/level_controller.php?url=stop");
       initStop();
+    });
+
+    $("#send_question").click(function () {
+      var text = $("#enter_question").val();
+      var sendData = {text: text, userId:1};
+      sendPost("controllers/message_controller.php?url=addQuestion", sendData, function(data) {
+        $("#enter_question").val('');
+        $('.info-sent').show(500);
+        setTimeout(function () {
+          $('.info-sent').hide(500);
+        }, 3000);
+      });
+
     });
 
     function initStart() {

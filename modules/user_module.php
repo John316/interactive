@@ -32,13 +32,13 @@ class User{
 		mysql_query($userupdate) or die(mysql_error());
         header('Location: index.php?url=view');
 	}
-    function SelectUser ($id){
+  function SelectUser ($id){
 		$selectuser = "SELECT * FROM consumer WHERE id=$id ";
         //$selectuser = "SELECT consumer.id_group, consumer.Login, cconsumer.Password, cconsumer.Email, consumerc.account_expired, consumer.avatar_extension group.Name AS group_name FROM consumer WHERE consumer.id=$id INNER JOIN group ON group.id = consumer.group_id ";
 		$user_row = mysql_query($selectuser) or die(mysql_error());
 		$row = mysql_fetch_assoc($user_row);
 		return $row;
-        header("Refresh: 3");
+    header("Refresh: 3");
 	}
     function SelectAllUser ($order){
 		$selectuser = "SELECT * FROM consumer ORDER BY `$order` ASC LIMIT 0 , 30";
@@ -94,22 +94,22 @@ class Group {
     function AddGroup($name){
 		$query = mysql_query("INSERT INTO `group` (`Name`) VALUES ('$name');")
         or die(mysql_error());
-        $massege = $query;
-        return $massege;
+    $massege = $query;
+    return $massege;
 	}
-    function SelectGroup ($id){
+  function SelectGroup ($id){
 		$selectuser = "SELECT Name FROM `group` WHERE id=$id ";
 		$user_row = mysql_query($selectuser) or die(mysql_error());
 		$row = mysql_fetch_assoc($user_row);
 		$GName = $row['Name'];
-        return $GName;
-        header("Refresh: 3");
+    return $GName;
+    header("Refresh: 3");
 	}
     function SelectAllGroup ($order){
 		$selectuser = "SELECT * FROM  `group` ORDER BY `$order` ASC LIMIT 0 , 30";
 		$user_row = mysql_query($selectuser) or die(mysql_error());
 		return $user_row;
-        header("Refresh: 3");
+    header("Refresh: 3");
 	}
     function CountGroup (){
 		$selectuser = "SELECT COUNT(*) FROM `group`";
@@ -117,22 +117,22 @@ class Group {
 		$result = mysql_fetch_row($user_row);
 		return $result;
 	}
-    function NavigationGroup ($order, $start, $num){
-        $selectuser = "SELECT * FROM `group` ORDER BY `$order` ASC LIMIT $start, $num";
+  function NavigationGroup ($order, $start, $num){
+    $selectuser = "SELECT * FROM `group` ORDER BY `$order` ASC LIMIT $start, $num";
 		$user_row = mysql_query($selectuser) or die(mysql_error());
-        return $user_row;
+    return $user_row;
 	}
-    function DeleteGroup ($id){
+  function DeleteGroup ($id){
 		$deluser = "DELETE FROM `group` WHERE id = $id";
 		$user_del = mysql_query($deluser) or die(mysql_error());
-        header('Location: index.php?url=viewgr');
-        return $user_del;
+    header('Location: index.php?url=viewgr');
+    return $user_del;
 	}
-    function UpdateGroup($id, $name){
+  function UpdateGroup($id, $name){
 		$userupdate = "UPDATE `group` SET Name = '$name' WHERE id=$id ";
 		mysql_query($userupdate) or die(mysql_error());
-        header('Location: index.php?url=viewgr');
-        exit;
+    header('Location: index.php?url=viewgr');
+    exit;
 	}
 }
 ?>

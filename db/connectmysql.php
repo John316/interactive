@@ -10,6 +10,8 @@ class ConnectMysql{
 		function Connect(){
 			mysql_connect($this->host, $this->db_login, $this->db_pass)
 				or die("Data base error");
+			mysql_query('set character_set_client="utf8"');
+			mysql_query('set character_set_results="utf8"');
 			mysql_select_db($this->db_name) or die(mysql_error());
 			$isConnected = true;
 		}
