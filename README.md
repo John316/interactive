@@ -20,3 +20,5 @@ Also available is multi language. There are translations into English, Ukrainian
 ### Here is the demonstration on the projector screen.
 
 ![New display](https://raw.githubusercontent.com/John316/interactive/master/images/intro1.png)
+
+![New display](https://raw.githubusercontent.com/John316/interactive/master/images/intro6.png)
