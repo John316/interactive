@@ -13,6 +13,12 @@ body, html{
   display: none;
   padding: 15px;
 }
+.info{
+  padding: 15px;
+}
+.send-btn-one{
+  width: 95px;
+}
 #vertical-rate1 input[name="rate1"],
 #vertical-rate2 input[name="rate2"],
 #vertical-rate3 input[name="rate3"]{
@@ -89,19 +95,30 @@ body, html{
   float: right;
   width: 224px;
 }
+
+#message-on-client .mess-cancel{
+  height: 25px;
+  width: 25px;
+  border: solid 1px #555;
+}
 .message-body{
-  color: #adadad;
+  color: #333;
   font-family: Helvetica,Arial,sans-serif;
-  border: solid 2px #adadad;
+  border: solid 2px #777;
   border-radius: 8px;
   padding: 10px 25px 10px 10px;
   margin: 10px;
   font-size: 16px;
   position: relative;
 }
-
+.main-content.admin .mess-cancel{
+  display: block;
+}
+.main-content .mess-cancel{
+  display: none;
+}
 .mess-cancel{
-  border: solid 2px #adadad;
+  border: solid 2px #777;
   border-radius: 15px;
   height: 20px;
   width: 20px;
@@ -152,6 +169,19 @@ body, html{
   opacity: 0.7;
   display: none;
 }
+.panel-body{
+  text-align: center;
+}
+.sw-block > div{
+  float: left;
+}
+.sw-block{
+  margin: auto;
+  width: 195px;
+}
+.sw-left, .sw-right{
+  margin: 9px;
+}
 
 .onoffswitch {
     position: relative; width: 97px;
@@ -169,10 +199,13 @@ body, html{
 }
 .onoffswitch-label:before {
     content: "";
-    display: block; width: 36px; margin: 0px;
+    display: block;
+    width: 36px;
+    height: 36px;
+    margin: 0px;
     background: #FFFFFF;
     position: absolute; top: 0; bottom: 0;
-    right: 59px;
+    right: 61px;
     border: 2px solid #CCCCCC; border-radius: 36px;
     transition: all 0.3s ease-in 0s;
 }

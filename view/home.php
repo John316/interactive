@@ -1,126 +1,125 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
-
-    <div class="row">
-      <div class="col-md-8">
-        <div class="header-chart-1">
-          <span class="lang" text="THE_TITLE_OF_1">Level of understanding</span>
-        </div>
-        <div class="circle blink"></div>
-        <div id="chart-object-1"></div>
-      </div>
-      <div class="col-md-4">
-        <div class="chart-2">
-          <div class="header-chart-2">
-            <span class="lang" text="THE_TITLE_OF_2">Level of relevance</span>
-          </div>
-          <div class="body-of-chart-2">
-            <div id="chart-object-2" style="height:200px;"></div>
-          </div>
-        </div>
-        <div class="chart-3">
-          <div class="header-chart-3">
-            <span class="lang" text="THE_TITLE_OF_3">Level of interest</span>
-          </div>
-          <div class="body-of-chart-3">
-            <div id="chart-object-3" style="height:200px"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-<div class="main-content">
-  <!-- Example row of columns -->
+<div class="one-time-voit">
+  <p class="bg-info info"><strong>Сейчас начинается доклад на тему: "PHP для начинающих".</strong></p>
+  <p class="bg-warning info">Оцените единоразово актуальность темы для Вас и на сколько вы знакомы с этой темой.</p>
   <div class="row">
-    <div class="col-md-4">
-      <div class="panel panel-warning">
-        <div class="panel-heading">
-          <h3 class="panel-title"><strong><span class="lang" text="THE_TITLE_OF_1">Level of understanding</span></strong></h3>
-        </div>
-        <div class="panel-body">
-          <p><span class="lang" text="THE_TEXT_OF_1">Please estimate the level of understanding</span></p>
-          <div id="vertical-rate1">
-            <div class="for-labels">
-              <label for="rate1_1">1</label>
-              <label for="rate1_2">2</label>
-              <label for="rate1_3">3</label>
-              <label for="rate1_4">4</label>
-              <label for="rate1_4">5</label>
-            </div>
-            <div class="for-radios">
-              <input type="radio" name="rate1" value="1" id="rate1_1"/>
-              <input type="radio" name="rate1" value="2" id="rate1_2"/>
-              <input type="radio" name="rate1" value="3" id="rate1_3"/>
-              <input type="radio" checked="checked" value="4" name="rate1" id="rate1_4"/>
-              <input type="radio" name="rate1" value="5" id="rate1_5"/>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-4">
+    <div class="col-md-6">
       <div class="panel panel-success">
         <div class="panel-heading">
-          <h3 class="panel-title"><strong><span class="lang" text="THE_TITLE_OF_2">Level of relevance</span></strong></h3>
+          <h3 class="panel-title"><strong><span class="lang" text="THE_TITLE_OF_2">На сколько вам знакома тема?</span></strong></h3>
         </div>
         <div class="panel-body">
-          <p><span class="lang" text="THE_TEXT_OF_2">Please estimate the level of relevance.</span></p>
-          <div id="vertical-rate2">
-            <div class="for-labels">
-              <label for="rate2_1">1</label>
-              <label for="rate2_2">2</label>
-              <label for="rate2_3">3</label>
-              <label for="rate2_4">4</label>
-              <label for="rate2_5">5</label>
-            </div>
-            <div class="for-radios">
-              <input type="radio" name="rate2" value="1" id="rate2_1"/>
-              <input type="radio" name="rate2" value="2" id="rate2_2"/>
-              <input type="radio" name="rate2" value="3" id="rate2_3"/>
-              <input type="radio" checked="checked" value="4" name="rate2" id="rate2_4"/>
-              <input type="radio" name="rate2" value="5" id="rate2_5"/>
-            </div>
-          </div>
+          <p><span class="lang" text="THE_TEXT_OF_2">На сколько вам знакома тема?</span></p>
+          <select id="estimate1" class="form-control">
+            <option value="5">Хорошо владею</option>
+            <option value="4">Средний уровень</option>
+            <option value="3">Базовые знания</option>
+            <option value="2">Не владею</option>
+          </select>
         </div>
       </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-6">
       <div class="panel panel-info">
         <div class="panel-heading">
           <h3 class="panel-title"><strong><span class="lang" text="THE_TITLE_OF_3">Level of interest</span></strong></h3>
         </div>
         <div class="panel-body">
           <p><span class="lang" text="THE_TEXT_OF_3">Please estimate the level of interest.</span></p>
-          <div id="vertical-rate3">
-            <div class="for-labels">
-              <label for="rate3_1">1</label>
-              <label for="rate3_2">2</label>
-              <label for="rate3_3">3</label>
-              <label for="rate3_4">4</label>
-              <label for="rate3_4">5</label>
+          <select id="estimate2" class="form-control">
+            <option value="5">Очень интересно</option>
+            <option value="4">Средний интерес</option>
+            <option value="3">Слабый интерес</option>
+            <option value="2">Не интересно</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="center-block send-btn-one">
+        <button type="button" id="sentOneVoit" class="btn btn-success">Отправить</button>
+      </div>
+    </div>
+  </div>
+  <hr>
+</div>
+<!-- end one time voit -->
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="chart-2">
+        <div class="body-of-chart-2">
+          <div id="chart-object-2" style="height:300px;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="chart-3">
+        <div class="body-of-chart-3">
+          <div id="chart-object-3" style="height:300px;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="header-chart-1">
+        <span class="lang" text="THE_TITLE_OF_1">Level of understanding</span>
+      </div>
+      <div class="circle blink"></div>
+      <div id="chart-object-1" style="height:100px;"></div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title"><strong><span class="lang" text="THE_TEXT_OF_1">Level of understanding</span></strong></h3>
+        </div>
+        <div class="panel-body">
+          <div class="sw-block">
+              <div class="sw-left">
+                <span>НЕТ</span>
+              </div>
+              <div class="onoffswitch">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+                <label class="onoffswitch-label" for="myonoffswitch"></label>
+              </div>
+              <div class="sw-right">
+                  <span>ДА</span>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <h3 class="panel-title"><strong><span>Отправить вопрос</span></strong></h3>
+        </div>
+        <div class="panel-body">
+          <p class="bg-primary info-sent">Your question was sent. Thank you!</p>
+          <form class="form-inline" id="question_form">
+            <div class="form-group">
+              <input type="text" class="form-control" id="enter_question" placeholder="Напишите вопрос">
             </div>
-            <div class="for-radios">
-              <input type="radio" name="rate3" value="1" id="rate3_1"/>
-              <input type="radio" name="rate3" value="2" id="rate3_2"/>
-              <input type="radio" name="rate3" value="3" id="rate3_3"/>
-              <input type="radio" checked="checked" value="4" name="rate3" id="rate3_4"/>
-              <input type="radio" name="rate3" value="5" id="rate3_5"/>
-            </div>
+            <button type="button" id="send_question" class="btn btn-default">Отправить</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Список последних вопросов</h3>
+        </div>
+        <div class="panel-body">
+          <div id="message-on-client">
+            Пока вопросов нет.
           </div>
         </div>
       </div>
     </div>
   </div>
-  <p class="bg-primary info-sent">Your question was sent. Thank you!</p>
-  <form id="question_form">
-    <div class="form-group">
-      <label for="enter_question">Ask question</label>
-      <input type="text" class="form-control" id="enter_question" placeholder="Enter question">
-    </div>
-    <button type="button" id="send_question" class="btn btn-default">Submit</button>
-  </form>
-  <hr>
   <footer>
     <p>&copy; 2016 Company, Inc.</p>
   </footer>

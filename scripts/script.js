@@ -6,11 +6,13 @@ var remLevel2 = 0;
 var remLevel3 = 0;
 var colorNo = "#00FF00"
 var colorYes = "#FF00FF"
-var agreeOrNo = 10;
+var underVal = 5;
+var est1 = 4;
+var est2 = 4;
 var isActiveState = false;
 var demonstration = false;
 var flag = true;
-var isactiveInterval, intervalSelectLevels, sendTimout, isActiveSend, intervalInitSend;
+var isactiveInterval, intervalSelectLevels, intervalSelectMessage, sendTimout, isActiveSend;
 
 function sendGet(url, callback){
   $.get(url)
@@ -42,8 +44,40 @@ function cd(o) {
   console.dir(o);
 }
 
+function outputMessage(data) {
+  var html = '';
+  $(data).each(function (i, el) {
+    html += '<div id="mess'+el.id+'" class="message-body"><div onclick="deleteMessage('+el.id+')" class="mess-cancel">x</div><div class="message-text">' + el.text + '</div></div>';
+  });
+  if(demonstration){
+    $('#message-aside').html(html);
+  }else {
+    $('#message-on-client').html(html);
+  }
+}
+function deleteMessage(id) {
+  var url = "controllers/message_controller.php?url=deleteMessage";
+  sendPost(url, {id: id}, function (data) {
+    $('#mess'+id).remove();
+  });
+}
+
 $( document ).ready(function() {
+    // set random id to cookie
+    if(!getCookie("id")){
+      setCookie("id", randomID, {"path": "/"});
+    }
     changeLang();
+    if(getCookie("isAdmin")){
+      $('.main-content').addClass('admin');
+    }
+    if(!getCookie("isVoit")){
+      $(".one-time-voit").show();
+      $('.main-content').hide();
+    }else{
+      $(".one-time-voit").hide();
+      $('.main-content').show();
+    }
     isactiveInterval = setInterval(function(){
       var url = "controllers/level_controller.php?url=isactive";
       sendGet(url, function (data) {
@@ -55,18 +89,6 @@ $( document ).ready(function() {
       });
     }, 10000);
 
-    if(demonstration){
-      setInterval(function(){
-        var url = "controllers/message_controller.php?url=selectMessage";
-        sendGet(url, function (data) {
-          cd(JSON.parse(data));
-          if(data){
-            outputMessage(JSON.parse(data))
-          }
-        });
-      }, 15000);
-    }
-
     $("#start").click(function() {
       sendGet("controllers/level_controller.php?url=start");
       initStart();
@@ -74,6 +96,22 @@ $( document ).ready(function() {
     $("#stop").click(function () {
       sendGet("controllers/level_controller.php?url=stop");
       initStop();
+    });
+    $("#sentOneVoit").click(function () {
+      setCookie("isVoit", true, {"path": "/"});
+      est1 = $('#estimate1 option:selected').val();
+      est2 = $('#estimate2 option:selected').val();
+      $(".one-time-voit").hide(500);
+      $('.main-content').show();
+    });
+
+    $(".onoffswitch-label").click(function() {
+      if(underVal === 1){
+        underVal = 5;
+      }else{
+        underVal = 1;
+      }
+      initSendInfo();
     });
 
     $("#send_question").click(function () {
@@ -99,13 +137,9 @@ $( document ).ready(function() {
       $(".blink").hide();
       isActiveState = false;
       clearInterval(intervalSelectLevels);
-      clearInterval(intervalInitSend);
+      clearInterval(intervalSelectMessage);
       flag = true;
     }
-
-    $("[name='rate1'], [name='rate2'], [name='rate3']").click(function(){
-        initSendInfo();
-    });
 
     function regularEvents() {
       if(flag){
@@ -116,13 +150,17 @@ $( document ).ready(function() {
           sendGet(url, function (data) {
             setLevelsAndUpdate(JSON.parse(data));
           });
-        }, 5000);
+        }, 8000);
 
-        intervalInitSend = setInterval(function(){
-          if(!isActiveSend){
-            tryToSend();
-          }
-        }, 20000);
+        intervalSelectMessage = setInterval(function(){
+          var url = "controllers/message_controller.php?url=selectMessage";
+          sendGet(url, function (data) {
+            if(data){
+              outputMessage(JSON.parse(data))
+            }
+          });
+        }, 15000);
+
       }
     }
 });
@@ -149,17 +187,18 @@ function initSendInfo() {
   }else{
     tryToSend();
   }
-
 }
+
 function tryToSend() {
   if(!demoChart1){
     isActiveSend = true;
     sendTimout = setTimeout(function(){
-      var level1 = $('[name="rate1"]:checked').val();
-      var level2 = $('[name="rate2"]:checked').val();
-      var level3 = $('[name="rate3"]:checked').val();
+      var level1 = underVal; //$('[name="rate1"]:checked').val();
+      var level2 = est1;
+      var level3 = est2;
       var url = "controllers/level_controller.php?url=addLevel";
-      var data = {clientIP: clientIP, level1: level1, level2:level2, level3:level3};
+      var userId = getCookie("id");
+      var data = {userId: parseInt(userId), clientIP: clientIP, level1: level1, level2:level2, level3:level3};
       sendPost(url, data, function () { isActiveSend = false; });
 
     }, 2000);

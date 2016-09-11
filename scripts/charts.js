@@ -8,7 +8,7 @@ $(function () {
 
       $('#chart-object-1').highcharts({
             chart: {
-                marginLeft: 35,
+                marginLeft: 0,
                 marginRight: 0,
                 events: {
                     load: function () {
@@ -17,7 +17,7 @@ $(function () {
                 }
             },
             title: {
-                text: ""//getTranslate('LEVEL_OF_UNDERSTANDING')
+                text: ""//
             },
             xAxis: {
                 type: 'datetime'
@@ -25,7 +25,9 @@ $(function () {
             yAxis: {
                 title: {
                     text: getTranslate('LEVEL')
-                }
+                },
+                min:0,
+                max:5
             },
             legend: {
                 enabled: false
@@ -45,7 +47,7 @@ $(function () {
                         ]
                     },
                     marker: {
-                        radius: 2
+                        radius: 0
                     },
                     lineWidth: 1,
                     states: {
@@ -77,123 +79,13 @@ $(function () {
                     for (i = -50; i <= 0; i += 1) {
                         data.push({
                             x: time + i * 1000,
-                            y: 4.9
+                            y: 5
                         });
                     }
                     return data;
                 }())
             }]
         });
-    });
-});
-
-$(function () {
-    agreeChart = $('#chart-object-2').highcharts({
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: 0,
-            plotShadow: false,
-            events: {
-                load: function () {
-                    seriesChart2 = this.series[0];
-                }
-            }
-        },
-        title: {
-            text: "",//getTranslate('THE_LEVEL_OF_AGREEMENT'),
-            align: 'center',
-            verticalAlign: 'middle',
-            y: 40,
-            style:{"fontSize": "14px" }
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                dataLabels: {
-                    enabled: false,
-                    distance: -50,
-                    style: {
-                        fontWeight: 'bold',
-                        color: 'white',
-                        textShadow: '0px 1px 2px black'
-                    }
-                },
-                startAngle: -90,
-                endAngle: 90,
-                center: ['50%', '75%']
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: getTranslate('LEVEL'),
-            innerSize: '50%',
-            data: [{
-              y: 10,
-              name:  getTranslate("NO"),
-              color: '#f7a35c'
-            }, {
-                y: 90,
-                name: getTranslate("YES"),
-                color: '#90ed7d'
-            }]
-        }]
-    });
-});
-
-$(function () {
-    agreeChart = $('#chart-object-3').highcharts({
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: 0,
-            plotShadow: false,
-            events: {
-                load: function () {
-                    seriesChart3 = this.series[0];
-                }
-            }
-        },
-        title: {
-            text: "",//getTranslate('THE_LEVEL_OF_AGREEMENT'),
-            align: 'center',
-            verticalAlign: 'middle',
-            y: 40,
-            style:{"fontSize": "14px" }
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                dataLabels: {
-                    enabled: false,
-                    distance: -50,
-                    style: {
-                        fontWeight: 'bold',
-                        color: 'white',
-                        textShadow: '0px 1px 2px black'
-                    }
-                },
-                startAngle: -90,
-                endAngle: 90,
-                center: ['50%', '75%']
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: getTranslate('LEVEL'),
-            innerSize: '50%',
-            data: [{
-              y: 10,
-              name:  getTranslate("NO"),
-              color: '#f15c80'
-            }, {
-                y: 90,
-                name: getTranslate("YES"),
-                color: '#7cb5ec'
-            }]
-        }]
     });
 });
 
@@ -226,7 +118,9 @@ $(function () {
             yAxis: {
                 title: {
                     text: getTranslate('LEVEL')
-                }
+                },
+                min:0,
+                max:5
             },
             legend: {
                 enabled: false
@@ -328,6 +222,99 @@ $(function () {
         series: [{
             name: getTranslate('YES'),
             data: [10, 10]
+        }]
+    });
+});
+$(function () {
+    $('#chart-object-2').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Аудитория владеет данной темой так:'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Уровень знаний',
+            colorByPoint: true,
+            data: [{
+                name: 'Хорошо',
+                y: 56.33
+            }, {
+                name: 'Средне',
+                y: 24.03
+            }, {
+                name: 'Слабо',
+                y: 10.38
+            }, {
+                name: 'Не владею',
+                y: 4.77
+            }]
+        }]
+    });
+});
+
+$(function () {
+    $('#chart-object-3').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Интерес аудитории к данной теме такой:'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Уровень интереса',
+            colorByPoint: true,
+            data: [{
+                name: 'Сильный',
+                y: 56.33
+            }, {
+                name: 'Средний',
+                y: 24.03
+            }, {
+                name: 'Слабый',
+                y: 10.38
+            }, {
+                name: 'Нет',
+                y: 4.77
+            }]
         }]
     });
 });

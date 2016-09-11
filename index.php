@@ -12,12 +12,14 @@
     if($url == 'exit'){
       $_SESSION['ENTER'] = 'none';
     }
+
 ?>
 <!DOCTYPE HTML>
 <html>
 <head>
   <script type="text/javascript">
     var clientIP = "<? echo $_SERVER["REMOTE_ADDR"];?>";
+    var randomID = "<?php echo(rand(10,100)); ?>";
   </script>
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/bootstrap-theme.min.css">
@@ -89,6 +91,9 @@
           </li>
         </ul>
         <?php if($_SESSION['ENTER'] == 'ok'){ ?>
+          <script type="text/javascript">
+            setCookie("isAdmin", true, {"path": "/"});
+          </script>
           <ul class="nav navbar-nav navbar-right">
               <li><a><span class="lang" text="HELLO">Hello</span>, <?php echo $_SESSION['login']; ?></a></li>
               <li><a href="/presentation.php" target="_blank">Demo</a></li>
