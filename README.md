@@ -5,8 +5,12 @@
 Now available voting on three parameters: 
 
 * Understanding, 
-* Relevance, 
+* Knowledge, 
 * Interest.
+
+Knowledge and Interest people estimate at the begining of demo. Then this a selecting be not visible. User can see only charts and one switcher for voting of Understanding (yes/no).
+
+Now available ability to send question to speaker. This message will be displayed on the demo screen.
 
 There is also a special page for the demonstration on the screen of the projector, which contains the slides as images and graphs the audience voting.
 Presentation slides should be placed in the folder upload.
