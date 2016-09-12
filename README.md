@@ -15,10 +15,13 @@ Also available is multi language. There are translations into English, Ukrainian
 
 ### Here is the main page with graphs. It is fully responsive and available in a convenient way for viewing on your phone.
 
-![New display](https://raw.githubusercontent.com/John316/interactive/master/images/intro5.png)
+![New display](https://raw.githubusercontent.com/John316/interactive/master/images/intro2.1.png)
+
+### Here is the screen when speech is started.
+
+![New display](https://raw.githubusercontent.com/John316/interactive/master/images/intro2.2.png)
 
 ### Here is the demonstration on the projector screen.
 
-![New display](https://raw.githubusercontent.com/John316/interactive/master/images/intro1.png)
-
 ![New display](https://raw.githubusercontent.com/John316/interactive/master/images/intro6.png)
+
