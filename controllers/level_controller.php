@@ -8,7 +8,6 @@ if($url === 'start'){
   $status = "active";
   fwrite($isActive, $status);
   fclose($isActive);
-  echo json_encode("active");
 
 }else if($url === 'stop'){
 
@@ -16,7 +15,6 @@ if($url === 'start'){
   $status = "not active";
   fwrite($isActive, $status);
   fclose($isActive);
-  echo json_encode("not active");
 
 } else if ($url === 'addLevel') {
 
@@ -26,13 +24,14 @@ if($url === 'start'){
     $level3 = $_POST['level3'];
     $clientIP  = $_POST['clientIP'];
     $userId  = $_POST['userId'];
-    $id = $level->AddLevel($userId, $clientIP, $level1, $level2, $level3);
+    $typeId = $_POST['typeId'];
+    $id = $level->AddLevel($userId, $clientIP, $level1, $level2, $level3, $typeId);
     return $id;
 
 } else if($url === 'selectLevels'){
 
   $level = new Level();
-  $data = $level->SelectAVGLevels();
+  $data = $level->GetMiddleValue();
   echo json_encode(mysql_fetch_assoc($data));
 
 }else if($url === 'isactive'){
@@ -41,11 +40,15 @@ if($url === 'start'){
   echo fread($myfile,filesize("../db/isActive.txt"));
   fclose($myfile);
 
-}else if($url === 'clientCount'){
+}else if($url === 'mainStat'){
 
   $level = new Level();
-  $data = $level->SelectUniqueClients();
-  echo json_encode(mysql_fetch_assoc($data));
+  $data = $level->GetMainStatistic();
+  $result = array();
+  while ($row = mysql_fetch_assoc($data)) {
+      $result[] = $row;
+  }
+  echo json_encode($result);
 
 }
 

@@ -228,6 +228,11 @@ $(function () {
 $(function () {
     $('#chart-object-2').highcharts({
         chart: {
+            events: {
+                load: function () {
+                    seriesChart2 = this.series[0];
+                }
+            },
             plotBackgroundColor: null,
             plotBorderWidth: null,
             plotShadow: false,
@@ -257,16 +262,16 @@ $(function () {
             colorByPoint: true,
             data: [{
                 name: 'Хорошо',
-                y: 56.33
+                y: 1
             }, {
                 name: 'Средне',
-                y: 24.03
+                y: 1
             }, {
                 name: 'Слабо',
-                y: 10.38
+                y: 1
             }, {
                 name: 'Не владею',
-                y: 4.77
+                y: 1
             }]
         }]
     });
@@ -275,6 +280,11 @@ $(function () {
 $(function () {
     $('#chart-object-3').highcharts({
         chart: {
+            events: {
+                load: function () {
+                    seriesChart3 = this.series[0];
+                }
+            },
             plotBackgroundColor: null,
             plotBorderWidth: null,
             plotShadow: false,
@@ -304,16 +314,16 @@ $(function () {
             colorByPoint: true,
             data: [{
                 name: 'Сильный',
-                y: 56.33
+                y: 1
             }, {
                 name: 'Средний',
-                y: 24.03
+                y: 1
             }, {
                 name: 'Слабый',
-                y: 10.38
+                y: 1
             }, {
                 name: 'Нет',
-                y: 4.77
+                y: 1
             }]
         }]
     });

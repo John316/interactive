@@ -63,10 +63,10 @@
     </div>
     <div class="col-md-12">
       <div class="header-chart-1">
-        <span class="lang" text="THE_TITLE_OF_1">Level of understanding</span>
+        <span class="lang" text="THE_TITLE_OF_1">Level of understanding</span><span class="count-users"></span>
       </div>
       <div class="circle blink"></div>
-      <div id="chart-object-1" style="height:100px;"></div>
+      <div id="chart-object-1" style="height:150px;"></div>
     </div>
     <div class="col-md-6">
       <div class="panel panel-info">

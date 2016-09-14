@@ -57,7 +57,6 @@ body, html{
 }
 
 .header-chart-1, .header-chart-2, .header-chart-3{
-  width: 220px;
   margin: auto;
   text-align: center;
 }
@@ -100,6 +99,10 @@ body, html{
   height: 25px;
   width: 25px;
   border: solid 1px #555;
+}
+
+.main-window .message-body{
+  color: #FFF;
 }
 .message-body{
   color: #333;

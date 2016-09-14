@@ -1,9 +1,4 @@
-var _INTERVAL = 5000;
-var _LEVELS = [];
 var seriesChart1, seriesChart2, seriesChart3, demoChart1, demoChart2;
-var remLevel1 = 0;
-var remLevel2 = 0;
-var remLevel3 = 0;
 var colorNo = "#00FF00"
 var colorYes = "#FF00FF"
 var underVal = 5;
@@ -64,6 +59,7 @@ function deleteMessage(id) {
 
 $( document ).ready(function() {
     // set random id to cookie
+    setLang(1); // FIX THIS
     if(!getCookie("id")){
       setCookie("id", randomID, {"path": "/"});
     }
@@ -78,6 +74,9 @@ $( document ).ready(function() {
       $(".one-time-voit").hide();
       $('.main-content').show();
     }
+
+    requestForMainStat();
+
     isactiveInterval = setInterval(function(){
       var url = "controllers/level_controller.php?url=isactive";
       sendGet(url, function (data) {
@@ -101,6 +100,8 @@ $( document ).ready(function() {
       setCookie("isVoit", true, {"path": "/"});
       est1 = $('#estimate1 option:selected').val();
       est2 = $('#estimate2 option:selected').val();
+      tryToSend(1);
+      tryToSend();
       $(".one-time-voit").hide(500);
       $('.main-content').show();
     });
@@ -144,40 +145,51 @@ $( document ).ready(function() {
     function regularEvents() {
       if(flag){
         flag = false;
-        tryToSend();
         intervalSelectLevels = setInterval(function(){
-          var url = "controllers/level_controller.php?url=selectLevels";
-          sendGet(url, function (data) {
-            setLevelsAndUpdate(JSON.parse(data));
-          });
+          requestForLevel1();
         }, 8000);
 
         intervalSelectMessage = setInterval(function(){
-          var url = "controllers/message_controller.php?url=selectMessage";
-          sendGet(url, function (data) {
-            if(data){
-              outputMessage(JSON.parse(data))
-            }
-          });
+          requestForMessage();
+          requestForMainStat();
         }, 15000);
 
       }
     }
 });
 
+function requestForLevel1() {
+  var url = "controllers/level_controller.php?url=selectLevels";
+  sendGet(url, function (data) {
+    setLevelsAndUpdate(JSON.parse(data));
+  });
+}
+
+function requestForMainStat() {
+  var urlMainStat = "controllers/level_controller.php?url=mainStat";
+  sendGet(urlMainStat, function (data) {
+    if(data){
+      if(seriesChart2 && seriesChart3)
+        updateLevel2and3(JSON.parse(data));
+    }
+  });
+}
+
+function requestForMessage() {
+  var url = "controllers/message_controller.php?url=selectMessage";
+  sendGet(url, function (data) {
+    if(data){
+      outputMessage(JSON.parse(data))
+    }
+  });
+}
+
 function setLevelsAndUpdate(data) {
-  _LEVELS = data;
   // start Refresh chart
   if(seriesChart1)
-    updateLevel1();
-  if(seriesChart2)
-    updateLevel2();
-  if(seriesChart3)
-    updateLevel3();
+    updateLevel1(data);
   if(demoChart1)
-    updateDemoChart1();
-  if(demoChart2)
-    updateDemoChart2();
+    updateDemoChart1(data);
 }
 
 function initSendInfo() {
@@ -189,103 +201,100 @@ function initSendInfo() {
   }
 }
 
-function tryToSend() {
-  if(!demoChart1){
+function tryToSend(type) {
+  if(!demoChart1 ){
     isActiveSend = true;
     sendTimout = setTimeout(function(){
-      var level1 = underVal; //$('[name="rate1"]:checked').val();
-      var level2 = est1;
-      var level3 = est2;
+      var level1 = !type ? underVal : 0;
+      var level2 = type == 1 ? est1 : 0;
+      var level3 = type == 1 ? est2 : 0;
       var url = "controllers/level_controller.php?url=addLevel";
       var userId = getCookie("id");
-      var data = {userId: parseInt(userId), clientIP: clientIP, level1: level1, level2:level2, level3:level3};
+      var typeId = type ? type : 0;
+      var data = {userId: parseInt(userId), clientIP: clientIP, level1: level1, level2:level2, level3:level3, typeId: typeId};
       sendPost(url, data, function () { isActiveSend = false; });
-
     }, 2000);
   }
 }
 
-function getLevel1() {
-  var val = parseFloat(_LEVELS.lvl1);
-  if(val > 0){
-    var result = val;
-    remLevel1 = val;
-  }else{
-    var result = remLevel1;
-  }
-  return result;
-}
-
-function getLevel2() {
-  var val = parseFloat(_LEVELS.lvl2);
-  if(val > 0){
-    var result = val;
-    remLevel2 = val;
-  }else{
-    var result = remLevel2;
-  }
-  return result;
-}
-
-function getLevel3() {
-  var val = parseFloat(_LEVELS.lvl3);
-  if(val > 0){
-    var result = val;
-    remLevel3 = val;
-  }else{
-    var result = remLevel3;
-  }
-  return result;
-}
-
-function updateLevel1() {
+function updateLevel1(data) {
   // chart of understanding
+  $(".count-users").text(" Отметили: " + data.total_users + " человек(а)");
   var x = (new Date()).getTime(), // current time
-      y = getLevel1();
+      y = parseFloat(data.middle_value);
   seriesChart1.addPoint([x, y], true, true);
 }
 
-function updateLevel2() {
+function getNameForChart2(num) {
+  switch (num) {
+    case "2":
+      name = 'Не владею';
+      break;
+    case "3":
+      name = 'Слабо';
+      break;
+    case "4":
+      name = 'Средне';
+      break;
+    case "5":
+      name = 'Хорошо';
+      break;
+    default:
+      name = 'no name';
+  }
+  return name;
+}
+
+function getNameForChart3(num) {
+  switch (num) {
+    case "2":
+      name = 'Не интересна';
+      break;
+    case "3":
+      name = 'Слабый';
+      break;
+    case "4":
+      name = 'Средний';
+      break;
+    case "5":
+      name = 'Сильный';
+      break;
+    default:
+      name = 'no name';
+  }
+  return name;
+}
+
+function updateLevel2and3(data) {
   // chart of relevance
-  var _level = getLevel2();
-  var res = 5 - _level;
-  seriesChart2.setData([{
-    y: res,
-    name:  getTranslate("NO"),
-    color: '#f15c80'
-  }, {
-      y: _level,
-      name: getTranslate("YES"),
-      color: '#7cb5ec'
-  }], true)
+  var chart2 = [];
+  var chart3 = [];
+  $(data).each(function (ind, item) {
+    var level2 = parseFloat(item.count_lvl2);
+    var level3 = parseFloat(item.count_lvl3);
+    if(level2 > 0){
+      chart2.push({
+        name: getNameForChart2(item.lvl),
+        y: level2
+      });
+    }
+
+    if(level3 > 0){
+      chart3.push({
+        name: getNameForChart3(item.lvl),
+        y: level3
+      });
+    }
+  });
+  seriesChart2.setData(chart2, true);
+  seriesChart3.setData(chart3, true);
 }
 
-function updateLevel3() {
-  // chart of interest
-  var _level = getLevel3();
-  var res = 5 - _level;
-  seriesChart3.setData([{
-    y: res,
-    name:  getTranslate("NO"),
-    color: '#f7a35c'
-  }, {
-      y: _level,
-      name: getTranslate("YES"),
-      color: '#90ed7d'
-  }], true)
-}
-
-function updateDemoChart1() {
+function updateDemoChart1(data) {
   // chart of understanding
   var x = (new Date()).getTime(), // current time
-      y = getLevel1();
+      y = parseFloat(data.middle_value);
   demoChart1.addPoint([x, y], true, true);
-}
-
-function updateDemoChart2() {
-  var _level2 = getLevel2();
-  var _level3 = getLevel3();
-  demoChart2.setData([_level2, _level3], true);
 }
 
 addEventListener("keyup", function(event) {
