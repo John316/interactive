@@ -11,8 +11,7 @@ if ($url === 'addQuestion') {
     $question = new Message();
     $userId = clear($_POST['userId']);
     $text = clear($_POST['text']);
-    $res = $question->AddMessage($userId, $text, 1, 1);
-    return $res;
+    $question->AddMessage($userId, $text, 1, 1);
 
 }else if($url === 'selectMessage'){
 

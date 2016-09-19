@@ -5,12 +5,19 @@
     header("Content-type: text/html;charset=utf-8");
     require 'modules/user_module.php';
     require 'controllers/user_controller.php';
-    if($_POST['login'] == 'admin' && $_POST['pass'] == 'admin'){
-      $_SESSION['ENTER'] = 'ok';
-      $_SESSION['login'] = $_POST['login'];
+
+    if($_POST['login'] && $_POST['pass']){
+      $userService = new User();
+      $userId = $userService->IsUserAvailable($_POST['login'], $_POST['pass']);
+
+      if($userId['id'] > 0){
+        $_SESSION['ENTER'] = 'ok';
+        $_SESSION['id'] = $userId['id'];
+      }
     }
     if($url == 'exit'){
       $_SESSION['ENTER'] = 'none';
+      $_SESSION['id'] = 0;
     }
 
 ?>
@@ -117,6 +124,8 @@
   </nav>
     <div id="page">
       <div class="container">
+        <div class="row">
+          <div class="col-md-12">
         <?php if($url == 'adduser'){
                   include ('view/form.php');
                 }else if($url == 'addgr'){
@@ -136,6 +145,8 @@
                 if(!empty($message)){
                     echo $message;
                 } ?>
+            </div>
+          </div>
         </div>
     </div>
 </body>

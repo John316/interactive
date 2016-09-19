@@ -1,6 +1,5 @@
-<!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="one-time-voit">
-  <p class="bg-info info"><strong>Сейчас начинается доклад на тему: "PHP для начинающих".</strong></p>
+  <p class="bg-info info"><strong>Сейчас начинается доклад на тему: "PHP верный путь".</strong></p>
   <p class="bg-warning info">Оцените единоразово актуальность темы для Вас и на сколько вы знакомы с этой темой.</p>
   <div class="row">
     <div class="col-md-6">

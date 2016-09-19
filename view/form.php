@@ -1,37 +1,35 @@
-<div class="row">
-  <div class="col-md-12">
     <?php
     // Добавление абонента
     if($url == 'adduser'){
     $select_all_group = new Group();
     $groups = $select_all_group->SelectAllGroup('Name'); ?>
-
+    <h1>Регистрация</h1>
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">Add user</h3>
+        <h3 class="panel-title">Регистрация нового администратора</h3>
       </div>
       <div class="panel-body">
         <div class="row">
           <div class="col-md-3">
             <form enctype="multipart/form-data" action="index.php?url=add" method="POST">
               <div class="form-group">
-                <label for="login">Login</label>
+                <label for="login">Login*</label>
                 <input class="form-control" type="text" name="login"/>
               </div>
               <div class="form-group">
-                <label for="password">Password</label>
+                <label for="password">Password*</label>
                 <input type="password" class="form-control" name="password" />
               </div>
               <div class="form-group">
-                <label for="email">E-mail</label>
+                <label for="org_name">Название организации</label>
+                <input class="form-control" type="text" name="org_name"/>
+              </div>
+              <div class="form-group">
+                <label for="email">E-mail*</label>
                 <input type="email" class="form-control" name="email" />
               </div>
               <div class="form-group">
-                <label for="date">Date</label>
-                <input type="date" class="form-control" name="date" />
-              </div>
-              <div class="form-group">
-                <label for="id_group">Select group</label>
+                <label for="id_group">Select group*</label>
                 <select name="id_group" class="form-control" id="id_group" size="1">
                     <?php
                     while($row = mysql_fetch_assoc($groups)){ ?>
@@ -40,7 +38,7 @@
                 </select>
               </div>
               <div class="form-group">
-                <label for="file">Attach avatar:</label>
+                <label for="file">Logo / Avatar:</label>
                  <input name="myfile" type="file" id="file" />
               </div>
               <input type="submit" class="btn btn-sm btn-default" value="Submit" />
@@ -61,6 +59,7 @@
         $user_group = $selGroup->SelectGroup($group_id);
         $allGroups = $selGroup->SelectAllGroup('id');
         ?>
+        <h1>Update</h1>
         <div class="panel panel-default">
             <div class="panel-heading">
               <h3 class="panel-title">Update user</h3>
@@ -77,6 +76,10 @@
                 <div class="form-group">
                   <label for="password">Password</label>
                   <input type="password" class="form-control" name="password" value="<? echo $user['Password']; ?>" />
+                </div>
+                <div class="form-group">
+                  <label for="org_name">Название организации</label>
+                  <input type="text" class="form-control" name="org_name" value="<? echo $user['org_name']; ?>" />
                 </div>
                 <div class="form-group">
                   <label for="email">E-mail</label>
@@ -109,6 +112,7 @@
 
     // Добавление группы
     if($url == 'addgr'){ ?>
+      <h1>Add</h1>
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">Add group</h3>

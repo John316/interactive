@@ -8,6 +8,7 @@ if($url === 'start'){
   $status = "active";
   fwrite($isActive, $status);
   fclose($isActive);
+  echo json_encode($status);
 
 }else if($url === 'stop'){
 
@@ -15,6 +16,7 @@ if($url === 'start'){
   $status = "not active";
   fwrite($isActive, $status);
   fclose($isActive);
+  echo json_encode($status);
 
 } else if ($url === 'addLevel') {
 

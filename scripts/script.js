@@ -219,7 +219,7 @@ function tryToSend(type) {
 
 function updateLevel1(data) {
   // chart of understanding
-  $(".count-users").text(" Отметили: " + data.total_users + " человек(а)");
+  $(".count-users").text(" - отметили: " + data.total_users + " человек(а)");
   var x = (new Date()).getTime(), // current time
       y = parseFloat(data.middle_value);
   seriesChart1.addPoint([x, y], true, true);

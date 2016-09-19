@@ -1,17 +1,15 @@
-<div class="row">
-  <div class="col-md-12">
-    <h2>Users list</h2>
-    <span>Order by: </span><a href="index.php?url=view&order=id">ID</a> | <a href="index.php?url=view&order=login">Login</a>
-     | <a href="index.php?url=view&order=email">Email</a> | <a href="index.php?url=view&order=group">Group</a>
+    <h1>Users list</h1>
+    <span>Order by: </span><a href="?url=view&order=id">ID</a> | <a href="?url=view&order=login">Login</a>
+     | <a href="?url=view&order=email">Email</a> | <a href="?url=view&order=group">Group</a>
     <span>Фильтр</span>
 
     <?php
     $select_group = new Group();
     $groups = $select_group->SelectAllGroup('id');
     while($row = mysql_fetch_assoc($groups)){ ?>
-    <a href="index.php?url=view&option=<? echo $row['id']; ?>"><? echo $row['Name']; ?></a>
+    <a href="?url=view&option=<? echo $row['id']; ?>"><? echo $row['Name']; ?></a>
    <?php } ?>
-    <a href="index.php?url=view&option=0">Снять фильтр</a>
+    <a href="?url=view&option=0">Снять фильтр</a>
 
 <?php
 //require ('controlers/edituser.php');
@@ -39,7 +37,7 @@
             <th>Password</th>
             <th>Email</th>
             <th>Group</th>
-            <th>Data</th>
+            <th>Company</th>
             <th>Avatar</th>
             <th>Delete</th>
         </tr>
@@ -70,26 +68,24 @@
 
         <tr>
             <td><? echo $row1['id']; ?></td>
-            <td><? echo "<a href='index.php?url=update&id=$id_user'>".$row1['Login'].'</a>'; ?></td>
+            <td><? echo "<a href='?url=update&id=$id_user'>".$row1['Login'].'</a>'; ?></td>
             <td><? echo $row1['Password']; ?></td>
             <td><? echo $row1['Email']; ?></td>
             <td><? echo $group; ?></td>
-            <td><? echo $row1['account_expired']; ?></td>
+            <td><? echo $row1['org_name']; ?></td>
             <td><img class="img-rounded" src="<? echo $avatar;?>" width="50px"/></td>
-            <td><? echo "<a href='index.php?url=del&id=$id_user' onClick='window.location.reload( true );'>Del</a>"; ?></td>
+            <td><? echo "<a href='?url=del&id=$id_user' onClick='window.location.reload( true );'>Del</a>"; ?></td>
         </tr>
         <?
         }
     // Постраничный просмотр
-    if($page != 1) $pervpage = '<a href= ./index.php?url=view&page=1><<</a><a href= ./index.php?url=view&page='. ($page - 1) .'><</a> ';
-    if($page != $total) $nextpage = ' <a href= ./index.php?url=view&page='. ($page + 1) .'>></a><a href= ./index.php?url=view&page=' .$total. '>>></a>';
-    if($page - 2 > 0) $page2left = ' <a href= ./index.php?url=view&page='. ($page - 2) .'>'. ($page - 2) .'</a> | ';
-    if($page - 1 > 0) $page1left = '<a href= ./index.php?url=view&page='. ($page - 1) .'>'. ($page - 1) .'</a> | ';
-    if($page + 2 <= $total) $page2right = ' | <a href= ./index.php?url=view&page='. ($page + 2) .'>'. ($page + 2) .'</a>';
-    if($page + 1 <= $total) $page1right = ' | <a href= ./index.php?url=view&page='. ($page + 1) .'>'. ($page + 1) .'</a>';
+    if($page != 1) $pervpage = '<a href= .?url=view&page=1><<</a><a href= .?url=view&page='. ($page - 1) .'><</a> ';
+    if($page != $total) $nextpage = ' <a href= .?url=view&page='. ($page + 1) .'>></a><a href= .?url=view&page=' .$total. '>>></a>';
+    if($page - 2 > 0) $page2left = ' <a href= .?url=view&page='. ($page - 2) .'>'. ($page - 2) .'</a> | ';
+    if($page - 1 > 0) $page1left = '<a href= .?url=view&page='. ($page - 1) .'>'. ($page - 1) .'</a> | ';
+    if($page + 2 <= $total) $page2right = ' | <a href= .?url=view&page='. ($page + 2) .'>'. ($page + 2) .'</a>';
+    if($page + 1 <= $total) $page1right = ' | <a href= .?url=view&page='. ($page + 1) .'>'. ($page + 1) .'</a>';
 
     ?>
             </table>
     <? echo $pervpage.$page2left.$page1left.'<b>'.$page.'</b>'.$page1right.$page2right.$nextpage; ?>
-  </div>
-</div>

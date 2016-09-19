@@ -7,7 +7,7 @@ class User{
 		private $group_id;
 		private $email;
 		private $group_name;
-		private $account_expired;
+		private $org_name;
 		private $avatar_extension;
 
     function __construct(){
@@ -15,60 +15,66 @@ class User{
         $connect->Connect();
     }
     function getLastId(){
-        $last = mysql_query("SELECT MAX(`id`) FROM `consumer` ") or die(mysql_error());
+        $last = mysql_query("SELECT MAX(`id`) FROM `user` ") or die(mysql_error());
         $lastId = mysql_fetch_row($last);
         $resolt = $lastId[0];
         return $resolt;
     }
-    function AddUser($id_group, $login, $password, $email, $account_expired, $avatar_extension){
-		$query = mysql_query("INSERT INTO `consumer` (id_group, Login, Password, Email, account_expired, avatar_extension) VALUES ( $id_group, '$login', '$password', '$email','$account_expired', '$avatar_extension')")
+    function AddUser($id_group, $login, $password, $orgName, $email, $avatar_extension){
+		$query = mysql_query("INSERT INTO `user` (id_group, Login, Password, org_name, Email, avatar_extension, status) VALUES ( $id_group, '$login', '$password', '$orgName', '$email', '$avatar_extension', 0)")
         or die(mysql_error());
         $queryid = mysql_insert_id();
         return $queryid;
-        header('Location: index.php?url=view');
+        header('Location: ?url=view');
 	}
-	function UpdateUser($id, $id_group, $login, $password, $email, $account_expired, $avatar_extension){
-		$userupdate = "UPDATE consumer SET id_group = $id_group, login = '$login', password = '$password', Email = '$email', account_expired = '$account_expired', avatar_extension = '$avatar_extension' WHERE id=$id ";
+	function UpdateUser($id, $id_group, $login, $password, $orgName, $email, $avatar_extension){
+		$userupdate = "UPDATE user SET id_group = $id_group, Login = '$login', Password = '$password', org_name='$orgName', Email = '$email', avatar_extension = '$avatar_extension' WHERE id=$id ";
 		mysql_query($userupdate) or die(mysql_error());
-        header('Location: index.php?url=view');
+        header('Location: ?url=view');
 	}
   function SelectUser ($id){
-		$selectuser = "SELECT * FROM consumer WHERE id=$id ";
+		$selectuser = "SELECT * FROM user WHERE id=$id ";
         //$selectuser = "SELECT consumer.id_group, consumer.Login, cconsumer.Password, cconsumer.Email, consumerc.account_expired, consumer.avatar_extension group.Name AS group_name FROM consumer WHERE consumer.id=$id INNER JOIN group ON group.id = consumer.group_id ";
 		$user_row = mysql_query($selectuser) or die(mysql_error());
 		$row = mysql_fetch_assoc($user_row);
 		return $row;
     header("Refresh: 3");
 	}
-    function SelectAllUser ($order){
-		$selectuser = "SELECT * FROM consumer ORDER BY `$order` ASC LIMIT 0 , 30";
+	function IsUserAvailable ($login, $password){
+		$selectuser = "SELECT id FROM user WHERE Login='$login' AND  Password = '$password' AND status = 1";
+        //$selectuser = "SELECT consumer.id_group, consumer.Login, cconsumer.Password, cconsumer.Email, consumerc.account_expired, consumer.avatar_extension group.Name AS group_name FROM consumer WHERE consumer.id=$id INNER JOIN group ON group.id = consumer.group_id ";
+		$user_row = mysql_query($selectuser) or die(mysql_error());
+		return mysql_fetch_assoc($user_row);
+	}
+  function SelectAllUser ($order){
+		$selectuser = "SELECT * FROM user ORDER BY `$order` ASC LIMIT 0 , 30";
 		$user_row = mysql_query($selectuser) or die(mysql_error());
 		return $user_row;
 
 	}
     function CountUser (){
-		$selectuser = "SELECT COUNT(*) FROM consumer";
+		$selectuser = "SELECT COUNT(*) FROM user";
 		$user_row = mysql_query($selectuser) or die(mysql_error());
 		$result = mysql_fetch_row($user_row);
 		return $result;
 	}
     function NavigationUser ($order, $start, $num, $group){
 		if($group < 1){
-		  $selectuser = "SELECT * FROM consumer ORDER BY `$order` ASC LIMIT $start, $num";
+		  $selectuser = "SELECT * FROM user ORDER BY `$order` ASC LIMIT $start, $num";
 		}else{
-		  $selectuser = "SELECT * FROM consumer WHERE id_group = $group ORDER BY `$order` ASC LIMIT $start, $num";
+		  $selectuser = "SELECT * FROM user WHERE id_group = $group ORDER BY `$order` ASC LIMIT $start, $num";
 		}
 		$user_row = mysql_query($selectuser) or die(mysql_error());
 		return $user_row;
         header("Refresh: 3");
 	}
     function DeleteUser ($id){
-        $selectuser = "SELECT avatar_extension FROM `consumer` WHERE id = $id";
+        $selectuser = "SELECT avatar_extension FROM `user` WHERE id = $id";
 		$user_row = mysql_query($selectuser) or die(mysql_error());
         $row = mysql_fetch_assoc($user_row);
 		$ava = $row['avatar_extension'];
 
-        $deluser = "DELETE FROM consumer WHERE id = $id";
+        $deluser = "DELETE FROM user WHERE id = $id";
 		$user_del = mysql_query($deluser) or die(mysql_error());
 		return $ava;
         //header('Location: index.php?url=view');
@@ -79,10 +85,10 @@ class User{
 		$UserInfo = $getUser->SelectUser($id);
 		$id = $this->id;
 		$login = $this->login;
+		$orgName = $this->org_name;
 		$password = $this->password;
 		$group_id = $this->group_id;
 		$group_name = $this->group_name;
-		$account_expired = $this->account_expired;
 		$avatar_extension = $this->avatar_extension;
 	}
 }
@@ -125,13 +131,13 @@ class Group {
   function DeleteGroup ($id){
 		$deluser = "DELETE FROM `group` WHERE id = $id";
 		$user_del = mysql_query($deluser) or die(mysql_error());
-    header('Location: index.php?url=viewgr');
+    header('Location: ?url=viewgr');
     return $user_del;
 	}
   function UpdateGroup($id, $name){
 		$userupdate = "UPDATE `group` SET Name = '$name' WHERE id=$id ";
 		mysql_query($userupdate) or die(mysql_error());
-    header('Location: index.php?url=viewgr');
+    header('Location: ?url=viewgr');
     exit;
 	}
 }

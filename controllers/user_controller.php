@@ -10,13 +10,13 @@ if($_POST){
     $password = strip_tags($_POST['password']);
     $id_group = clear($_POST['id_group']);
     $name = clear($_POST['name']);
+    $orgName = clear($_POST['org_name']);
     $email = clear($_POST['email']);
-    $account_expired = clear($_POST['date']);
     $image = $_POST['image'];
     $name = $_POST['name'];
 
     if($image){
-        unlink($image);
+        //unlink($image);
     }
 }
     $url = $_GET['url'];
@@ -47,7 +47,7 @@ if($_POST){
             echo 'Not supported type.';
         }
         $avatar_extension = $uploadfile;
-        $masid = $addNewUser->AddUser($id_group, $login, $password, $email, $account_expired, $avatar_extension);
+        $masid = $addNewUser->AddUser($id_group, $login, $password, $orgName, $email, $avatar_extension);
     }
 
     if($status == 'up'){
@@ -78,8 +78,7 @@ if($_POST){
         }else{
             $avatar_extension = $image;
         }
-        $UpdateUser->UpdateUser($id, $id_group, $login, $password, $email, $account_expired, $avatar_extension);
-        echo "<meta http-equiv='Refresh' content='0; URL=index.php?url=view'>";
+        $UpdateUser->UpdateUser($id, $id_group, $login, $password, $orgName, $email, $avatar_extension);
     }
     if($status == 'del'){
         $deleteUser = new User();

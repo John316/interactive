@@ -1,6 +1,6 @@
 <?php
 $flag = 0;
-$dir = "upload/slides/1/";
+$dir = "upload/slides/2/";
 if (is_dir($dir)) {
 	$files = scandir($dir);
 	sort($files);
