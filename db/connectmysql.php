@@ -2,9 +2,9 @@
 // connect database
 class ConnectMysql{
 		public $host = 'localhost';
-		public $db_login = 'inter';
-		public $db_pass = 'admin';
-		public $db_name = 'inter';
+		public $db_login = 'infire_i';
+		public $db_pass = 'l54d1ooDr7';
+		public $db_name = 'infire_i';
 		public $isConnected = false;
 
 		function Connect(){
