@@ -59,7 +59,6 @@ function deleteMessage(id) {
 
 $( document ).ready(function() {
     // set random id to cookie
-    setLang(1); // FIX THIS
     if(!getCookie("id")){
       setCookie("id", randomID, {"path": "/"});
     }
@@ -69,10 +68,8 @@ $( document ).ready(function() {
     }
     if(!getCookie("isVoit")){
       $(".one-time-voit").show();
-      $('.main-content').hide();
     }else{
       $(".one-time-voit").hide();
-      $('.main-content').show();
     }
 
     requestForMainStat();

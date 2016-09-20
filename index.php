@@ -76,18 +76,6 @@
         <ul class="nav navbar-nav">
           <li><a href="index.php"><span class="lang" text="HOME">Home</span></a></li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="lang" text="GROUPS_AND_USERS">Groups and Users</span><span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li class="dropdown-header"><span class="lang" text="GROUPS">Groups</span></li>
-              <li><a href="index.php?url=addgr"><span class="lang" text="ADD_GROUP">Add group</span></a></li>
-              <li><a href="index.php?url=viewgr"><span class="lang" text="DISPLAY_GROUPS">Display groups</span></a></li>
-              <li role="separator" class="divider"></li>
-              <li class="dropdown-header"><span class="lang" text="USERS">Users</span></li>
-              <li><a href="index.php?url=adduser"><span class="lang" text="ADD_USER">Add user</span></a></li>
-              <li><a href="index.php?url=view"><span class="lang" text="DISPLAY_USERS">Display users</span></a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="lang" text="LANGUAGE">language</span><span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li class="dropdown-header"><span class="lang" text="SELECT_LANGUAGE">Select language</span></li>
