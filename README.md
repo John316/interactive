@@ -1,31 +1,27 @@
-# Interactive
+# Laravel PHP Framework
 
-> __This application is designed to Reports, Presentations, lessons, etc. for estimate in real time some important parameters.__
+[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
+[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
+[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
+[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
+[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
 
-Now available voting on three parameters: 
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
 
-* Understanding, 
-* Knowledge, 
-* Interest.
+Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
 
-Knowledge and Interest people estimate at the begining of demo. Then this a selecting be not visible. User can see only charts and one switcher for voting of Understanding (yes/no).
+## Official Documentation
 
-Now available ability to send question to speaker. This message will be displayed on the demo screen.
+Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
 
-There is also a special page for the demonstration on the screen of the projector, which contains the slides as images and graphs the audience voting.
-Presentation slides should be placed in the folder upload.
+## Contributing
 
-Also available is multi language. There are translations into English, Ukrainian and Russian languages.
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
 
-### Here is the main page with graphs. It is fully responsive and available in a convenient way for viewing on your phone.
+## Security Vulnerabilities
 
-![New display](https://raw.githubusercontent.com/John316/interactive/master/images/intro2.1.png)
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
 
-### Here is the screen when speech is started.
+## License
 
-![New display](https://raw.githubusercontent.com/John316/interactive/master/images/intro2.2.png)
-
-### Here is the demonstration on the projector screen.
-
-![New display](https://raw.githubusercontent.com/John316/interactive/master/images/intro6.png)
-
+The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
