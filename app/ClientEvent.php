@@ -8,8 +8,18 @@ class ClientEvent extends Model
 {
     protected $fillable = [
         'name',
-        'description',
-        'published_from',
+        'desc',
+        'activeFrom',
+        'activeTo',
         'status'
     ];
+
+    public function user(){
+        return $this->belongsToMany('users');
+    }
+
+    public function getMainStatistic()
+    {
+        return "";
+    }
 }

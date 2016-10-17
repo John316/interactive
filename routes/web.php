@@ -11,8 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', 'PagesController@index');
 
 Route::get('/admin', 'adminController@show');
+
+Route::get('/about', 'PagesController@about');
+
+Route::get('/contact', 'PagesController@contact');
+
+Route::get('event/{id}/status', 'EventController@status');
+
+Route::get('event/{id}/mainStat', 'EventController@mainStat');
+
+Route::resource('event', 'EventController');
