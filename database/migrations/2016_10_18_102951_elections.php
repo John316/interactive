@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Votings extends Migration
+class Elections extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class Votings extends Migration
      */
     public function up()
     {
-        Schema::create('client_events', function (Blueprint $table) {
+        Schema::create('elections', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('level');
-            $table->text('desc');
-            $table->integer('status');
-            $table->dateTime('active_from');
-            $table->dateTime('active_to');
-            $table->timestamps();
+            $table->string('name');
+            $table->integer('type_id');
+            $table->integer('event_id')->unsigned()->index();
+            $table->foreign('event_id')->references('id')->on('client_events')->onDelete('cascade');
         });
     }
 
@@ -31,6 +29,6 @@ class Votings extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('elections');
     }
 }

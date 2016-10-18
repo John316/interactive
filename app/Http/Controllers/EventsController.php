@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\ClientEvent;
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\Http\Requests\EventRequest;
+use Carbon\Carbon;
+use Request;
 
-class EventController extends Controller
+class EventsController extends Controller
 {
     protected $event;
 
@@ -26,11 +29,42 @@ class EventController extends Controller
         return $this->event;
     }
 
-    public function setCurrentEvent($event)
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function create()
     {
-        if($event instanceof ClientEvent){
-            $this->event = $event;
-        }
+        return view('pages.createEvent');
+    }
+
+    /**
+     * @param EventRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function store(EventRequest $request)
+    {
+        ClientEvent::create($request->all());
+        return redirect('/');
+    }
+
+    /**
+     * @param ClientEvent $clientEvent
+     * @param EventRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function update( ClientEvent $clientEvent, EventRequest $request)
+    {
+        $clientEvent->update($request->all());
+        return redirect('/');
+    }
+
+    /**
+     * @param ClientEvent $clientEvent
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit( ClientEvent $clientEvent)
+    {
+        return view('pages.editEvent', compact('clientEvent'));
     }
 
     /**
@@ -53,30 +87,22 @@ class EventController extends Controller
         return $event->status;
     }
 
-    /**
-     * @return string
-     */
-    public function start()
+    public function start($id)
     {
-        $isActive = fopen("isActive.txt", "w") or die("Unable to open file!");
-        $status = "active";
-        fwrite($isActive, $status);
-        fclose($isActive);
+        $clientEvent = $this->getCurrentEvent($id);
+        $clientEvent->update(['status' => '2']);
+        $clientEvent->saveOrFail();
 
-        return $status;
+        return $clientEvent->status;
     }
 
-    /**
-     * @return string
-     */
-    public function stop()
+    public function stop($id)
     {
-        $isActive = fopen("isActive.txt", "w") or die("Unable to open file!");
-        $status = "not active";
-        fwrite($isActive, $status);
-        fclose($isActive);
+        $clientEvent = $this->getCurrentEvent($id);
+        $clientEvent->update(['status' => '0']);
+        $clientEvent->saveOrFail();
 
-        return $status;
+        return $clientEvent->status;
     }
 
     public function mainStat($id)

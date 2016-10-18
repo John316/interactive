@@ -1,4 +1,4 @@
-@extends('app')
+@extends('eventFrame')
 @section('head')
     <script src="/js/highcharts.js"></script>
     <script src="/js/script.js"></script>
@@ -8,6 +8,15 @@
         var eventId = "{{$clientEvent['id']}}";
         var eventStatus = "{{$clientEvent['status']}}";
     </script>
+@stop
+
+@section('eventMenu')
+    <nav>
+        <ul class="nav nav-pills pull-right">
+            <li role="presentation"><a href="{{ action('EventsController@start', [$clientEvent['id']]) }}">Start</a></li>
+            <li role="presentation"><a href="{{ action('EventsController@stop', [$clientEvent['id']]) }}">Stop</a></li>
+        </ul>
+    </nav>
 @stop
 
 @section('content')
@@ -54,14 +63,17 @@
         <div class="col-md-12">
             <div class="center-block send-btn-one">
                 <button type="button" id="sentOneVoit" class="btn btn-success"><span class="lang" text="SEND">Отправить</button>
-            </div></span>
+            </div>
         </div>
     </div>
     <hr>
 </div>
 <!-- end one time voit -->
 <div class="main-content">
-    <h2>Title: {{ $clientEvent['name'] }}</h2>
+    @section('eventTitle')
+        <a href="/">{{ $clientEvent['name'] }}</a>
+    @stop
+
     <p class="bg-info info">Description: {{ $clientEvent['desc'] }}</p>
     <div class="row">
         <div class="col-md-6">

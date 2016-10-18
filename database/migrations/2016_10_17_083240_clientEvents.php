@@ -18,8 +18,8 @@ class ClientEvents extends Migration
             $table->string('name');
             $table->text('desc');
             $table->integer('status');
-            $table->dateTime('activeFrom');
-            $table->dateTime('activeTo');
+            $table->dateTime('active_from');
+            $table->dateTime('active_to');
             $table->timestamps();
         });
 

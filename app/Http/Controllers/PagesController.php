@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\ClientEvent;
-use App\GeneralEvent;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -12,18 +11,26 @@ class PagesController extends Controller
 {
     public function index(){
 
-        $listOfCurrentEvents = ClientEvent::all();
-        $listOfFutureEvents = [['id' => 1, 'name' => 'Future1'], ['id' => 2, 'name' => 'Future2'], ['id' => 3, 'name' => 'Future3']];
+//        TODO: use viewComposer here
+
+        $listOfCurrentEvents = ClientEvent::latest('active_from')->current()->get();
+        $listOfFutureEvents = ClientEvent::latest('active_from')->future()->get();
 
         return view('pages.home', compact('listOfCurrentEvents', 'listOfFutureEvents'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function about(){
 
         return view('pages.about');
 
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function contact(){
 
         return view('pages.contact');

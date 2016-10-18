@@ -13,14 +13,18 @@
 
 Route::get('/', 'PagesController@index');
 
-Route::get('/admin', 'adminController@show');
+Route::get('/admin', 'AdminController@show');
 
 Route::get('/about', 'PagesController@about');
 
 Route::get('/contact', 'PagesController@contact');
 
-Route::get('event/{id}/status', 'EventController@status');
+Route::get('event/{id}/status', 'EventsController@status');
 
-Route::get('event/{id}/mainStat', 'EventController@mainStat');
+Route::get('event/{id}/start', 'EventsController@start');
 
-Route::resource('event', 'EventController');
+Route::get('event/{id}/stop', 'EventsController@stop');
+
+Route::get('event/{id}/mainStat', 'EventsController@mainStat');
+
+Route::resource('event', 'EventsController');
