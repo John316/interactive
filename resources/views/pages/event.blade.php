@@ -1,79 +1,86 @@
 @extends('eventFrame')
+
 @section('head')
     <script src="/js/highcharts.js"></script>
-    <script src="/js/script.js"></script>
     <script src="/js/charts.js"></script>
     <script src="/js/lang.js"></script>
+    <script src="/js/pusher.min.js"></script>
+    <script src="/js/script.js"></script>
+
     <script type="text/javascript">
-        var eventId = "{{$clientEvent['id']}}";
-        var eventStatus = "{{$clientEvent['status']}}";
+    var eventId = "{{$clientEvent['id']}}";
+    var eventStatus = "{{$clientEvent['status']}}";
+    var startUrl = '{{ action('EventsController@start', [$clientEvent['id']]) }}';
+    var stopUrl = '{{ action('EventsController@stop', [$clientEvent['id']]) }}';
     </script>
 @stop
 
 @section('eventMenu')
     <nav>
         <ul class="nav nav-pills pull-right">
-            <li role="presentation"><a href="{{ action('EventsController@start', [$clientEvent['id']]) }}">Start</a></li>
-            <li role="presentation"><a href="{{ action('EventsController@stop', [$clientEvent['id']]) }}">Stop</a></li>
+            <li role="presentation"><a id="start" href="#">Start</a></li>
+            <li role="presentation"><a id="stop" href="#">Stop</a></li>
         </ul>
     </nav>
 @stop
 
-@section('content')
+@section('top-content')
+    <div class="one-time-voit">
+        <p class="bg-info info"><strong>Сейчас начинается доклад на тему: "{{ $clientEvent['name'] }}".</strong></p>
+        <h4>Описание</h4>
+        <p>{{ $clientEvent['desc'] }}</p>
+        <p class="bg-warning info"><span class="lang" text="INFO_OF_RELEVANCE">Оцените единоразово актуальность темы для Вас и на сколько вы знакомы с этой темой.</span></p>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><strong><span class="lang" text="THE_TITLE_OF_2">На сколько вам знакома тема?</span></strong></h3>
+                    </div>
+                    <div class="panel-body">
+                        <p><span class="lang" text="THE_TEXT_OF_2">На сколько вам знакома тема?</span></p>
+                        <select id="estimate1" class="form-control">
+                            <option value="5"><span class="lang" text="G_NONE">Хорошо владею</span></option>
+                            <option value="4"><span class="lang" text="AVERAGE_L">Средний уровень</span></option>
+                            <option value="3"><span class="lang" text="BASIC_KN">Базовые знания</span></option>
+                            <option value="2"><span class="lang" text="NONE">Не владею</span></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-<div class="one-time-voit">
-    <p class="bg-info info"><strong>Сейчас начинается доклад на тему: "{{ $clientEvent['name'] }}".</strong></p>
-    <h4>Описание</h4>
-    <p>{{ $clientEvent['desc'] }}</p>
-    <p class="bg-warning info"><span class="lang" text="INFO_OF_RELEVANCE">Оцените единоразово актуальность темы для Вас и на сколько вы знакомы с этой темой.</span></p>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><strong><span class="lang" text="THE_TITLE_OF_2">На сколько вам знакома тема?</span></strong></h3>
+            <div class="col-md-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><strong><span class="lang" text="THE_TITLE_OF_3">Level of interest</span></strong></h3>
+                    </div>
+                    <div class="panel-body">
+                        <p><span class="lang" text="THE_TEXT_OF_3">Please estimate the level of interest.</span></p>
+                        <select id="estimate2" class="form-control">
+                            <option value="5"><span class="lang" text="VERY_INTER">Очень интересно</span></option>
+                            <option value="4"><span class="lang" text="AVERAGE_INTER">Средний интерес</span></option>
+                            <option value="3"><span class="lang" text="LACK_OF_INTER">Слабый интерес</span></option>
+                            <option value="2"><span class="lang" text="SENNOT_INTER">Не интересно</span></option>
+                        </select>
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <p><span class="lang" text="THE_TEXT_OF_2">На сколько вам знакома тема?</span></p>
-                    <select id="estimate1" class="form-control">
-                        <option value="5"><span class="lang" text="G_NONE">Хорошо владею</span></option>
-                        <option value="4"><span class="lang" text="AVERAGE_L">Средний уровень</span></option>
-                        <option value="3"><span class="lang" text="BASIC_KN">Базовые знания</span></option>
-                        <option value="2"><span class="lang" text="NONE">Не владею</span></option>
-                    </select>
+            </div>
+            <div class="col-md-12">
+                <div class="center-block send-btn-one">
+                    <button type="button" id="sentOneVoit" class="btn btn-success"><span class="lang" text="SEND">Отправить</button>
                 </div>
             </div>
         </div>
-
-        <div class="col-md-6">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><strong><span class="lang" text="THE_TITLE_OF_3">Level of interest</span></strong></h3>
-                </div>
-                <div class="panel-body">
-                    <p><span class="lang" text="THE_TEXT_OF_3">Please estimate the level of interest.</span></p>
-                    <select id="estimate2" class="form-control">
-                        <option value="5"><span class="lang" text="VERY_INTER">Очень интересно</span></option>
-                        <option value="4"><span class="lang" text="AVERAGE_INTER">Средний интерес</span></option>
-                        <option value="3"><span class="lang" text="LACK_OF_INTER">Слабый интерес</span></option>
-                        <option value="2"><span class="lang" text="SENNOT_INTER">Не интересно</span></option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="center-block send-btn-one">
-                <button type="button" id="sentOneVoit" class="btn btn-success"><span class="lang" text="SEND">Отправить</button>
-            </div>
-        </div>
+        <hr>
     </div>
-    <hr>
-</div>
-<!-- end one time voit -->
-<div class="main-content">
-    @section('eventTitle')
-        <a href="/">{{ $clientEvent['name'] }}</a>
-    @stop
+    <!-- end one time voit -->
+@stop
 
+@section('eventTitle')
+    <a href="/">{{ $clientEvent['name'] }}</a>
+@stop
+
+@section('content')
+<div class="main-content">
     <p class="bg-info info">Description: {{ $clientEvent['desc'] }}</p>
     <div class="row">
         <div class="col-md-6">
@@ -108,8 +115,10 @@
                             <span class="lang" text="NO">НЕТ</span>
                         </div>
                         <div class="onoffswitch">
-                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
-                            <label class="onoffswitch-label" for="myonoffswitch"></label>
+                            {!! Form::model($clientEvent, ['method' => 'POST']) !!}
+                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+                                <label class="onoffswitch-label" for="myonoffswitch"></label>
+                            {!! Form::close() !!}
                         </div>
                         <div class="sw-right">
                             <span class="lang" text="YES">ДА</span>

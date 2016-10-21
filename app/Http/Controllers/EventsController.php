@@ -7,11 +7,25 @@ use App\ClientEvent;
 use App\Http\Requests;
 use App\Http\Requests\EventRequest;
 use Carbon\Carbon;
-use Request;
+use Illuminate\Http\Request;
+use Pusher;
 
 class EventsController extends Controller
 {
+    public function __construct()
+    {
+        $this->pusher = $this->initPusher();
+    }
+
+    public function getPusher(){
+
+        return $this->pusher;
+
+    }
+
     protected $event;
+
+    protected $pusher;
 
     /**
      *
@@ -89,20 +103,45 @@ class EventsController extends Controller
 
     public function start($id)
     {
+        $pusher = $this->getPusher();
+
+        $pusher->trigger('event_channel', 'start_event', true);
+
         $clientEvent = $this->getCurrentEvent($id);
         $clientEvent->update(['status' => '2']);
         $clientEvent->saveOrFail();
 
-        return $clientEvent->status;
+        return "status: ". $clientEvent->status;
     }
 
     public function stop($id)
     {
+
+        $pusher = $this->getPusher();
+
+        $pusher->trigger('event_channel', 'stop_event', true);
+
         $clientEvent = $this->getCurrentEvent($id);
         $clientEvent->update(['status' => '0']);
         $clientEvent->saveOrFail();
+        return "status: ". $clientEvent->status;
+    }
 
-        return $clientEvent->status;
+    /**
+     * @param $id
+     * @param Request $request
+     * @return mixed
+     */
+    public function addQuestion($id, Request $request)
+    {
+        $result = [];
+        $result['id'] = $id;
+        $result['text'] = $request['text'];
+
+        $pusher = $this->getPusher();
+        $pusher->trigger('event_channel', 'question_event', $request['text']);
+
+        return $result;
     }
 
     public function mainStat($id)
@@ -111,5 +150,22 @@ class EventsController extends Controller
         $data = $event->getMainStatistic();
 
         return $data;
+    }
+
+    /**
+     * @return Pusher
+     */
+    public function initPusher()
+    {
+        $options = array(
+            'encrypted' => true
+        );
+        $pusher = new Pusher(
+            '75c1ec166f3486e363b8',
+            'e1aac03ae60ea5b6807b',
+            '261149',
+            $options
+        );
+        return $pusher;
     }
 }

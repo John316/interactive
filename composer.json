@@ -10,7 +10,8 @@
         "twbs/bootstrap": "^3.3",
         "doctrine/dbal": "^2.5",
         "barryvdh/laravel-ide-helper": "^2.2",
-        "illuminate/html": "^5.0"
+        "illuminate/html": "^5.0",
+        "pusher/pusher-php-server": "^2.6"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

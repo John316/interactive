@@ -1,13 +1,17 @@
 var seriesChart1, seriesChart2, seriesChart3, demoChart1, demoChart2;
 var colorNo = "#00FF00";
 var colorYes = "#FF00FF";
+var randomID = "5";
 var underVal = 5;
 var est1 = 4;
 var est2 = 4;
 var isActiveState = false;
 var demonstration = false;
 var flag = true;
-var isactiveInterval, intervalSelectLevels, intervalSelectMessage, sendTimout, isActiveSend;
+var sendTimeout, isActiveSend;
+
+
+
 
 function sendGet(url, callback){
   $.get(url)
@@ -45,9 +49,9 @@ function outputMessage(data) {
     html += '<div id="mess'+el.id+'" class="message-body"><div onclick="deleteMessage('+el.id+')" class="mess-cancel">x</div><div class="message-text">' + el.text + '</div></div>';
   });
   if(demonstration){
-    $('#message-aside').html(html);
+    $('#message-aside').append(html);
   }else {
-    $('#message-on-client').html(html);
+    $('#message-on-client').append(html);
   }
 }
 function deleteMessage(id) {
@@ -58,6 +62,32 @@ function deleteMessage(id) {
 }
 
 $( document ).ready(function() {
+
+    var pusher = new Pusher('75c1ec166f3486e363b8', {
+        encrypted: true
+    });
+
+    var levelChannel = pusher.subscribe('level_channel');
+
+    levelChannel.bind('add_event', function(data) {
+        // update levels
+    });
+
+    var eventChannel = pusher.subscribe('event_channel');
+
+    eventChannel.bind('start_event', function (data) {
+        initStart();
+    });
+
+    eventChannel.bind('stop_event', function (data) {
+        initStop();
+    });
+
+    eventChannel.bind('question_event', function (data) {
+        outputMessage([{id: 1, text:data }]);
+    });
+
+
     // set random id to cookie
     if(!getCookie("id")){
       setCookie("id", randomID, {"path": "/"});
@@ -74,85 +104,61 @@ $( document ).ready(function() {
 
     requestForMainStat();
 
-    isactiveInterval = setInterval(function(){
-      var url = eventId + "/status";
-      sendGet(url, function (data) {
-        if(data == "active" && !isActiveState){
-          initStart();
-        }else if(data == "not active" && isActiveState){
-          initStop();
-        }
-      });
-    }, 10000);
-
     $("#start").click(function() {
-      sendGet("start");
-      initStart();
+      sendGet(startUrl);
     });
     $("#stop").click(function () {
-      sendGet("stop");
-      initStop();
+      sendGet(stopUrl);
     });
+
     $("#sentOneVoit").click(function () {
       setCookie("isVoit", true, {"path": "/"});
       est1 = $('#estimate1 option:selected').val();
       est2 = $('#estimate2 option:selected').val();
-      tryToSend(1);
-      tryToSend();
+      tryToSend(1, est1);
+      tryToSend(2, est2);
       $(".one-time-voit").hide(500);
       $('.main-content').show();
     });
 
     $(".onoffswitch-label").click(function() {
-      if(underVal === 1){
+
+        if(underVal === 1){
         underVal = 5;
       }else{
         underVal = 1;
       }
-      initSendInfo();
+
+      var electionId = 2;
+      initSendInfo(electionId, underVal);
     });
 
     $("#send_question").click(function () {
-      var text = $("#enter_question").val();
-      var sendData = {text: text, userId:1};
-      sendPost("controllers/message_controller.php?url=addQuestion", sendData, function(data) {
-        $("#enter_question").val('');
-        $('.info-sent').show(500);
-        setTimeout(function () {
-          $('.info-sent').hide(500);
-        }, 3000);
-      });
+        var text = $("#enter_question").val();
+        var _token = $('[name="_token"]').val();
+        var sendData = {_token: _token, text: text, userId:1};
+        var urlAddQuestion = eventId +"/question/add";
 
+        sendPost(urlAddQuestion, sendData, function() {
+            $("#enter_question").val('');
+            $('.info-sent').show(500);
+        setTimeout(function () {
+            $('.info-sent').hide(500);
+            }, 3000);
+        });
     });
 
     function initStart() {
       $(".blink").show();
       isActiveState = true;
-      regularEvents();
     }
 
     function initStop() {
       $(".blink").hide();
       isActiveState = false;
-      clearInterval(intervalSelectLevels);
-      clearInterval(intervalSelectMessage);
       flag = true;
     }
 
-    function regularEvents() {
-      if(flag){
-        flag = false;
-        intervalSelectLevels = setInterval(function(){
-          requestForLevel1();
-        }, 8000);
-
-        intervalSelectMessage = setInterval(function(){
-          requestForMessage();
-          requestForMainStat();
-        }, 15000);
-
-      }
-    }
 });
 
 function requestForLevel1() {
@@ -189,26 +195,23 @@ function setLevelsAndUpdate(data) {
     updateDemoChart1(data);
 }
 
-function initSendInfo() {
+function initSendInfo(electionId, level) {
   if(isActiveSend){
-    clearTimeout(sendTimout);
-    tryToSend();
+    clearTimeout(sendTimeout);
+    tryToSend(electionId, level);
   }else{
-    tryToSend();
+    tryToSend(electionId, level);
   }
 }
 
-function tryToSend(type) {
+function tryToSend(electionId, level) {
   if(!demoChart1 ){
     isActiveSend = true;
-    sendTimout = setTimeout(function(){
-      var level1 = !type ? underVal : 0;
-      var level2 = type == 1 ? est1 : 0;
-      var level3 = type == 1 ? est2 : 0;
-      var url = "controllers/level_controller.php?url=addLevel";
-      var userId = getCookie("id");
-      var typeId = type ? type : 0;
-      var data = {userId: parseInt(userId), clientIP: clientIP, level1: level1, level2:level2, level3:level3, typeId: typeId};
+    sendTimeout = setTimeout(function(){
+      //var level = !type ? underVal : 0;
+      var url = eventId +"/level/add";
+      var _token = $('[name="_token"]').val();
+      var data = {_token: _token, level: level, user_id: 1, election_id: electionId};
       sendPost(url, data, function () { isActiveSend = false; });
     }, 2000);
   }

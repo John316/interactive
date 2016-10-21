@@ -19,7 +19,15 @@ Route::get('/about', 'PagesController@about');
 
 Route::get('/contact', 'PagesController@contact');
 
+
+
+Route::post('event/{id}/level/add', 'ElectionLevelsController@add');
+
 Route::get('event/{id}/status', 'EventsController@status');
+
+Route::post('event/{id}/question/add', 'EventsController@addQuestion');
+
+Route::get('event/{id}/question', 'EventsController@question');
 
 Route::get('event/{id}/start', 'EventsController@start');
 

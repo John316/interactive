@@ -13,6 +13,8 @@
         @yield('head')
     </head>
     <body>
+        @yield('top-content')
+
         <div class="container">
             <div class="header clearfix">
                 @yield('eventMenu')

@@ -13,24 +13,27 @@
         @yield('head')
     </head>
     <body>
-        <div class="container">
-            <div class="header clearfix">
-                <nav>
-                    <ul class="nav nav-pills pull-right">
-                        <li role="presentation" class="active"><a href="/">Home</a></li>
-                        <li role="presentation"><a href="{{ action("PagesController@about") }}">About</a></li>
-                        <li role="presentation"><a href="{{ action("PagesController@contact") }}">Contact</a></li>
-                    </ul>
-                </nav>
-                <h3 class="text-muted">Interactive</h3>
-            </div>
 
-            @yield('content')
+    @yield('top-content')
 
-            <footer class="footer">
-                <p>&copy; 2016 Company, Inc.</p>
-            </footer>
-        </div> <!-- /container -->
+    <div class="container">
+        <div class="header clearfix">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" class="active"><a href="/">Home</a></li>
+                    <li role="presentation"><a href="{{ action("PagesController@about") }}">About</a></li>
+                    <li role="presentation"><a href="{{ action("PagesController@contact") }}">Contact</a></li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">Interactive</h3>
+        </div>
+
+        @yield('content')
+
+        <footer class="footer">
+            <p>&copy; 2016 Company, Inc.</p>
+        </footer>
+    </div> <!-- /container -->
 
     </body>
 </html>
