@@ -2,8 +2,7 @@
 
 > __This application is designed to Reports, Presentations, lessons, etc. for estimate in real time some important parameters.__
 
-Now available voting on three parameters: 
-
+Now available voting on three parameters:
 * Understanding, 
 * Knowledge, 
 * Interest.
