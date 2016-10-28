@@ -10,9 +10,6 @@ var demonstration = false;
 var flag = true;
 var sendTimeout, isActiveSend;
 
-
-
-
 function sendGet(url, callback){
   $.get(url)
   .done(function( data ) {

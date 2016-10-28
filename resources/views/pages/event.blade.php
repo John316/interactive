@@ -1,17 +1,12 @@
 @extends('eventFrame')
 
 @section('head')
-    <script src="/js/highcharts.js"></script>
-    <script src="/js/charts.js"></script>
-    <script src="/js/lang.js"></script>
-    <script src="/js/pusher.min.js"></script>
-    <script src="/js/script.js"></script>
-
+    <script type="text/babel" src="/js/bundle.js"></script>
     <script type="text/javascript">
-    var eventId = "{{$clientEvent['id']}}";
-    var eventStatus = "{{$clientEvent['status']}}";
-    var startUrl = '{{ action('EventsController@start', [$clientEvent['id']]) }}';
-    var stopUrl = '{{ action('EventsController@stop', [$clientEvent['id']]) }}';
+        var eventId = "{{$clientEvent['id']}}";
+        var eventStatus = "{{$clientEvent['status']}}";
+        var startUrl = '{{ action('EventsController@start', [$clientEvent['id']]) }}';
+        var stopUrl = '{{ action('EventsController@stop', [$clientEvent['id']]) }}';
     </script>
 @stop
 
@@ -25,6 +20,7 @@
 @stop
 
 @section('top-content')
+    <div id="root"></div>
     <div class="one-time-voit">
         <p class="bg-info info"><strong>Сейчас начинается доклад на тему: "{{ $clientEvent['name'] }}".</strong></p>
         <h4>Описание</h4>
@@ -97,6 +93,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-12">
             <div class="header-chart-1">
                 <span class="lang" text="THE_TITLE_OF_1">Level of understanding</span><span class="count-users"></span>
@@ -104,6 +102,8 @@
             <div class="circle blink"></div>
             <div id="chart-object-1" style="height:150px;"></div>
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-6">
             <div class="panel panel-info">
                 <div class="panel-heading">
@@ -128,34 +128,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><strong><span class="lang" text="S_QUESTION">Отправить вопрос</span></strong></h3>
-                </div>
-                <div class="panel-body">
-                    <p class="bg-primary info-sent">Your question was sent. Thank you!</p>
-                    <form class="form-inline" id="question_form">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="enter_question" placeholder="Напишите вопрос">
-                        </div>
-                        <button type="button" id="send_question" class="btn btn-default"><span class="lang" text="SEND">Отправить</span></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><span class="lang" text="LIST_OF_R_I">Список последних вопросов</span></h3>
-                </div>
-                <div class="panel-body">
-                    <div id="message-on-client" class="lang" text="NO_QUES">
-                        Пока вопросов нет.
-                    </div>
-                </div>
-            </div>
+            <div id="ask-module"></div>
         </div>
     </div>
 </div>

@@ -15,8 +15,31 @@ require('laravel-elixir-vue-2');
 
 elixir(mix => {
     mix.sass('app.scss')
-        .webpack('app.js')
         .styles([
             'app.css'
-        ], null, 'public/css');
+        ], 'public/css');
+});
+
+elixir(mix => {
+    mix.browserify([
+        'actions/ModulesActions.js',
+        'components/MainSection.react.js',
+        'components/Module.react.js',
+        'dispatcher/AppDispatcher.js',
+        'stores/ModulesStore.js',
+        'app.js'
+    ], 'public/js');
+});
+
+elixir(mix => {
+    mix.scripts([
+        '../old-js/browser.min.js',
+        '../old-js/pusher.min.js',
+        '../old-js/highcharts.js',
+        //'../old-js/chart-themes.js',
+        '../old-js/charts.js',
+        '../old-js/lang.js',
+        '../old-js/script.js'
+
+    ], 'public/js/old');
 });

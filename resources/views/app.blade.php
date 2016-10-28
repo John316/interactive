@@ -9,7 +9,7 @@
 
         <title>Interactive</title>
         <link rel="stylesheet" href="/css/app.css">
-        <script src="/js/app.js"></script>
+        <script src="/js/old/all.js"></script>
         @yield('head')
     </head>
     <body>
