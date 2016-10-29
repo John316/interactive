@@ -1,6 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 
+injectTapEventPlugin();
 
 var QUESTIONS = [
     {   id: 1,
@@ -35,10 +41,14 @@ var Question = React.createClass({
     render: function() {
         return (
             <div>
-                <div className="message-body">
-                    <div onClick={this.props.onDelete} className="mess-cancel">x</div>
-                    <div className="message-text">{this.props.text} Rate:<span className="rate">{this.props.rate}</span></div>
-                </div>
+                <MuiThemeProvider>
+                    <Card className="message-body" >
+                        <CardText>
+                            <NavigationClose className="mess-cancel" onClick={this.props.onDelete} />
+                            {this.props.text} Rate:<span className="rate">{this.props.rate}</span>
+                        </CardText>
+                    </Card>
+                </MuiThemeProvider>
             </div>
 
         );
@@ -83,7 +93,9 @@ var AskForm = React.createClass({
                                    className="form-control"
                                    placeholder="Enter question" />
                         </div>
-                        <button type="button" onClick={this.handleAddQuestion} className="btn btn-default">{this.props.buttonText}</button>
+                        <MuiThemeProvider>
+                            <RaisedButton label={this.props.buttonText} onClick={this.handleAddQuestion} />
+                        </MuiThemeProvider>
                     </form>
                 </div>
             </div>

@@ -5856,23 +5856,12 @@ h3.text-muted {
   float: right;
   width: 224px; }
 
-#message-on-client .mess-cancel {
-  height: 25px;
-  width: 25px;
-  border: solid 1px #555; }
-
 .main-window .message-body {
   color: #FFF; }
 
 .message-body {
-  color: #333;
-  font-family: Helvetica,Arial,sans-serif;
-  border: solid 2px #777;
-  border-radius: 8px;
-  padding: 10px 25px 10px 10px;
-  margin: 10px;
-  font-size: 16px;
-  position: relative; }
+  position: relative;
+  margin-bottom: 8px; }
 
 .main-content.admin .mess-cancel {
   display: block; }
@@ -5881,14 +5870,9 @@ h3.text-muted {
   display: none; }
 
 .mess-cancel {
-  border: solid 2px #777;
-  border-radius: 15px;
-  height: 20px;
-  width: 20px;
   position: absolute;
   right: 3px;
-  top: 7px;
-  text-align: center;
+  top: 20px;
   cursor: pointer; }
 
 .clear {
