@@ -130,6 +130,7 @@
         <div class="col-md-6">
             <div id="ask-module"></div>
         </div>
+        <div id="app"></div>
     </div>
 </div>
 

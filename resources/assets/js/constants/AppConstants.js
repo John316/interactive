@@ -1,5 +1,7 @@
-import keyMirror from 'keymirror';
-
-export default keyMirror({
-    
-});
+module.exports = {
+    ADD_ITEM: 'ADD_ITEM',
+    REMOVE_ITEM: 'REMOVE_ITEM',
+    CHANGE_EVENT: 'CHANGE_EVENT',
+    VIEW_ACTION: 'VIEW_ACTION',
+    DELETE_ITEM: 'DELETE_ITEM'
+}

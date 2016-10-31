@@ -12,27 +12,22 @@ require('laravel-elixir-vue-2');
  | file for our application, as well as publishing vendor resources.
  |
  */
-
-elixir(mix => {
-    mix.sass('app.scss')
-        .styles([
-            'app.css'
-        ], 'public/css');
-});
-
 elixir(mix => {
     mix.browserify([
-        'actions/ModulesActions.js',
-        'components/MainSection.react.js',
-        'components/Module.react.js',
+        'actions/AppActions.js',
+        'components/App.js',
+        'constants/AppConstants.js',
         'dispatcher/AppDispatcher.js',
-        'stores/ModulesStore.js',
-        'app.js'
-    ], 'public/js');
-});
-
-elixir(mix => {
-    mix.scripts([
+        'stores/AppStore.js',
+        'utils/appAPI.js',
+        'app.js',
+        'main.js'
+    ], 'public/js')
+    .sass('app.scss')
+    .styles([
+        'app.css'
+    ], 'public/css')
+    .scripts([
         '../old-js/browser.min.js',
         '../old-js/pusher.min.js',
         '../old-js/highcharts.js',
@@ -40,6 +35,5 @@ elixir(mix => {
         '../old-js/charts.js',
         '../old-js/lang.js',
         '../old-js/script.js'
-
     ], 'public/js/old');
 });
