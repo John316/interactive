@@ -56,9 +56,7 @@ AppDispatcher.register(function(payload){
 
 	switch(action.actionType){
 		case AppConstants.ADD_ITEM: {
-
 			_items.unshift(action.item);
-
 			AppStore.emitChange();
 			break;
 		}
@@ -68,7 +66,6 @@ AppDispatcher.register(function(payload){
 			_items = _items.filter(function (question) {
 				return question.id !== questionId;
 			});
-
 			AppStore.emitChange();
 			break;
 		}
@@ -77,4 +74,4 @@ AppDispatcher.register(function(payload){
 	return true;
 });
 
-module.exports = AppStore;
+export default AppStore;

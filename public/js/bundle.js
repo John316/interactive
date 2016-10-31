@@ -34010,7 +34010,7 @@ var AppActions = {
 
 module.exports = AppActions;
 
-},{"../constants/AppConstants":390,"../dispatcher/AppDispatcher":391}],388:[function(require,module,exports){
+},{"../constants/AppConstants":393,"../dispatcher/AppDispatcher":394}],388:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -34269,27 +34269,23 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _RaisedButton = require('material-ui/RaisedButton');
-
-var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
-
-var _MuiThemeProvider = require('material-ui/styles/MuiThemeProvider');
-
-var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
-
-var _close = require('material-ui/svg-icons/navigation/close');
-
-var _close2 = _interopRequireDefault(_close);
-
-var _Card = require('material-ui/Card');
-
 var _AppActions = require('../actions/AppActions');
 
 var _AppActions2 = _interopRequireDefault(_AppActions);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _AppStore = require('../stores/AppStore');
 
-var AppStore = require('../stores/AppStore');
+var _AppStore2 = _interopRequireDefault(_AppStore);
+
+var _QuestionList = require('./QuestionList.js');
+
+var _QuestionList2 = _interopRequireDefault(_QuestionList);
+
+var _AskForm = require('./AskForm.js');
+
+var _AskForm2 = _interopRequireDefault(_AskForm);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function getAppState() {
 	return {
@@ -34297,19 +34293,16 @@ function getAppState() {
 		titleText: 'You can ask question',
 		thankYouText: 'Thank You for your message!',
 		buttonText: 'Send',
-		data: AppStore.getTasks()
+		data: _AppStore2.default.getTasks()
 	};
 }
 
 var App = _react2.default.createClass({
 	displayName: 'App',
 
+
 	getInitialState: function getInitialState() {
 		return getAppState();
-	},
-
-	handleClick: function handleClick() {
-		_AppActions2.default.addItem('this is the item');
 	},
 
 	handleQuestionAdd: function handleQuestionAdd(newQuestion) {
@@ -34321,24 +34314,24 @@ var App = _react2.default.createClass({
 	},
 
 	componentDidMount: function componentDidMount() {
-		AppStore.addChangeListener(this._onChange);
+		_AppStore2.default.addChangeListener(this._onChange);
 	},
 
 	componentUnmount: function componentUnmount() {
-		AppStore.removeChangeListener(this._onChange);
+		_AppStore2.default.removeChangeListener(this._onChange);
 	},
 
 	render: function render() {
 		return _react2.default.createElement(
 			'div',
 			null,
-			_react2.default.createElement(AskForm, {
+			_react2.default.createElement(_AskForm2.default, {
 				onQuestionAdd: this.handleQuestionAdd,
 				titleText: this.state.titleText,
 				thankYouText: this.state.thankYouText,
 				buttonText: this.state.buttonText
 			}),
-			_react2.default.createElement(QuestionList, {
+			_react2.default.createElement(_QuestionList2.default, {
 				data: this.state.data,
 				onQuestionDelete: this.handleQuestionDelete,
 				moduleTitle: this.state.moduleTitle
@@ -34352,145 +34345,212 @@ var App = _react2.default.createClass({
 	}
 });
 
-var Question = _react2.default.createClass({
-	displayName: 'Question',
-
-	render: function render() {
-		return _react2.default.createElement(
-			'div',
-			null,
-			_react2.default.createElement(
-				_MuiThemeProvider2.default,
-				null,
-				_react2.default.createElement(
-					_Card.Card,
-					{ className: 'message-body' },
-					_react2.default.createElement(
-						_Card.CardText,
-						null,
-						_react2.default.createElement(_close2.default, { className: 'mess-cancel', onClick: this.props.onDelete }),
-						this.props.text,
-						' Rate:',
-						_react2.default.createElement(
-							'span',
-							{ className: 'rate' },
-							this.props.rate
-						)
-					)
-				)
-			)
-		);
-	}
-});
-
-var QuestionList = _react2.default.createClass({
-	displayName: 'QuestionList',
-
-
-	render: function render() {
-
-		var onQuestionDelete = this.props.onQuestionDelete;
-
-		return _react2.default.createElement(
-			'div',
-			{ className: 'panel panel-default' },
-			_react2.default.createElement(
-				'div',
-				{ className: 'panel-heading' },
-				_react2.default.createElement(
-					'h3',
-					{ className: 'panel-title' },
-					this.props.moduleTitle
-				)
-			),
-			_react2.default.createElement(
-				'div',
-				{ className: 'panel-body' },
-				this.props.data.map(function (question) {
-					return _react2.default.createElement(Question, {
-						key: question.id,
-						rate: question.rate,
-						text: question.text,
-						userId: question.userId,
-						onDelete: onQuestionDelete.bind(null, question)
-					});
-				})
-			)
-		);
-	}
-});
-
-var AskForm = _react2.default.createClass({
-	displayName: 'AskForm',
-
-
-	getInitialState: function getInitialState() {
-		return {
-			text: ""
-		};
-	},
-
-	handleTextChange: function handleTextChange(event) {
-		this.setState({ text: event.target.value });
-	},
-
-	handleAddQuestion: function handleAddQuestion() {
-		var newQuestion = {
-			id: Date.now(),
-			text: this.state.text
-		};
-
-		this.props.onQuestionAdd(newQuestion);
-		this.setState({ text: '' });
-	},
-
-	render: function render() {
-		return _react2.default.createElement(
-			'div',
-			{ className: 'panel panel-success' },
-			_react2.default.createElement(
-				'div',
-				{ className: 'panel-heading' },
-				_react2.default.createElement(
-					'h3',
-					{ className: 'panel-title' },
-					this.props.titleText
-				)
-			),
-			_react2.default.createElement(
-				'div',
-				{ className: 'panel-body' },
-				_react2.default.createElement(
-					'p',
-					{ className: 'bg-primary info-sent' },
-					this.props.thankYouText
-				),
-				_react2.default.createElement(
-					'form',
-					{ className: 'form-inline', id: 'question_form' },
-					_react2.default.createElement(
-						'div',
-						{ className: 'form-group' },
-						_react2.default.createElement('input', { type: 'text',
-							value: this.state.text,
-							onChange: this.handleTextChange,
-							className: 'form-control',
-							placeholder: 'Enter question' })
-					),
-					_react2.default.createElement(
-						_MuiThemeProvider2.default,
-						null,
-						_react2.default.createElement(_RaisedButton2.default, { label: this.props.buttonText, onClick: this.handleAddQuestion })
-					)
-				)
-			)
-		);
-	}
-});
-
 module.exports = App;
 
-},{"../actions/AppActions":387,"../stores/AppStore":393,"material-ui/Card":15,"material-ui/RaisedButton":23,"material-ui/styles/MuiThemeProvider":187,"material-ui/svg-icons/navigation/close":197,"react":386}],390:[function(require,module,exports){
+},{"../actions/AppActions":387,"../stores/AppStore":396,"./AskForm.js":390,"./QuestionList.js":392,"react":386}],390:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _MuiThemeProvider = require('material-ui/styles/MuiThemeProvider');
+
+var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
+
+var _RaisedButton = require('material-ui/RaisedButton');
+
+var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var AskForm = _react2.default.createClass({
+    displayName: 'AskForm',
+
+
+    getInitialState: function getInitialState() {
+        return {
+            text: ""
+        };
+    },
+
+    handleTextChange: function handleTextChange(event) {
+        this.setState({ text: event.target.value });
+    },
+
+    handleAddQuestion: function handleAddQuestion() {
+        var newQuestion = {
+            id: Date.now(),
+            text: this.state.text
+        };
+
+        this.props.onQuestionAdd(newQuestion);
+        this.setState({ text: '' });
+    },
+
+    render: function render() {
+        return _react2.default.createElement(
+            'div',
+            { className: 'panel panel-success' },
+            _react2.default.createElement(
+                'div',
+                { className: 'panel-heading' },
+                _react2.default.createElement(
+                    'h3',
+                    { className: 'panel-title' },
+                    this.props.titleText
+                )
+            ),
+            _react2.default.createElement(
+                'div',
+                { className: 'panel-body' },
+                _react2.default.createElement(
+                    'p',
+                    { className: 'bg-primary info-sent' },
+                    this.props.thankYouText
+                ),
+                _react2.default.createElement(
+                    'form',
+                    { className: 'form-inline', id: 'question_form' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement('input', { type: 'text',
+                            value: this.state.text,
+                            onChange: this.handleTextChange,
+                            className: 'form-control',
+                            placeholder: 'Enter question' })
+                    ),
+                    _react2.default.createElement(
+                        _MuiThemeProvider2.default,
+                        null,
+                        _react2.default.createElement(_RaisedButton2.default, { label: this.props.buttonText, onClick: this.handleAddQuestion })
+                    )
+                )
+            )
+        );
+    }
+});
+
+exports.default = AskForm;
+
+},{"material-ui/RaisedButton":23,"material-ui/styles/MuiThemeProvider":187,"react":386}],391:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _MuiThemeProvider = require('material-ui/styles/MuiThemeProvider');
+
+var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
+
+var _close = require('material-ui/svg-icons/navigation/close');
+
+var _close2 = _interopRequireDefault(_close);
+
+var _Card = require('material-ui/Card');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Question = _react2.default.createClass({
+    displayName: 'Question',
+
+    render: function render() {
+        return _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+                _MuiThemeProvider2.default,
+                null,
+                _react2.default.createElement(
+                    _Card.Card,
+                    { className: 'message-body' },
+                    _react2.default.createElement(
+                        _Card.CardText,
+                        null,
+                        _react2.default.createElement(_close2.default, { className: 'mess-cancel', onClick: this.props.onDelete }),
+                        this.props.text,
+                        ' Rate:',
+                        _react2.default.createElement(
+                            'span',
+                            { className: 'rate' },
+                            this.props.rate
+                        )
+                    )
+                )
+            )
+        );
+    }
+});
+
+exports.default = Question;
+
+},{"material-ui/Card":15,"material-ui/styles/MuiThemeProvider":187,"material-ui/svg-icons/navigation/close":197,"react":386}],392:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Question = require('./Question.js');
+
+var _Question2 = _interopRequireDefault(_Question);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var QuestionList = _react2.default.createClass({
+    displayName: 'QuestionList',
+
+
+    render: function render() {
+
+        var onQuestionDelete = this.props.onQuestionDelete;
+
+        return _react2.default.createElement(
+            'div',
+            { className: 'panel panel-default' },
+            _react2.default.createElement(
+                'div',
+                { className: 'panel-heading' },
+                _react2.default.createElement(
+                    'h3',
+                    { className: 'panel-title' },
+                    this.props.moduleTitle
+                )
+            ),
+            _react2.default.createElement(
+                'div',
+                { className: 'panel-body' },
+                this.props.data.map(function (question) {
+                    return _react2.default.createElement(_Question2.default, {
+                        key: question.id,
+                        rate: question.rate,
+                        text: question.text,
+                        userId: question.userId,
+                        onDelete: onQuestionDelete.bind(null, question)
+                    });
+                })
+            )
+        );
+    }
+});
+
+exports.default = QuestionList;
+
+},{"./Question.js":391,"react":386}],393:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -34501,7 +34561,7 @@ module.exports = {
     DELETE_ITEM: 'DELETE_ITEM'
 };
 
-},{}],391:[function(require,module,exports){
+},{}],394:[function(require,module,exports){
 'use strict';
 
 var Dispatcher = require('flux').Dispatcher;
@@ -34520,7 +34580,7 @@ var AppDispatcher = assign(new Dispatcher(), {
 
 module.exports = AppDispatcher;
 
-},{"../constants/AppConstants":390,"flux":1,"object-assign":207}],392:[function(require,module,exports){
+},{"../constants/AppConstants":393,"flux":1,"object-assign":207}],395:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -34534,12 +34594,15 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = require('./components/App');
-var AppAPI = require('./utils/appAPI.js');
 
 _reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('app'));
 
-},{"./components/App":389,"./utils/appAPI.js":395,"react":386,"react-dom":208}],393:[function(require,module,exports){
+},{"./components/App":389,"react":386,"react-dom":208}],396:[function(require,module,exports){
 'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 
 var _AppConstants = require('../constants/AppConstants');
 
@@ -34612,9 +34675,7 @@ _AppDispatcher2.default.register(function (payload) {
 	switch (action.actionType) {
 		case _AppConstants2.default.ADD_ITEM:
 			{
-
 				_items.unshift(action.item);
-
 				AppStore.emitChange();
 				break;
 			}
@@ -34625,7 +34686,6 @@ _AppDispatcher2.default.register(function (payload) {
 				_items = _items.filter(function (question) {
 					return question.id !== questionId;
 				});
-
 				AppStore.emitChange();
 				break;
 			}
@@ -34634,22 +34694,22 @@ _AppDispatcher2.default.register(function (payload) {
 	return true;
 });
 
-module.exports = AppStore;
+exports.default = AppStore;
 
-},{"../constants/AppConstants":390,"../dispatcher/AppDispatcher":391,"../utils/AppAPI.js":394,"events":4,"object-assign":207}],394:[function(require,module,exports){
+},{"../constants/AppConstants":393,"../dispatcher/AppDispatcher":394,"../utils/AppAPI.js":397,"events":4,"object-assign":207}],397:[function(require,module,exports){
 'use strict';
 
 var AppActions = require('../actions/AppActions');
 
 module.exports = {};
 
-},{"../actions/AppActions":387}],395:[function(require,module,exports){
+},{"../actions/AppActions":387}],398:[function(require,module,exports){
 'use strict';
 
 var AppActions = require('../actions/AppActions');
 
 module.exports = {};
 
-},{"../actions/AppActions":387}]},{},[387,389,390,391,393,395,388,392]);
+},{"../actions/AppActions":387}]},{},[387,389,393,394,396,398,388,395]);
 
 //# sourceMappingURL=bundle.js.map
