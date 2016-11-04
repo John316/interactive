@@ -80,15 +80,21 @@
     <p class="bg-info info">Description: {{ $clientEvent['desc'] }}</p>
     <div class="row">
         <div class="col-md-6">
-            <div class="chart-2">
-                <div class="body-of-chart-2">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Understanding the audience</h3>
+                </div>
+                <div class="panel-body">
                     <div id="chart-object-2" style="height:300px;"></div>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="chart-3">
-                <div class="body-of-chart-3">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Interest</h3>
+                </div>
+                <div class="panel-body">
                     <div id="chart-object-3" style="height:300px;"></div>
                 </div>
             </div>
@@ -96,41 +102,30 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div class="header-chart-1">
-                <span class="lang" text="THE_TITLE_OF_1">Level of understanding</span><span class="count-users"></span>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Understandig</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="circle blink"></div>
+                    <div id="chart-object-1" style="height:150px;"></div>
+                </div>
             </div>
-            <div class="circle blink"></div>
-            <div id="chart-object-1" style="height:150px;"></div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><strong><span class="lang" text="THE_TEXT_OF_1">Level of understanding</span></strong></h3>
-                </div>
-                <div class="panel-body">
-                    <div class="sw-block">
-                        <div class="sw-left">
-                            <span class="lang" text="NO">НЕТ</span>
-                        </div>
-                        <div class="onoffswitch">
-                            {!! Form::model($clientEvent, ['method' => 'POST']) !!}
-                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
-                                <label class="onoffswitch-label" for="myonoffswitch"></label>
-                            {!! Form::close() !!}
-                        </div>
-                        <div class="sw-right">
-                            <span class="lang" text="YES">ДА</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {{ csrf_field() }}
+            <div id="switcher"></div>
         </div>
         <div class="col-md-6">
-            <div id="ask-module"></div>
+            <div id="question-form"></div>
         </div>
-        <div id="app"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="questions-list"></div>
+        </div>
     </div>
 </div>
 

@@ -34,6 +34,11 @@ class ClientEvent extends Model
         $query->where('active_from', '>', Carbon::today());
     }
 
+    public function scopeAll($query)
+    {
+        $query->limit(3);
+    }
+
     public function user(){
         return $this->belongsToMany('users');
     }

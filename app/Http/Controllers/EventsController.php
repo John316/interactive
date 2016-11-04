@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\ClientEvent;
+use App\Question;
 //use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\EventRequest;
@@ -138,10 +140,24 @@ class EventsController extends Controller
         $result['id'] = $id;
         $result['text'] = $request['text'];
 
+        $user = Auth::user();
+        if($user){
+            $request['user_id'] = $user->id;
+        }else{
+            $request['user_id'] = 1;
+        }
+
+        Question::create($request->all());
+
         $pusher = $this->getPusher();
         $pusher->trigger('event_channel', 'question_event', $request['text']);
 
         return $result;
+    }
+
+    public function getAllQuestions($id, Request $request)
+    {
+        return Question::getByEventId($id);
     }
 
     public function mainStat($id)

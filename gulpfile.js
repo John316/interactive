@@ -14,13 +14,6 @@ require('laravel-elixir-vue-2');
  */
 elixir(mix => {
     mix.browserify([
-        'actions/AppActions.js',
-        'components/App.js',
-        'constants/AppConstants.js',
-        'dispatcher/AppDispatcher.js',
-        'stores/AppStore.js',
-        'utils/appAPI.js',
-        'app.js',
         'main.js'
     ], 'public/js')
     .sass('app.scss')

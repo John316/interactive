@@ -22,3 +22,27 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+
+$factory->define(App\ClientEvent::class, function (Faker\Generator $faker) {
+
+    return [
+        'name' => $faker->name,
+        'desc' => $faker->name,
+        'active_from' => date("Y-m-d"),
+        'active_to' => date("Y-m-d"),
+        'status' => 1,
+    ];
+});
+
+
+$factory->define(App\Question::class, function (Faker\Generator $faker) {
+
+    return [
+        'text' => $faker->name,
+        'client_event_id' => 13,
+        'rate' => 1,
+        'user_id' => 1,
+        'status' =>1
+    ];
+});

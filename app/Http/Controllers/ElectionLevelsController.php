@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\ElectionLevel;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Helpers;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
 use Pusher;
 
@@ -30,10 +32,18 @@ class ElectionLevelsController extends Controller
 
     /**
      * @param Request $request
+     * @param Request $id
      * @return string
      */
     public function add(Request $request)
     {
+        $user = Auth::user();
+        if($user){
+            $request['user_id'] = $user->id;
+        }else{
+            $request['user_id'] = 1;
+        }
+        
         ElectionLevel::create($request->all());
 
         $pusher = $this->initPusher();

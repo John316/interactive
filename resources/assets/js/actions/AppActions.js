@@ -14,6 +14,20 @@ var AppActions = {
             actionType: AppConstants.DELETE_ITEM,
             item: item
         })
+    },
+
+    switchOnOff: function(state){
+        AppDispatcher.handleSwitcherAction({
+            actionType: AppConstants.SWITCH_ON_OFF,
+            stateBtn: state
+        })
+    },
+
+    switchOnOffDone: function(result){
+        AppDispatcher.handleSwitcherAction({
+            actionType: AppConstants.SWITCH_ON_OFF,
+            stateBtn: result
+        })
     }
 };
 

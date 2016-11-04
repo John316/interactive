@@ -1,49 +1,40 @@
 import AppConstants from '../constants/AppConstants';
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import assign from 'object-assign';
+import AppActions from '../actions/AppActions';
 import AppAPI from '../utils/AppAPI.js';
 var EventEmitter = require('events').EventEmitter;
 
-var _items = [
-	{   id: 1,
-		userId: 1,
-		rate: 4,
-		text: "Text of the question1"
-	}, {
-		id: 2,
-		userId: 2,
-		rate: 4,
-		text: "Text of the question2"
-	},{
-		id: 3,
-		userId: 2,
-		rate: 2,
-		text: "Text of the question3"
-	},{
-		id: 4,
-		userId: 1,
-		rate: 5,
-		text: "Text of the question4"
-	},{
-		id: 5,
-		userId: 1,
-		rate: 2,
-		text: "Text of the question5"
-	}
-];
+var _items = [];
 
-var AppStore = assign({}, EventEmitter.prototype, {
+var QuestionStore = assign({}, EventEmitter.prototype, {
 
-	getTasks() {
+	getQuestions() {
+		if(_items.length === 0){
+			this.firstLoadQuestions();
+		}
 		return _items;
 	},
 
+	setQuestions(data){
+		_items = data;
+	},
+
+	firstLoadQuestions: function () {
+		var callback = QuestionStore.emitChange;
+		AppAPI.getQuestionForEvent(callback);
+	},
+
 	emitChange: function () {
+		console.log('emitChange');
+		console.log(_items);
 		this.emit(AppConstants.CHANGE_EVENT);
 	},
+
 	addChangeListener: function (callback) {
 		this.on(AppConstants.CHANGE_EVENT, callback);
 	},
+
 	removeChangeListener: function (callback) {
 		this.removeListener(AppConstants.CHANGE_EVENT, callback);
 	}
@@ -56,8 +47,12 @@ AppDispatcher.register(function(payload){
 
 	switch(action.actionType){
 		case AppConstants.ADD_ITEM: {
+			
 			_items.unshift(action.item);
-			AppStore.emitChange();
+			QuestionStore.emitChange();
+
+			AppAPI.sendAddQuestion(action.item.text);
+			
 			break;
 		}
 
@@ -66,7 +61,7 @@ AppDispatcher.register(function(payload){
 			_items = _items.filter(function (question) {
 				return question.id !== questionId;
 			});
-			AppStore.emitChange();
+			QuestionStore.emitChange();
 			break;
 		}
 	}
@@ -74,4 +69,4 @@ AppDispatcher.register(function(payload){
 	return true;
 });
 
-export default AppStore;
+export default QuestionStore;

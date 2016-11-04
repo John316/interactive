@@ -133,7 +133,7 @@ $( document ).ready(function() {
     $("#send_question").click(function () {
         var text = $("#enter_question").val();
         var _token = $('[name="_token"]').val();
-        var sendData = {_token: _token, text: text, userId:1};
+        var sendData = {_token: _token, text: text};
         var urlAddQuestion = eventId +"/question/add";
 
         sendPost(urlAddQuestion, sendData, function() {
@@ -208,7 +208,7 @@ function tryToSend(electionId, level) {
       //var level = !type ? underVal : 0;
       var url = eventId +"/level/add";
       var _token = $('[name="_token"]').val();
-      var data = {_token: _token, level: level, user_id: 1, election_id: electionId};
+      var data = {_token: _token, level: level, election_id: electionId};
       sendPost(url, data, function () { isActiveSend = false; });
     }, 2000);
   }

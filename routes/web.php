@@ -27,7 +27,7 @@ Route::get('event/{id}/status', 'EventsController@status');
 
 Route::post('event/{id}/question/add', 'EventsController@addQuestion');
 
-Route::get('event/{id}/question', 'EventsController@question');
+Route::get('event/{id}/questions', 'EventsController@getAllQuestions');
 
 Route::get('event/{id}/start', 'EventsController@start');
 
@@ -36,3 +36,7 @@ Route::get('event/{id}/stop', 'EventsController@stop');
 Route::get('event/{id}/mainStat', 'EventsController@mainStat');
 
 Route::resource('event', 'EventsController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');

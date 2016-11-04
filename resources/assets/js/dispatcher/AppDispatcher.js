@@ -5,7 +5,15 @@ var AppConstants = require('../constants/AppConstants');
 var AppDispatcher = assign(new Dispatcher(),{
 	handleViewAction: function(action){
 		var payload = {
-			source: AppConstants.VIEW_ACTION,
+			source: AppConstants.QUESTION_ACTION,
+			action: action
+		};
+		this.dispatch(payload);
+	},
+
+	handleSwitcherAction: function(action){
+		var payload = {
+			source: AppConstants.SWITCHER_ACTION,
 			action: action
 		};
 		this.dispatch(payload);

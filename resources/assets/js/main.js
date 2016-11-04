@@ -1,8 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-var App = require('./components/App');
+import OnOffApp from './components/OnOffApp';
+import QuestionList from './components/QuestionsList';
+import QuestionForm from './components/QuestionForm';
 
 ReactDOM.render(
-	<App />,
-	document.getElementById('app')
+	<QuestionForm />,
+	document.getElementById('question-form')
 );
+
+ReactDOM.render(
+	<OnOffApp />,
+	document.getElementById('switcher')
+);
+
+ReactDOM.render(
+	<QuestionList />,
+	document.getElementById('questions-list')
+);
+
