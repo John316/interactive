@@ -10,7 +10,7 @@ class ModelsTest extends TestCase
 {
 	use DatabaseTransactions;
 
-	
+
 	public function test_it_create_client_event_class()
     {
         $event = new ElectionLevel();
@@ -20,20 +20,22 @@ class ModelsTest extends TestCase
 
     public function test_it_create_client_events_in_db()
     {
-        $event = factory(ClientEvent::class, 3)->create();
+				$prevCount = count(ClientEvent::current()->get());
 
-        $events = ClientEvent::current()->get();
+				factory(ClientEvent::class, 3)->create();
 
-        $this->assertCount(3, $events);
+				$newCount = count(ClientEvent::current()->get());
+
+        $this->assertEquals($newCount, $prevCount + 3);
     }
-	
+
     public function test_it_check_last_added_client_event()
     {
         $event = factory(ClientEvent::class)->create();
 
-        $events = ClientEvent::current()->get();
-
-        $this->assertEquals($event->id, $events->first()->id);
+        $lastEvent = ClientEvent::lastAdded()->get();
+				
+        $this->assertEquals($event->id, $lastEvent->first()->id);
     }
 
     public function test_it_create_question_record()
@@ -44,4 +46,4 @@ class ModelsTest extends TestCase
 
         $this->assertEquals($event->id, $events->last()->id);
     }
-} 
+}
