@@ -45354,7 +45354,7 @@ var AppActions = {
 
 module.exports = AppActions;
 
-},{"../constants/AppConstants":402,"../dispatcher/AppDispatcher":403}],397:[function(require,module,exports){
+},{"../constants/AppConstants":403,"../dispatcher/AppDispatcher":404}],397:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45434,7 +45434,7 @@ var OnOffApp = _react2.default.createClass({
 
 exports.default = OnOffApp;
 
-},{"../actions/AppActions":396,"../stores/OnOffStore":405,"./OnOffModule":398,"react":395}],398:[function(require,module,exports){
+},{"../actions/AppActions":396,"../stores/OnOffStore":406,"./OnOffModule":398,"react":395}],398:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45743,7 +45743,105 @@ var QuestionsList = _react2.default.createClass({
 
 exports.default = QuestionsList;
 
-},{"../actions/AppActions":396,"../stores/QuestionStore":406,"./Question.js":399,"react":395}],402:[function(require,module,exports){
+},{"../actions/AppActions":396,"../stores/QuestionStore":407,"./Question.js":399,"react":395}],402:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _AppActions = require('../actions/AppActions');
+
+var _AppActions2 = _interopRequireDefault(_AppActions);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function getAppState() {
+	return {
+		id: 'User',
+		titleText: 'You can vote here',
+		thankYouText: 'Thank You for your vote!',
+		voteOptions: [{ value: 0, text: 'Bad' }, { value: 1, text: 'Normal' }, { value: 2, text: 'Good' }],
+		infoSentStyle: { display: 'none' }
+	};
+}
+
+var QuickVoteForm = _react2.default.createClass({
+	displayName: 'QuickVoteForm',
+
+
+	getInitialState: function getInitialState() {
+		return getAppState();
+	},
+
+	handleSelectChange: function handleSelectChange(event) {
+
+		this.setState({ infoSentStyle: { display: 'block' } });
+		setTimeout(function () {
+			this.setState({ infoSentStyle: { display: 'none' } });
+		}.bind(this), 3000);
+
+		var vote = {
+			id: this.state.id,
+			date: Date.now(),
+			value: event.target.value
+		};
+		console.log(vote);
+		// AppActions.addItem(vote);
+	},
+
+	render: function render() {
+		return _react2.default.createElement(
+			'div',
+			{ className: 'panel panel-success' },
+			_react2.default.createElement(
+				'div',
+				{ className: 'panel-heading' },
+				_react2.default.createElement(
+					'h3',
+					{ className: 'panel-title' },
+					this.state.titleText
+				)
+			),
+			_react2.default.createElement(
+				'div',
+				{ className: 'panel-body' },
+				_react2.default.createElement(
+					'p',
+					{ className: 'bg-primary info-sent', style: this.state.infoSentStyle },
+					this.state.thankYouText
+				),
+				_react2.default.createElement(
+					'form',
+					{ className: 'form-inline', id: 'question_form' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'form-group' },
+						_react2.default.createElement(
+							'select',
+							{ name: 'select', onChange: this.handleSelectChange },
+							this.state.voteOptions.map(function (opt, indx) {
+								return _react2.default.createElement(
+									'option',
+									{ value: opt.value, key: indx },
+									opt.text
+								);
+							})
+						)
+					)
+				)
+			)
+		);
+	}
+});
+
+exports.default = QuickVoteForm;
+
+},{"../actions/AppActions":396,"react":395}],403:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -45757,7 +45855,7 @@ module.exports = {
     SWITCH_ON_OFF: 'SWITCH_ON_OFF'
 };
 
-},{}],403:[function(require,module,exports){
+},{}],404:[function(require,module,exports){
 'use strict';
 
 var Dispatcher = require('flux').Dispatcher;
@@ -45784,7 +45882,7 @@ var AppDispatcher = assign(new Dispatcher(), {
 
 module.exports = AppDispatcher;
 
-},{"../constants/AppConstants":402,"flux":1,"object-assign":215}],404:[function(require,module,exports){
+},{"../constants/AppConstants":403,"flux":1,"object-assign":215}],405:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -45807,6 +45905,10 @@ var _QuestionForm = require('./components/QuestionForm');
 
 var _QuestionForm2 = _interopRequireDefault(_QuestionForm);
 
+var _QuickVoteForm = require('./components/QuickVoteForm');
+
+var _QuickVoteForm2 = _interopRequireDefault(_QuickVoteForm);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _reactDom2.default.render(_react2.default.createElement(_QuestionForm2.default, null), document.getElementById('question-form'));
@@ -45815,7 +45917,9 @@ _reactDom2.default.render(_react2.default.createElement(_OnOffApp2.default, null
 
 _reactDom2.default.render(_react2.default.createElement(_QuestionsList2.default, null), document.getElementById('questions-list'));
 
-},{"./components/OnOffApp":397,"./components/QuestionForm":400,"./components/QuestionsList":401,"react":395,"react-dom":216}],405:[function(require,module,exports){
+_reactDom2.default.render(_react2.default.createElement(_QuickVoteForm2.default, null), document.getElementById('quick-vote-form'));
+
+},{"./components/OnOffApp":397,"./components/QuestionForm":400,"./components/QuestionsList":401,"./components/QuickVoteForm":402,"react":395,"react-dom":216}],406:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45877,7 +45981,7 @@ _AppDispatcher2.default.register(function (payload) {
 
 exports.default = OnOffStore;
 
-},{"../constants/AppConstants":402,"../dispatcher/AppDispatcher":403,"../utils/AppAPI.js":407,"events":5,"object-assign":215}],406:[function(require,module,exports){
+},{"../constants/AppConstants":403,"../dispatcher/AppDispatcher":404,"../utils/AppAPI.js":408,"events":5,"object-assign":215}],407:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45975,7 +46079,7 @@ _AppDispatcher2.default.register(function (payload) {
 
 exports.default = QuestionStore;
 
-},{"../actions/AppActions":396,"../constants/AppConstants":402,"../dispatcher/AppDispatcher":403,"../utils/AppAPI.js":407,"events":5,"object-assign":215}],407:[function(require,module,exports){
+},{"../actions/AppActions":396,"../constants/AppConstants":403,"../dispatcher/AppDispatcher":404,"../utils/AppAPI.js":408,"events":5,"object-assign":215}],408:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46045,6 +46149,6 @@ exports.default = {
     }
 };
 
-},{"../stores/OnOffStore":405,"jquery":4}]},{},[404]);
+},{"../stores/OnOffStore":406,"jquery":4}]},{},[405]);
 
 //# sourceMappingURL=bundle.js.map

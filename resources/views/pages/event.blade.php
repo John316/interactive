@@ -127,6 +127,11 @@
             <div id="questions-list"></div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="quick-vote-form"></div>
+        </div>
+    </div>
 </div>
 
 @stop

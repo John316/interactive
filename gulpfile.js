@@ -21,12 +21,12 @@ elixir(mix => {
         'app.css'
     ], 'public/css')
     .scripts([
-        '../old-js/browser.min.js',
-        '../old-js/pusher.min.js',
-        '../old-js/highcharts.js',
-        //'../old-js/chart-themes.js',
-        '../old-js/charts.js',
-        '../old-js/lang.js',
-        '../old-js/script.js'
+        // '../old-js/browser.min.js',
+        // '../old-js/pusher.min.js',
+        // '../old-js/highcharts.js',
+        // //'../old-js/chart-themes.js',
+        // '../old-js/charts.js',
+        // '../old-js/lang.js',
+        // '../old-js/script.js'
     ], 'public/js/old');
 });
