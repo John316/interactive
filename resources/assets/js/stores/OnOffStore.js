@@ -15,6 +15,7 @@ var OnOffStore = assign({}, EventEmitter.prototype, {
 	emitChange: function () {
 		this.emit(AppConstants.CHANGE_ON_OFF);
 	},
+
 	addChangeListener: function (callback) {
 		this.on(AppConstants.CHANGE_ON_OFF, callback);
 	},

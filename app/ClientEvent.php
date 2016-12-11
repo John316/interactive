@@ -24,6 +24,11 @@ class ClientEvent extends Model
         $this->attributes['active_from'] = Carbon::parse($date);
     }
 
+    public function scopeLastAdded($query)
+    {
+        $query->orderBy('created_at', 'desc')->first();
+    }
+
     public function scopeCurrent($query)
     {
         $query->where('active_from', '=', Carbon::today());

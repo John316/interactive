@@ -12,25 +12,25 @@ var sendTimeout, isActiveSend;
 
 function sendGet(url, callback){
   $.get(url)
-  .done(function( data ) {
-    if(callback){
+  .done(function (data) {
+    if (callback) {
       callback(data);
     }
   })
-  .fail(function() {
-    cl( "error" );
+  .fail(function () {
+    cl('error');
   });
 }
 
 function sendPost(url, data, callback){
   $.post(url, data)
-    .done(function( data ) {
-      if(callback){
+    .done(function (data) {
+      if (callback) {
         callback(data);
       }
     })
-    .fail(function() {
-      cl( "error" );
+    .fail(function () {
+      cl('error');
     });
 }
 function cl(m) {
