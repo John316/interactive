@@ -3,10 +3,10 @@
     $id = $_GET['id'];
     session_start();
     header("Content-type: text/html;charset=utf-8");
-    require 'modules/user_module.php';
-    require 'modules/event_module.php';
-    require 'controllers/event_controller.php';
-    require 'controllers/user_controller.php';
+    require '../modules/user_module.php';
+    require '../modules/event_module.php';
+    require '../controllers/event_controller.php';
+    require '../controllers/user_controller.php';
 
     if($_POST['login'] && $_POST['pass']){
       $userService = new User();
@@ -32,17 +32,17 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="../favicon.ico">
 
     <title>Admin page</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="../css/ie10-viewport-bug-workaround.css" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="css/admin.css" rel="stylesheet">
+    <link href="../css/admin.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -52,10 +52,10 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="scripts/jquery-3.1.0.min.js"></script>
-    <script>window.jQuery || document.write('<script src="scripts/jquery-3.1.0.min.js"><\/script>')</script>
+    <script src="../scripts/jquery-3.1.0.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../scripts/jquery-3.1.0.min.js"><\/script>')</script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="scripts/ie10-viewport-bug-workaround.js"></script>
+    <script src="../scripts/ie10-viewport-bug-workaround.js"></script>
   </head>
 
   <body>
@@ -78,7 +78,7 @@
                     <li><a href="#">Dashboard</a></li>
                     <li><a href="#">Settings</a></li>
                     <li><a href="#">Profile</a></li>
-                    <li><a href="admin.php?url=exit">Exit</a></li>
+                    <li><a href="index.php?url=exit">Exit</a></li>
                   </ul>
                   <form class="navbar-form navbar-right">
                     <input type="text" class="form-control" placeholder="Search...">
@@ -92,15 +92,15 @@
                 <div class="col-sm-3 col-md-2 sidebar">
                   <ul class="nav nav-sidebar">
                     <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-                    <li><a href="admin.php?url=event">Events</a></li>
-                    <li><a href="#">Votings</a></li>
+                    <li><a href="index.php?url=event">Events</a></li>
+                    <li><a href="#">Widgets</a></li>
                     <li><a href="#">Slides</a></li>
                   </ul>
                   <ul class="nav nav-sidebar">
-                    <li><a href="admin.php?url=addgr">Add group</a></li>
-                    <li><a href="admin.php?url=viewgr">Display groups</a></li>
-                    <li><a href="admin.php?url=adduser">Add user</a></li>
-                    <li><a href="admin.php?url=view">Display users</a></li>
+                    <li><a href="?url=addgr">Add group</a></li>
+                    <li><a href="?url=viewgr">Display groups</a></li>
+                    <li><a href="?url=adduser">Add user</a></li>
+                    <li><a href="?url=view">Display users</a></li>
                   </ul>
                   <ul class="nav nav-sidebar">
                     <li><a href="">Nav item again</a></li>
@@ -135,7 +135,7 @@
           </div>
 
             <?php }else{ ?>
-        <form class="form-signin" action="admin.php" method="POST">
+        <form class="form-signin" action="index.php" method="POST">
           <h2 class="form-signin-heading">Please sign in</h2>
           <label for="login" class="sr-only">Email address</label>
           <input type="text" id="login" name="login" class="form-control" placeholder="Login" required autofocus>
@@ -148,6 +148,6 @@
 
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="scripts/ie10-viewport-bug-workaround.js"></script>
+    <script src="../scripts/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>

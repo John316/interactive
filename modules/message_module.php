@@ -29,6 +29,12 @@ class Message{
   		return $result;
   	}
 
+		function RemoveMessage ($id){
+			$reqest = "UPDATE `message` SET `status` = 0 WHERE id = $id";
+  		mysql_query($reqest) or die(mysql_error());
+      return true;
+  	}
+
     function DeleteMessage ($id){
   		$reqest = "DELETE FROM `message` WHERE id = $id";
   		mysql_query($reqest) or die(mysql_error());

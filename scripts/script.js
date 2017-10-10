@@ -23,14 +23,14 @@ function sendGet(url, callback){
 
 function sendPost(url, data, callback){
   $.post(url, data)
-  .done(function( data ) {
-    if(callback){
-      callback(data);
-    }
-  })
-  .fail(function() {
-    cl( "error" );
-  });
+    .done(function( data ) {
+      if(callback){
+        callback(data);
+      }
+    })
+    .fail(function() {
+      cl( "error" );
+    });
 }
 function cl(m) {
   console.log(m);

@@ -17,6 +17,8 @@ if($url === 'start'){
   fwrite($isActive, $status);
   fclose($isActive);
   echo json_encode($status);
+  $level = new Level();
+  $level->InitArchivation(1);
 
 } else if ($url === 'addLevel') {
 
@@ -33,7 +35,7 @@ if($url === 'start'){
 } else if($url === 'selectLevels'){
 
   $level = new Level();
-  $data = $level->GetMiddleValue();
+  $data = $level->GetMiddleValue(1);
   echo json_encode(mysql_fetch_assoc($data));
 
 }else if($url === 'isactive'){
@@ -45,7 +47,7 @@ if($url === 'start'){
 }else if($url === 'mainStat'){
 
   $level = new Level();
-  $data = $level->GetMainStatistic();
+  $data = $level->GetMainStatistic(1);
   $result = array();
   while ($row = mysql_fetch_assoc($data)) {
       $result[] = $row;

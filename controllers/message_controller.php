@@ -26,7 +26,7 @@ if ($url === 'addQuestion') {
 }else if ($url === 'deleteMessage') {
   $id = clear($_POST['id']);
   $message = new Message();
-  $message->DeleteMessage($id);
+  $message->RemoveMessage($id);
 }
 
 ?>

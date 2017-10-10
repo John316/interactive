@@ -73,7 +73,7 @@
             <td><? echo $row1['Email']; ?></td>
             <td><? echo $group; ?></td>
             <td><? echo $row1['org_name']; ?></td>
-            <td><img class="img-rounded" src="<? echo $avatar;?>" width="50px"/></td>
+            <td><img class="img-rounded" src="../<? echo $avatar;?>" width="50px"/></td>
             <td><? echo "<a href='?url=del&id=$id_user' onClick='window.location.reload( true );'>Del</a>"; ?></td>
         </tr>
         <?

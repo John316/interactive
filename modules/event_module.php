@@ -1,5 +1,5 @@
 <?php
-require_once 'db/connectmysql.php';
+require_once '../db/connectmysql.php';
 
 class EventClass
 {
@@ -16,7 +16,7 @@ class EventClass
         or die(mysql_error());
         $queryid = mysql_insert_id();
         $this->CreateRelations($user_id, $queryid);
-        header('Location: ../admin.php?url=event');
+        header('Location: ../index.php?url=event');
         return $queryid;
   }
   public function CreateRelations($user_id, $event_id)
@@ -33,7 +33,7 @@ class EventClass
   function UpdateEvent ($id, $event_name, $start_date, $end_date){
 		$query = "UPDATE `event` SET `name` = '$event_name', `start_date` = '$start_date', `end_date` = '$end_date' WHERE id = $id";
     mysql_query($query) or die(mysql_error());
-    header('Location: ../admin.php?url=event');
+    header('Location: ../index.php?url=event');
     return true;
 	}
   public function getEventById($eventId)
