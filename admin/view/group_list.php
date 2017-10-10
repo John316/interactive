@@ -1,6 +1,6 @@
     <h1>Groups list</h1>
     <!-- Сортировка -->
-    <span>Order by: </span><a href="admin.php?url=viewgr&order=id">ID</a> | <a href="index.php?url=viewgr&order=name">Name</a>
+    <span>Order by: </span><a href="index.php?url=viewgr&order=id">ID</a> | <a href="index.php?url=viewgr&order=name">Name</a>
     <?php
     //require_once ('controlers/edituser.php');
     // Просмотр групп
@@ -38,18 +38,18 @@
                     ?>
                     <tr>
                         <td><? echo $row1['id']; ?></td>
-                        <td><? echo "<a href='admin.php?url=updategr&id=$id_group'>".$name.'</a>'; ?></td>
-                        <td><? echo "<a href='admin.php?url=delgr&id=$id_group'>Del</a>"; ?></td>
+                        <td><? echo "<a href='index.php?url=updategr&id=$id_group'>".$name.'</a>'; ?></td>
+                        <td><? echo "<a href='index.php?url=delgr&id=$id_group'>Del</a>"; ?></td>
                     </tr>
                     <?  } ?>
         </table>
       <? // Постраничный просмотр
-      if($page != 1) $pervpage = '<a href= ./admin.php?url=viewgr&page=1><<</a><a href= ./index.php?url=viewgr&page='. ($page - 1) .'><</a> ';
-      if($page != $total) $nextpage = ' <a href= ./admin.php?url=viewgr&page='. ($page + 1) .'>></a><a href= ./index.php?url=viewgr&page=' .$total. '>>></a>';
-      if($page - 2 > 0) $page2left = ' <a href= ./admin.php?url=viewgr&page='. ($page - 2) .'>'. ($page - 2) .'</a> | ';
-      if($page - 1 > 0) $page1left = '<a href= ./admin.php?url=view&page='. ($page - 1) .'>'. ($page - 1) .'</a> | ';
-      if($page + 2 <= $total) $page2right = ' | <a href= ./admin.php?url=viewgr&page='. ($page + 2) .'>'. ($page + 2) .'</a>';
-      if($page + 1 <= $total) $page1right = ' | <a href= ./admin.php?url=viewgr&page='. ($page + 1) .'>'. ($page + 1) .'</a>';
+      if($page != 1) $pervpage = '<a href= ./index.php?url=viewgr&page=1><<</a><a href= ./index.php?url=viewgr&page='. ($page - 1) .'><</a> ';
+      if($page != $total) $nextpage = ' <a href= ./index.php?url=viewgr&page='. ($page + 1) .'>></a><a href= ./index.php?url=viewgr&page=' .$total. '>>></a>';
+      if($page - 2 > 0) $page2left = ' <a href= ./index.php?url=viewgr&page='. ($page - 2) .'>'. ($page - 2) .'</a> | ';
+      if($page - 1 > 0) $page1left = '<a href= ./index.php?url=view&page='. ($page - 1) .'>'. ($page - 1) .'</a> | ';
+      if($page + 2 <= $total) $page2right = ' | <a href= ./index.php?url=viewgr&page='. ($page + 2) .'>'. ($page + 2) .'</a>';
+      if($page + 1 <= $total) $page1right = ' | <a href= ./index.php?url=viewgr&page='. ($page + 1) .'>'. ($page + 1) .'</a>';
 
       ?>
               </table>
