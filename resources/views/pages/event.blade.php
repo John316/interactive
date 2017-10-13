@@ -1,7 +1,7 @@
 @extends('eventFrame')
 
 @section('head')
-    <script type="text/babel" src="/js/bundle.js"></script>
+    <!-- <script type="text/babel" src="/js/bundle.js"></script> -->
     <script type="text/javascript">
         var eventId = "{{$clientEvent['id']}}";
         var eventStatus = "{{$clientEvent['status']}}";

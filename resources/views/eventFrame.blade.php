@@ -10,7 +10,12 @@
         <title>Interactive</title>
         <link rel="stylesheet" href="/css/app.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="/js/old/all.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+        <script src="/js/old/highcharts.js"></script>
+        <script src="/js/old/script.js"></script>
+        <script src="/js/old/charts.js"></script>
+        <script src="/js/old/lang.js"></script>
         @yield('head')
     </head>
     <body>
