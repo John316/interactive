@@ -29,7 +29,8 @@ if($url === 'start'){
     $clientIP  = $_POST['clientIP'];
     $userId  = $_POST['userId'];
     $typeId = $_POST['typeId'];
-    $id = $level->AddLevel($userId, $clientIP, $level1, $level2, $level3, $typeId);
+    $eventId = 1;
+    $id = $level->AddLevel($userId, $clientIP, $level1, $level2, $level3, $typeId, $eventId);
     return $id;
 
 } else if($url === 'selectLevels'){
