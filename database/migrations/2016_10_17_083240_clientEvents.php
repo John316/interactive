@@ -23,7 +23,7 @@ class ClientEvents extends Migration
             $table->timestamps();
         });
 
-        Schema::create('event_user', function (Blueprint $table) {
+        Schema::create('client_event_user', function (Blueprint $table) {
             $table->integer('client_event_id')->unsigned()->index();
             $table->foreign('client_event_id')->references('id')->on('client_events')->onDelete('cascade');
 
@@ -41,7 +41,9 @@ class ClientEvents extends Migration
      */
     public function down()
     {
-        Schema::drop('client_events');
+        Schema::disableForeignKeyConstraints();
+        Schema::drop('client_event_user');
         Schema::drop('event_user');
+        Schema::enableForeignKeyConstraints();
     }
 }

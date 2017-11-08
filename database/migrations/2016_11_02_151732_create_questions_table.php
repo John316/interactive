@@ -14,12 +14,12 @@ class CreateQuestionsTable extends Migration
     public function up()
     {
         Schema::create('questions', function (Blueprint $table) {
-            
+
             $table->increments('id');
             $table->string('text');
             $table->integer('rate');
             $table->integer('status');
-            
+
             $table->integer('client_event_id')->unsigned()->index();
             $table->foreign('client_event_id')->references('id')->on('client_events')->onDelete('cascade');
 
@@ -37,6 +37,8 @@ class CreateQuestionsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('questions');
+        Schema::enableForeignKeyConstraints();
     }
 }

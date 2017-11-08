@@ -8,13 +8,16 @@
         var startUrl = '{{ action('EventsController@start', [$clientEvent['id']]) }}';
         var stopUrl = '{{ action('EventsController@stop', [$clientEvent['id']]) }}';
     </script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 @stop
 
 @section('eventMenu')
     <nav>
         <ul class="nav nav-pills pull-right">
+            <li role="presentation"><a href="/" href="#">Home</a></li>
             <li role="presentation"><a id="start" href="#">Start</a></li>
             <li role="presentation"><a id="stop" href="#">Stop</a></li>
+            <li role="presentation"><a href="/event/{{ $clientEvent['id'] }}/slides" href="#">Slides page</a></li>
         </ul>
     </nav>
 @stop
@@ -72,11 +75,12 @@
 @stop
 
 @section('eventTitle')
-    <a href="/">{{ $clientEvent['name'] }}</a>
+    <a href="/">Interactive</a>
 @stop
 
 @section('content')
 <div class="main-content">
+    <h1>{{ $clientEvent['name'] }}</h1>
     <p class="bg-info info">Description: {{ $clientEvent['desc'] }}</p>
     <div class="row">
         <div class="col-md-6">
@@ -113,7 +117,58 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title"><strong><span class="lang" text="THE_TEXT_OF_1">Level of understanding</span></strong></h3>
+        </div>
+        <div class="panel-body">
+          <div class="sw-block">
+              <div class="sw-left">
+                <span class="lang" text="NO">НЕТ</span>
+              </div>
+              <div class="onoffswitch">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+                <label class="onoffswitch-label" for="myonoffswitch"></label>
+              </div>
+              <div class="sw-right">
+                  <span class="lang" text="YES">ДА</span>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <h3 class="panel-title"><strong><span class="lang" text="S_QUESTION">Отправить вопрос</span></strong></h3>
+        </div>
+        <div class="panel-body">
+          <p class="bg-primary info-sent">Your question was sent. Thank you!</p>
+          <form class="form-inline" id="question_form">
+            <div class="form-group">
+              <input type="text" class="form-control" id="enter_question" placeholder="Напишите вопрос">
+            </div>
+            <button type="button" id="send_question" class="btn btn-default"><span class="lang" text="SEND">Отправить</span></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><span class="lang" text="LIST_OF_R_I">Список последних вопросов</span></h3>
+        </div>
+        <div class="panel-body">
+          <div id="message-on-client" class="lang" text="NO_QUES">
+            Пока вопросов нет.
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="row">
         <div class="col-md-6">
             {{ csrf_field() }}
             <div id="switcher"></div>
@@ -131,7 +186,7 @@
         <div class="col-md-12">
             <div id="quick-vote-form"></div>
         </div>
-    </div>
+    </div> -->
 </div>
 
 @stop

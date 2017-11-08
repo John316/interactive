@@ -59,6 +59,11 @@ function deleteMessage(id) {
 }
 
 $( document ).ready(function() {
+  $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+  });
 
     var pusher = new Pusher('75c1ec166f3486e363b8', {
         encrypted: true
@@ -166,7 +171,7 @@ function requestForLevel1() {
 }
 
 function requestForMainStat() {
-  var urlMainStat = eventId + "/mainStat";
+  var urlMainStat = "/event/" + eventId + "/mainStat";
   sendGet(urlMainStat, function (data) {
     if(data){
       if(seriesChart2 && seriesChart3)

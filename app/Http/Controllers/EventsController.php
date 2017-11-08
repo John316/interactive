@@ -50,7 +50,10 @@ class EventsController extends Controller
      */
     public function create()
     {
-        return view('pages.createEvent');
+        if (Auth::check()) {
+          return view('pages.createEvent');
+        }
+        return redirect('/login');
     }
 
     /**
@@ -59,7 +62,12 @@ class EventsController extends Controller
      */
     public function store(EventRequest $request)
     {
-        ClientEvent::create($request->all());
+        if (Auth::check()) {
+          $input = $request->only('name', 'desc', 'status', 'active_from', 'active_to');
+          $event = ClientEvent::create($input);
+          $user = Auth::user();
+          $user->events()->attach($event);
+        }
         return redirect('/');
     }
 
@@ -91,6 +99,16 @@ class EventsController extends Controller
     {
         $this->event = $clientEvent;
         return view('pages.event', compact('clientEvent'));
+    }
+
+    /**
+     * @param ClientEvent $clientEvent
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function slides($id)
+    {
+        $event = $this->getCurrentEvent($id);
+        return view('pages.slides', compact('event'));
     }
 
     /**

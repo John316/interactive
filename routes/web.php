@@ -33,10 +33,12 @@ Route::get('event/{id}/start', 'EventsController@start');
 
 Route::get('event/{id}/stop', 'EventsController@stop');
 
+Route::get('event/{id}/slides', 'EventsController@slides');
+
 Route::get('event/{id}/mainStat', 'EventsController@mainStat');
 
 Route::resource('event', 'EventsController');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', 'PagesController@index');

@@ -45,7 +45,7 @@ class ClientEvent extends Model
     }
 
     public function user(){
-        return $this->belongsToMany('users');
+        return $this->belongsToMany(User::class);
     }
 
     public function getMainStatistic()
