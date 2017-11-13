@@ -10,7 +10,7 @@
         "twbs/bootstrap": "^3.3",
         "doctrine/dbal": "^2.5",
         "barryvdh/laravel-ide-helper": "^2.2",
-        "illuminate/html": "^5.0",
+        "laravelcollective/html": "5.3.*",
         "pusher/pusher-php-server": "^2.6"
     },
     "require-dev": {
