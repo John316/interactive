@@ -24,5 +24,15 @@
 </div>
 
 <div class="form-group">
+    {!! Form::label('active_to', 'Active to:') !!}
+    {!! Form::input('date', 'active_to', date('Y-m-d'), ['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group">
+    {!! Form::label('add_file', 'File:') !!}
+    {!! Form::input('file', 'add_file', null, ['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group">
     {!! Form::submit($nameOfSubmitBtn, ['class' => 'btn btn-primary form-control']) !!}
 </div>
