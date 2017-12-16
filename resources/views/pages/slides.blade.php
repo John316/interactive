@@ -15,6 +15,31 @@
 @stop
 
 @section('content')
+
+  <form method="POST" action="/event/{{ $event['id'] }}/upload" enctype="multipart/form-data">
+
+    {{ csrf_field() }}
+
+    <div class="form-group">
+      <img src="/slides/{{ $event['id'] }}/images">
+    </div>
+
+    <div class="form-group">
+        <label for="file">Select image to upload:</label>
+        <input type="file" class="form-control" id="file" name="file" >
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary" >Upload</button>  
+    </div>
+</form>
+
+<form method="post" action="/event/{{ $event['id'] }}/delete">    
+    <div class="form-group">
+        {{method_field('DELETE')}} {{ csrf_field() }}       
+        <button type="submit" class="btn btn-danger" >Delete</button>
+    </div>
+</form>
+
 <div class="main-window">
   <div class="demo-info">
     <div>
@@ -31,5 +56,6 @@
   <div class="tools-frame">
     <div id="chart-1" style="height: 164px; width: 800px;"></div>
   </div>
+
 </div>
 @stop

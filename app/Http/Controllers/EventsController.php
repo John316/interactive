@@ -10,7 +10,11 @@ use App\Http\Requests;
 use App\Http\Requests\EventRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\File;
 use Pusher;
+
 
 class EventsController extends Controller
 {
@@ -108,7 +112,31 @@ class EventsController extends Controller
     public function slides($id)
     {
         $event = $this->getCurrentEvent($id);
+
         return view('pages.slides', compact('event'));
+    }
+
+    public function delete($id)
+    {
+        Storage::disk('public')->delete("events/$id/slides/".$id.".jpg");
+
+        return redirect()->action(  
+          'EventsController@slides', ['id' => $id]
+        ); 
+    }
+
+    public function upload($id){
+
+      if(Input::hasFile('file')){ 
+
+        $file = Input::file('file');        
+
+        Storage::disk('public')->putFileAs("events/$id/slides/", $file, $file->getClientOriginalName());
+      }     
+
+      return redirect()->action(  
+        'EventsController@slides', ['id' => $id]
+      );  
     }
 
     /**
