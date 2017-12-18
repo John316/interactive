@@ -13,7 +13,8 @@ class ElectionLevel extends Model
     protected $fillable = [
         'level',
         'user_id',
-        'election_id'
+        'election_id',
+        'active_slide'
     ];
 
     protected $table = 'election_levels';
