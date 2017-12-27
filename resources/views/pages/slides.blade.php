@@ -26,37 +26,20 @@
         });
 
         function initNextSlide() {
-            var elArr = $(".img-slide");
-
-            $(elArr).each(function(){
-                var $this = $(this)
-                var id = parseInt($this.attr("data"));
-                var next = parseInt($this.attr("data")) + 1;
-
-                var url = window.location.pathname;
-
-                var res =  url.replace(id, next);
-
-                window.location.replace(res);
-            })
-
+            var id = parseInt("{{$event['id']}}");
+            var next = id + 1;
+            var url = window.location.pathname;
+            var res =  url.replace(id, next);
+            window.location.replace(res);
         }
 
         function initPrevSlide() {
-            var elArr = $(".img-slide");
-
-            $(elArr).each(function(){
-                var $this = $(this)
-                var id = parseInt($this.attr("data"));
-
-                var next = 1;
-
-                id !== 1 ? next = parseInt($this.attr("data")) - 1 : null;
-
-                var url = window.location.pathname;
-                var res =  url.replace(id, next);
-                window.location.replace(res);
-            })
+            var id = parseInt("{{$event['id']}}");
+            var next = 1;
+            id !== 1 ? next = id - 1 : null;
+            var url = window.location.pathname;
+            var res =  url.replace(id, next);
+            window.location.replace(res);
         }
     </script>
 
