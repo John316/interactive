@@ -8,6 +8,58 @@
         var startUrl = '{{ action('EventsController@start', [$event['id']]) }}';
         var stopUrl = '{{ action('EventsController@stop', [$event['id']]) }}';
     </script>
+
+
+    <script type="text/javascript">
+        addEventListener("keyup", function(event) {
+            var forword = 39;
+            var backword = 37;
+            var down = 40;
+            var up = 38;
+            var controlFF = 34;
+            var controlBK = 33;
+            if(event.keyCode == forword || event.keyCode == down || event.keyCode == controlFF){
+                initNextSlide();
+            }else if (event.keyCode == backword || event.keyCode == up || event.keyCode == controlBK) {
+                initPrevSlide();
+            }
+        });
+
+        function initNextSlide() {
+            var elArr = $(".img-slide");
+
+            $(elArr).each(function(){
+                var $this = $(this)
+                var id = parseInt($this.attr("data"));
+                var next = parseInt($this.attr("data")) + 1;
+
+                var url = window.location.pathname;
+
+                var res =  url.replace(id, next);
+
+                window.location.replace(res);
+            })
+
+        }
+
+        function initPrevSlide() {
+            var elArr = $(".img-slide");
+
+            $(elArr).each(function(){
+                var $this = $(this)
+                var id = parseInt($this.attr("data"));
+
+                var next = 1;
+
+                id !== 1 ? next = parseInt($this.attr("data")) - 1 : null;
+
+                var url = window.location.pathname;
+                var res =  url.replace(id, next);
+                window.location.replace(res);
+            })
+        }
+    </script>
+
 @stop
 
 @section('eventTitle')
@@ -21,7 +73,7 @@
     {{ csrf_field() }}
 
     <div class="form-group">
-      <img src="/slides/{{ $event['id'] }}/images">
+      <img class="img-slide active" data="{{ $event['id'] }}" src="/slides/{{ $event['id'] }}/images">
     </div>
 
     <div class="form-group">
