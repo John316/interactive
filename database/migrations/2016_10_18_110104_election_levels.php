@@ -34,7 +34,7 @@ class ElectionLevels extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::drop('election_levels');
+        Schema::dropIfExists('election_levels');
         Schema::enableForeignKeyConstraints();
     }
 }

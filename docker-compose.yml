@@ -1,0 +1,59 @@
+version: "3.1"
+services:
+
+    mailhog:
+      image: mailhog/mailhog:latest
+      container_name: janado-mailhog
+      ports:
+        - "8025:8025"
+
+    mysql:
+      image: mysql:5.7
+      container_name: janado-mysql
+      volumes:
+        - janado_db_data:/var/lib/mysql
+      environment:
+        - MYSQL_ROOT_PASSWORD=123321
+        - MYSQL_DATABASE=forge
+        - MYSQL_USER=user
+        - MYSQL_PASSWORD=123321
+      ports:
+        - "3306:3306"
+
+    beanstalkd:
+      image: kusmierz/beanstalkd
+      container_name: janado-beanstalkd
+
+    webserver:
+      image: nginx
+      container_name: janado-webserver
+      working_dir: /application
+      volumes:
+        - .:/application
+        - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      ports:
+        - "80:80"
+      depends_on:
+        - php-fpm
+
+    php-fpm:
+      build: 
+        context: .
+        dockerfile: /docker/php-fpm/Dockerfile
+      container_name: janado-php-fpm
+      working_dir: /application
+      ports:
+        - "9090:9090"
+      volumes:
+        - .:/application
+        - ./docker/php-fpm/php-ini-overrides.ini:/usr/local/etc/php/conf.d/99-overrides.ini
+        - ./docker/php-fpm/supervisor-workers.conf:/etc/supervisor/conf.d/supervisor-workers.conf
+        - composer_vendor:/application/vendor
+      depends_on:
+        - beanstalkd
+        - mysql
+        - mailhog
+
+volumes:
+  janado_db_data:
+  composer_vendor:

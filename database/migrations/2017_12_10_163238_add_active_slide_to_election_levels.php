@@ -14,7 +14,7 @@ class AddActiveSlideToElectionLevels extends Migration
     public function up()
     {
         Schema::table('election_levels', function (Blueprint $table) {
-            $table->string('active_slide')->after('election_id');
+            $table->integer('active_slide')->after('election_id')->default(1)->unsigned();
         });
     }
 
@@ -25,8 +25,10 @@ class AddActiveSlideToElectionLevels extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::table('election_levels', function (Blueprint $table) {
             $table->dropColumn('active_slide');
         });
+        Schema::enableForeignKeyConstraints();
     }
 }

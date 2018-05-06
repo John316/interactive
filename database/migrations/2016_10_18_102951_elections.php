@@ -30,7 +30,7 @@ class Elections extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::drop('elections');
+        Schema::dropIfExists('elections');
         Schema::enableForeignKeyConstraints();
     }
 }

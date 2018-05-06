@@ -42,8 +42,8 @@ class ClientEvents extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::drop('client_event_user');
-        Schema::drop('event_user');
+        Schema::dropIfExists('client_event_user');
+        Schema::dropIfExists('client_events');
         Schema::enableForeignKeyConstraints();
     }
 }
