@@ -18,7 +18,7 @@ class Elections extends Migration
             $table->string('name');
             $table->integer('type_id');
             $table->integer('event_id')->unsigned()->index();
-            $table->foreign('event_id')->references('id')->on('client_events')->onDelete('cascade');
+            $table->foreign('event_id')->references('id')->on('client_events')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

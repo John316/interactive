@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class ElectionLevel extends Model
 {
-	public function GetTableName(){
+    protected $table = 'election_levels';
+
+    public function GetTableName(){
 		return $this->table;
-	} 
+	}
 
     protected $fillable = [
         'level',
@@ -16,6 +18,4 @@ class ElectionLevel extends Model
         'election_id',
         'active_slide'
     ];
-
-    protected $table = 'election_levels';
 }

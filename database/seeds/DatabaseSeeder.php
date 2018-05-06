@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DatabaseSeeder extends Seeder
 {
-    protected $toTrancate = ['client_events', 'users'];
+    protected $toTrancate = ['client_events', 'users', 'elections'];
     /**
      * Run the database seeds.
      *
@@ -13,17 +13,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //Model::unguard();
+        Model::unguard();
 
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         foreach ($this->toTrancate as $table)
         {
-          //DB::table($table)->truncate();
+          DB::table($table)->truncate();
         }
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         $this->call(UserTableSeeder::class);
 
         $this->call(EventsTableSeeder::class);
 
-        //TODO: $this->call(ElectionTableSeeder::class);
+        $this->call(ElectionTableSeeder::class);
     }
 }

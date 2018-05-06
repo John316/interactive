@@ -18,10 +18,10 @@ class ElectionLevels extends Migration
             $table->integer('level');
 
             $table->integer('user_id')->unsigned()->index();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
 
-            $table->integer('election_id')->unsigned()->index();
-            $table->foreign('election_id')->references('id')->on('elections')->onDelete('cascade');
+            $table->integer('election_id')->unsigned();
+            $table->foreign('election_id')->references('id')->on('elections')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

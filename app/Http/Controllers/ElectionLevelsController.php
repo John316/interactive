@@ -12,6 +12,7 @@ use Pusher;
 
 class ElectionLevelsController extends Controller
 {
+    private $userId = 1;
 
     /**
      * @return Pusher
@@ -38,13 +39,20 @@ class ElectionLevelsController extends Controller
     public function add(Request $request)
     {
         $user = Auth::user();
+
         if($user){
-            $request['user_id'] = $user->id;
-        }else{
-            $request['user_id'] = 1;
+            $this->userId = $user->id;
         }
-        
-        ElectionLevel::create($request->all());
+
+        $level = $request->input('level');
+        $electionId = $request->input('level');
+
+        ElectionLevel::create([
+            'level' => $level,
+            'election_id' => $electionId,
+            'user_id' => $this->userId,
+            'active_slide' => 1
+        ]);
 
         $pusher = $this->initPusher();
 

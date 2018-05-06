@@ -48,8 +48,13 @@ class ClientEvent extends Model
         return $this->belongsToMany(User::class);
     }
 
-    public function getMainStatistic()
+    public function elections()
     {
-        return "";
+        return $this->hasMany(Election::class, 'event_id');
+    }
+
+    public function scopeGetStatistic($query)
+    {
+        return $query->where('id', $this->id)->with('elections.levels')->get();
     }
 }

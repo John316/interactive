@@ -6,10 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Election extends Model
 {
-  public function GetTableName(){
-    return $this->table;
-  }
-
     protected $fillable = [
         'name',
         'type_id',
@@ -17,4 +13,15 @@ class Election extends Model
     ];
 
     protected $table = 'elections';
+
+    public $timestamps = false;
+
+    public function GetTableName(){
+        return $this->table;
+    }
+
+    public function levels()
+    {
+        return $this->hasMany(ElectionLevel::class);
+    }
 }

@@ -35,23 +35,11 @@ $factory->define(App\ClientEvent::class, function (Faker\Generator $faker) {
     ];
 });
 
-
-$factory->define(App\Question::class, function (Faker\Generator $faker) {
-
-    return [
-        'text' => $faker->name,
-        'client_event_id' => $faker->numberBetween($min = 1, $max = 20),
-        'rate' => $faker->numberBetween($min = 1, $max = 5),
-        'user_id' => 1,
-        'status' =>1
-    ];
-});
-
 $factory->define(App\Election::class, function (Faker\Generator $faker) {
 
     return [
-        'name' => $faker->name,
-        'type_id' => 1,
-        'event_id' => $faker->numberBetween($min = 1, $max = 30)
+        'name' => $faker->sentence($nbWords = 6, $variableNbWords = true),
+        'type_id' => $faker->numberBetween($min = 1, $max = 3),
+        'event_id' => $faker->numberBetween($min = 1, $max = 30),
     ];
 });

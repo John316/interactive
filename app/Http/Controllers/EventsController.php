@@ -209,7 +209,7 @@ class EventsController extends Controller
     public function mainStat($id)
     {
         $event = $this->getCurrentEvent($id);
-        $data = $event->getMainStatistic();
+        $data = $event->getStatistic();
 
         return $data;
     }
