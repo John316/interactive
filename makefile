@@ -84,6 +84,9 @@ test: #run test cases
 test_class: #test specific class name="$(name)"
 	@sudo docker exec -it $(docker_name) bash -c 'vendor/bin/phpunit --filter $(name)'
 
+bash: #bash
+	@sudo docker exec -it $(docker_name) bash
+
 clear_cache: #clear laravel cache php artisan optimize --force php artisan config:cache php artisan route:cache
 	@sudo docker exec -it $(docker_name) bash -c 'php artisan cache:clear && php artisan view:clear && php artisan route:clear && php artisan config:clear'
 
