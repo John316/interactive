@@ -182,23 +182,29 @@ class EventsController extends Controller
      */
     public function addQuestion($id, Request $request)
     {
-        $result = [];
-        $result['id'] = $id;
-        $result['text'] = $request['text'];
-
+        $data = [];
+        $data['text'] = $request->only('text');
+        $data['client_event_id'] = 12;
         $user = Auth::user();
         if($user){
-            $request['user_id'] = $user->id;
+            $data['user_id'] = 1;
         }else{
-            $request['user_id'] = 1;
+            $data['user_id'] = 1;
         }
 
-        Question::create($request->all());
+        Question::create($data);
+
+        $question = new Question();
+        $question->text = $request->only('text');
+        $question->user_id = $data['user_id'];
+        $question->save();
+
+        $question->events()->sync([$id],false);
 
         $pusher = $this->getPusher();
         $pusher->trigger('event_channel', 'question_event', $request['text']);
 
-        return $result;
+        return $data;
     }
 
     public function getAllQuestions($id, Request $request)
