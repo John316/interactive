@@ -17,8 +17,8 @@ class CreateQuestionsTable extends Migration
 
             $table->increments('id');
             $table->string('text');
-            $table->integer('rate');
-            $table->integer('status');
+            $table->integer('rate')->default(0);
+            $table->integer('status')->default(1);
 
             $table->integer('client_event_id')->unsigned()->index();
             $table->foreign('client_event_id')->references('id')->on('client_events')->onDelete('cascade');

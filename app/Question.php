@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use Composer\Script\Event;
 use DB;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,4 +26,10 @@ class Question extends Model
     {
         return $query->where('client_event_id', '=', $id)->get();
     }
+
+    public function events()
+    {
+        return $this->belongsTo(ClientEvent::class);
+    }
+
 }

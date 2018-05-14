@@ -60,7 +60,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('admin', 'Admin\AdminController@index');
+// Check role in route middleware
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'roles'], 'roles' => 'admin'], function () {
+    Route::get('admin', 'Admin\AdminController@index');
+});
+//Route::get('admin', 'Admin\AdminController@index');
 Route::resource('admin/roles', 'Admin\RolesController');
 Route::resource('admin/permissions', 'Admin\PermissionsController');
 Route::resource('admin/users', 'Admin\UsersController');
