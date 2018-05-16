@@ -27,5 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(EventsTableSeeder::class);
 
         $this->call(ElectionTableSeeder::class);
+
+        $this->call(QuestionsSeeder::class);
     }
 }

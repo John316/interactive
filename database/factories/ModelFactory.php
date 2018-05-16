@@ -35,6 +35,18 @@ $factory->define(App\ClientEvent::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Question::class, function (Faker\Generator $faker) {
+
+
+    return [
+        'text' => $faker->sentence,
+        'rate' => 5,
+        'client_event_id' => $faker->numberBetween($min = 1, $max = 3),
+        'user_id' => $faker->numberBetween($min = 1, $max = 30),
+        'status' => 1
+    ];
+});
+
 $factory->define(App\Election::class, function (Faker\Generator $faker) {
 
     return [
