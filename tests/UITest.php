@@ -16,7 +16,7 @@ class UITest extends TestCase
      */
     public function test_visit_to_about_page()
     {
-        
+
         // 1. go to home
 
         $this->visit('/')
@@ -24,10 +24,10 @@ class UITest extends TestCase
         // 2. Press link "About"
 
             ->click("About")
-        
+
         // 3. See text
 
-            ->see('Text about project')
+            ->see('About Interactive project')
 
         // 4. Assert the url = about
 
@@ -36,7 +36,7 @@ class UITest extends TestCase
 
     public function test_login_page_is_avalible()
     {
-        
+
         // 1. go to Login page
 
         $this->visit('/login')
@@ -56,7 +56,16 @@ class UITest extends TestCase
 
     public function test_single_creating_event ()
     {
-        
+      $this->visit('/login')
+
+           ->type('admin@mail.com', 'email')
+
+           ->type('123456', 'password')
+
+           ->press('Login')
+
+           ->seePageIs('/home');
+
         $this->visit('/event/create')
 
              ->type('Auto Test Event', 'name')

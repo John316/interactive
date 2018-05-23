@@ -38,27 +38,30 @@ class ElectionLevelsController extends Controller
      */
     public function add(Request $request)
     {
-        $user = Auth::user();
+        $electionId = $request->input('election_id');
+        if($electionId > 0){
+          $user = Auth::user();
+          if($user){
+              $this->userId = $user->id;
 
-        if($user){
-            $this->userId = $user->id;
+            }
+          $level = $request->input('level');
+
+          $event = ElectionLevel::create([
+              'level' => $level,
+              'election_id' => $electionId,
+              'user_id' => $this->userId,
+              'active_slide' => 1
+          ]);
+
+          $pusher = $this->initPusher();
+
+          $data['message'] = $request->all();
+          $pusher->trigger('level_channel', 'add_event', 'info added');
+
+          return $event;
+        } else {
+          return 'invalid id';
         }
-
-        $level = $request->input('level');
-        $electionId = $request->input('level');
-
-        ElectionLevel::create([
-            'level' => $level,
-            'election_id' => $electionId,
-            'user_id' => $this->userId,
-            'active_slide' => 1
-        ]);
-
-        $pusher = $this->initPusher();
-
-        $data['message'] = $request->all();
-        $pusher->trigger('level_channel', 'add_event', 'info added');
-
-        return $data['message'];
     }
 }
