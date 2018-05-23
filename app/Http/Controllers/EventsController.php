@@ -120,23 +120,23 @@ class EventsController extends Controller
     {
         Storage::disk('public')->delete("events/$id/slides/".$id.".jpg");
 
-        return redirect()->action(  
+        return redirect()->action(
           'EventsController@slides', ['id' => $id]
-        ); 
+        );
     }
 
     public function upload($id){
 
-      if(Input::hasFile('file')){ 
+      if(Input::hasFile('file')){
 
-        $file = Input::file('file');        
+        $file = Input::file('file');
 
         Storage::disk('public')->putFileAs("events/$id/slides/", $file, $file->getClientOriginalName());
-      }     
+      }
 
-      return redirect()->action(  
+      return redirect()->action(
         'EventsController@slides', ['id' => $id]
-      );  
+      );
     }
 
     /**
@@ -182,24 +182,19 @@ class EventsController extends Controller
      */
     public function addQuestion($id, Request $request)
     {
-        $data = [];
-        $data['text'] = $request->only('text');
-        $data['client_event_id'] = 12;
-        $user = Auth::user();
-        if($user){
-            $data['user_id'] = 1;
+        $this->user = Auth::user();
+        if($this->user){
+            $this->userId = $this->user->id;
         }else{
-            $data['user_id'] = 1;
+            $this->userId = 1;
         }
+        $data = ['text' => $request->only('text')['text'],
+        'rate' => 0,
+        'client_event_id' => 12, // TODO:: get from user
+        'user_id' => $this->userId,
+        'status' => 1];
 
-        Question::create($data);
-
-        $question = new Question();
-        $question->text = $request->only('text');
-        $question->user_id = $data['user_id'];
-        $question->save();
-
-        $question->events()->sync([$id],false);
+        $question = Question::create($data);
 
         $pusher = $this->getPusher();
         $pusher->trigger('event_channel', 'question_event', $request['text']);
