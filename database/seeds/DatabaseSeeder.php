@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DatabaseSeeder extends Seeder
 {
-    protected $toTrancate = ['client_events', 'users', 'elections'];
+    protected $toTrancate = ['client_events', 'users', 'elections', 'questions', 'event_statuses'];
     /**
      * Run the database seeds.
      *
@@ -29,5 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ElectionTableSeeder::class);
 
         $this->call(QuestionsSeeder::class);
+
+        $this->call(EventStatusSeeder::class);
     }
 }

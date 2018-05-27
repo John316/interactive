@@ -34,13 +34,19 @@ class ModelsTest extends TestCase
         $event = factory(ClientEvent::class)->create();
 
         $lastEvent = ClientEvent::lastAdded()->get();
-				
+
         $this->assertEquals($event->id, $lastEvent->first()->id);
     }
 
     public function test_it_create_question_record()
     {
-        $event = factory(Question::class)->create();
+        $event = Question::create([
+		        'text' => 'title',
+		        'rate' => 2,
+		        'client_event_id' => 10,
+		        'user_id' => 1,
+		        'status' => 1
+		    ]);
 
         $events = Question::all();
 
