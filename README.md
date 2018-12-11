@@ -37,3 +37,22 @@ Also available is multi language. There are translations into English, Ukrainian
 В случае если большая часть аудитории не будет понимать материал, сервис будет предупреждать докладчика и 
 не будет давать продолжать доклад пока не будет достаточное количество понимающих. 
 Слушатели могут отправлять вопросы докладчику, не перебивая его. Все могут голосовать за вопросы и таким образом самые лучшие вопросы всегда будут вверху. 
+
+Фото с одного из мероприятий, которые проходили с использованием сервиса
+
+![New display](https://raw.githubusercontent.com/John316/interactive/master/images/foto1.jpg)
+
+
+![New display](https://raw.githubusercontent.com/John316/interactive/master/images/foto2.jpg)
+
+
+![New display](https://raw.githubusercontent.com/John316/interactive/master/images/foto3.jpg)
+
+
+![New display](https://raw.githubusercontent.com/John316/interactive/master/images/foto4.jpg)
+
+
+![New display](https://raw.githubusercontent.com/John316/interactive/master/images/foto5.jpg)
+
+
+![New display](https://raw.githubusercontent.com/John316/interactive/master/images/foto6.jpg)
