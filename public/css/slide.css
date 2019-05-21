@@ -1,0 +1,8 @@
+#message-aside .message-body{
+    color: #636b6f;
+    padding: 10px;
+}
+
+#message-aside .mess-cancel {
+    top: 10px;
+}

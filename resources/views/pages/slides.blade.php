@@ -2,14 +2,14 @@
 
 @section('head')
     <!-- <script type="text/babel" src="/js/bundle.js"></script> -->
+    <link href="{{ asset('css/slide.css') }}" rel="stylesheet">
     <script type="text/javascript">
         var eventId = "{{$event['id']}}";
         var eventStatus = "{{$event['status']}}";
         var startUrl = '{{ action('EventsController@start', [$event['id']]) }}';
         var stopUrl = '{{ action('EventsController@stop', [$event['id']]) }}';
+        var demonstration = true;
     </script>
-
-
     <script type="text/javascript">
         addEventListener("keyup", function(event) {
             var forword = 39;
@@ -46,44 +46,14 @@
 @stop
 
 @section('eventTitle')
-    <a href="/event/{{ $event['id'] }}">{{ $event['name'] }}</a>
+    <a href="/event/{{ $event['id'] }}">{{ $event['name'] }}</a> <a class="demo-info" href="/event/{{ $event['id'] }}"> iactive.life/event/{{ $event['id'] }}</a></strong></span>
 @stop
 
 @section('content')
-
-    <form method="POST" action="/event/{{ $event['id'] }}/upload" enctype="multipart/form-data">
-
-        {{ csrf_field() }}
-
-        <div class="form-group">
-            <img class="img-slide active" data="{{ $event['id'] }}" src="/slides/{{ $event['id'] }}/images">
-        </div>
-
-        <div class="form-group">
-            <label for="file">Select image to upload:</label>
-            <input type="file" class="form-control" id="file" name="file" >
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary" >Upload</button>
-        </div>
-    </form>
-
-    <form method="post" action="/event/{{ $event['id'] }}/delete">
-        <div class="form-group">
-            {{method_field('DELETE')}} {{ csrf_field() }}
-            <button type="submit" class="btn btn-danger" >Delete</button>
-        </div>
-    </form>
-
     <div class="main-window">
-        <div class="demo-info">
-            <div>
-                <span>Enter in your browser address - <strong> <a href="/event/{{ $event['id'] }}"> iactive.life/event/{{ $event['id'] }}</a></strong></span>
-            </div>
-        </div>
         <div class="slide-frame">
             <div class="image-frame">
-
+                <img class="img-slide active" data="{{ $event['id'] }}" src="/images/slides/01.png">
             </div>
         </div>
         <div id="message-aside"></div>
@@ -91,6 +61,6 @@
         <div class="tools-frame">
             <div id="chart-1" style="height: 164px; width: 800px;"></div>
         </div>
-
+        {{ csrf_field() }}
     </div>
 @stop

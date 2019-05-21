@@ -27,6 +27,8 @@ Route::get('event/{id}/status', 'EventsController@status');
 
 Route::post('event/{id}/question/add', 'EventsController@addQuestion');
 
+Route::post('event/{eventId}/question/delete', 'EventsController@deleteQuestion');
+
 Route::get('event/{id}/questions', 'EventsController@getAllQuestions');
 
 Route::get('event/{id}/start', 'EventsController@start');

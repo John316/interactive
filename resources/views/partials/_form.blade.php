@@ -24,5 +24,10 @@
 </div>
 
 <div class="form-group">
+    {!! Form::label('file', 'Select image to upload:') !!}
+    {!! Form::input('file', 'file', '', ['class' => 'form-control']) !!}
+</div>
+
+<div class="form-group">
     {!! Form::submit($nameOfSubmitBtn, ['class' => 'btn btn-primary form-control']) !!}
 </div>

@@ -7,6 +7,7 @@
         var eventStatus = "{{$clientEvent['status']}}";
         var startUrl = '{{ action('EventsController@start', [$clientEvent['id']]) }}';
         var stopUrl = '{{ action('EventsController@stop', [$clientEvent['id']]) }}';
+        var demonstration = false;
     </script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @stop

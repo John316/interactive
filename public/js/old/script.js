@@ -6,7 +6,6 @@ var underVal = 5;
 var est1 = 4;
 var est2 = 4;
 var isActiveState = false;
-var demonstration = false;
 var flag = true;
 var sendTimeout, isActiveSend;
 
@@ -23,6 +22,7 @@ function sendGet(url, callback){
 }
 
 function sendPost(url, data, callback){
+  data._token = $('[name="_token"]').val();
   $.post(url, data)
     .done(function (data) {
       if (callback) {
@@ -46,13 +46,13 @@ function outputMessage(data) {
     html += '<div id="mess'+el.id+'" class="message-body"><div onclick="deleteMessage('+el.id+')" class="mess-cancel">x</div><div class="message-text">' + el.text + '</div></div>';
   });
   if(demonstration){
-    $('#message-aside').append(html);
+    $('#message-aside ').append(html);
   }else {
     $('#message-on-client').append(html);
   }
 }
 function deleteMessage(id) {
-  var url = "controllers/message_controller.php?url=deleteMessage";
+  var url = "/event/" + eventId + "/question/delete";
   sendPost(url, {id: id}, function (data) {
     $('#mess'+id).remove();
   });
@@ -106,6 +106,8 @@ $( document ).ready(function() {
 
     requestForMainStat();
 
+    requestForMessage();
+
     $("#start").click(function() {
       sendGet(startUrl);
     });
@@ -137,8 +139,7 @@ $( document ).ready(function() {
 
     $("#send_question").click(function () {
         var text = $("#enter_question").val();
-        var _token = $('[name="_token"]').val();
-        var sendData = {_token: _token, text: text};
+        var sendData = {text: text};
         var urlAddQuestion = eventId +"/question/add";
 
         sendPost(urlAddQuestion, sendData, function() {
@@ -175,16 +176,16 @@ function requestForMainStat() {
   sendGet(urlMainStat, function (data) {
     if(data){
       if(seriesChart2 && seriesChart3)
-        updateLevel2and3(JSON.parse(data));
+        updateLevel2and3(data);
     }
   });
 }
 
 function requestForMessage() {
-  var url = "controllers/message_controller.php?url=selectMessage";
+  var url = "/event/" + eventId + "/questions";
   sendGet(url, function (data) {
     if(data){
-      outputMessage(JSON.parse(data))
+      outputMessage(data)
     }
   });
 }

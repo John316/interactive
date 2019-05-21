@@ -43,8 +43,9 @@ class ElectionLevelsController extends Controller
           $user = Auth::user();
           if($user){
               $this->userId = $user->id;
-
-            }
+            } else {
+              $this->userId = 1;
+          }
           $level = $request->input('level');
 
           $event = ElectionLevel::create([

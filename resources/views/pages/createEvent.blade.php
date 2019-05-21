@@ -8,7 +8,7 @@
 
         @include('errors.list')
 
-        {!! Form::open(['url' => 'event']) !!}
+        {!! Form::open(['url' => 'event', 'enctype' => "multipart/form-data"]) !!}
 
             @include('partials._form', ['nameOfSubmitBtn' => 'Create the Event'])
 

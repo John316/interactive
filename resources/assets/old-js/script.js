@@ -23,6 +23,7 @@ function sendGet(url, callback){
 }
 
 function sendPost(url, data, callback){
+  data._token = $('[name="_token"]').val();
   $.post(url, data)
     .done(function (data) {
       if (callback) {
