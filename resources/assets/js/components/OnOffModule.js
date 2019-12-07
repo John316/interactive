@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Toggle from 'material-ui/Toggle';
 
@@ -10,15 +10,13 @@ const styles = {
         marginBottom: 16,
     }
 };
-var OnOffModule = React.createClass({
+class OnOffModule extends Component{
 
-    getInitialState: function() {
-        return {
+   state =  {
             stateBtn: true
-        };
-    },
+    }
 
-    render: function() {
+    render () {
         return (
             <MuiThemeProvider>
                 <Toggle
@@ -30,6 +28,6 @@ var OnOffModule = React.createClass({
             </MuiThemeProvider>
         );
     }
-});
+};
 
 export default OnOffModule;
