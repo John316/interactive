@@ -1,35 +1,37 @@
-import React from 'react';
+import React, {Component}from 'react';
 import Question from './Question.js';
 import AppActions from '../actions/AppActions';
 import QuestionStore from'../stores/QuestionStore';
 
-function getAppState(){
-    return {
+
+
+class QuestionsList extends Component {
+   
+  state = {
         moduleTitle : 'List of question',
         data: QuestionStore.getQuestions()
-    };
-}
+    }
 
-var QuestionsList = React.createClass({
-    
-    getInitialState: function(){
-        return getAppState();
-    },
 
-    handleQuestionDelete: function (question) {
+    handleQuestionDelete (question) {
         AppActions.deleteItem(question);
-    },
+    }
 
-    componentDidMount: function(){
+    componentDidMount (){
         QuestionStore.addChangeListener(this._onChange);
-    },
+    }
 
-    componentWillUnmount: function(){
+    componentWillUnmount (){
         QuestionStore.removeChangeListener(this._onChange);
-    },
+    }
 
 
-    _renderQuestions: function()
+   _onChange (){
+        this.setState( () => {
+		     data: QuestionStore.getQuestions()} );    
+    }
+	
+    _renderQuestions ()
     {
         var handleQuestionDelete = this.handleQuestionDelete;
         return this.state.data.map(function(question) {
@@ -41,9 +43,9 @@ var QuestionsList = React.createClass({
                 onDelete={handleQuestionDelete.bind(null, question)}
             />;
         })
-    },
+    }
     
-    render: function() {
+    render () {
         return (
             <div className="panel panel-default">
                 <div className="panel-heading">
@@ -54,11 +56,8 @@ var QuestionsList = React.createClass({
                 </div>
             </div>
         );
-    },
-    
-    _onChange: function(){
-        this.setState(getAppState());
     }
-});
+    
+}
 
 export default QuestionsList;
