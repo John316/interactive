@@ -1,10 +1,9 @@
 import AppConstants from '../constants/AppConstants';
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import assign from 'object-assign';
-import AppAPI from '../utils/appAPI.js';
+import AppAPI from '../utils/AppAPI.js';
 var EventEmitter = require('events').EventEmitter;
 
-var eventEmitter = new EventEmitter();
 var _stateBtn = true;
 
 var OnOffStore = assign({}, EventEmitter.prototype, {
@@ -14,14 +13,14 @@ var OnOffStore = assign({}, EventEmitter.prototype, {
 	},
 
 	emitChange: function () {
-		eventEmitter.emit(AppConstants.CHANGE_ON_OFF);
+		this.emit(AppConstants.CHANGE_ON_OFF);
 	},
 
 	addChangeListener: function (callback) {
-		eventEmitter.on(AppConstants.CHANGE_ON_OFF, callback);
+		this.on(AppConstants.CHANGE_ON_OFF, callback);
 	},
 	removeChangeListener: function (callback) {
-		eventEmitter.removeListener(AppConstants.CHANGE_ON_OFF, callback);
+		this.removeListener(AppConstants.CHANGE_ON_OFF, callback);
 	}
 });
 

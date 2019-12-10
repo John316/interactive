@@ -2,12 +2,8 @@ import AppConstants from '../constants/AppConstants';
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import assign from 'object-assign';
 import AppActions from '../actions/AppActions';
-import AppAPI from '../utils/appAPI.js';
+import AppAPI from '../utils/AppAPI.js';
 var EventEmitter = require('events').EventEmitter;
-
-
-
-var eventEmitter = new EventEmitter();
 
 var _items = [];
 
@@ -32,8 +28,7 @@ var QuestionStore = assign({}, EventEmitter.prototype, {
 	emitChange: function () {
 		console.log('emitChange');
 		console.log(_items);
-		console.log(AppConstants.CHANGE_EVENT);
-		eventEmitter.emit(AppConstants.CHANGE_EVENT);
+		this.emit(AppConstants.CHANGE_EVENT);
 	},
 
 	addChangeListener: function (callback) {
@@ -73,7 +68,5 @@ AppDispatcher.register(function(payload){
 
 	return true;
 });
-
-
 
 export default QuestionStore;

@@ -1,34 +1,33 @@
-import React, {Component} from 'react';
+import React from 'react';
 import AppActions from '../actions/AppActions';
 import OnOffModule from './OnOffModule';
 import OnOffStore from '../stores/OnOffStore';
 
-
-
-class OnOffApp extends Component {
-
-    state = {
+function getAppState(){
+    return {
         btnState: OnOffStore.getState()
-    }
+    };
+}
 
-    handleSwitchOnOff (_, prop) {
+var OnOffApp = React.createClass({
+
+    getInitialState: function(){
+        return getAppState();
+    },
+
+    handleSwitchOnOff: function (_, prop) {
         AppActions.switchOnOff(prop);
-    }
+    },
 
-    componentDidMount(){
+    componentDidMount: function(){
         OnOffStore.addChangeListener(this._onChange);
-    }
+    },
 
-    componentUnmount (){
+    componentUnmount: function(){
         OnOffStore.removeChangeListener(this._onChange);
-    }
+    },
 
-   // Update view state when change is received
-    _onChange (){
-        this.setState(()=> {btnState: OnOffStore.getState()} );
-    }
-	
-    render (){
+    render: function(){
         return (
             <div className="panel panel-info">
                 <div className="panel-heading">
@@ -39,9 +38,12 @@ class OnOffApp extends Component {
                 </div>
             </div>
         );
-    }
+    },
 
-    
-}
+    // Update view state when change is received
+    _onChange: function(){
+        this.setState(getAppState());
+    }
+});
 
 export default OnOffApp;

@@ -1,11 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
 import AppActions from '../actions/AppActions';
 
-
-
-class QuickVoteForm extends Component{
-
-	state = {
+function getAppState(){
+	return {
 		id: 'User',
 		titleText : 'You can vote here',
 		thankYouText : 'Thank You for your vote!',
@@ -15,9 +12,16 @@ class QuickVoteForm extends Component{
 			{value: 2, text: 'Good'}
 		],
 		infoSentStyle: {display: 'none'}
-	}
+	};
+}
 
-	handleSelectChange(event) {
+var QuickVoteForm = React.createClass({
+
+	getInitialState: function(){
+		return getAppState();
+	},
+
+	handleSelectChange: function (event) {
 
 		this.setState({infoSentStyle: {display: 'block'}});
 	    setTimeout(function() {
@@ -31,9 +35,9 @@ class QuickVoteForm extends Component{
 		};
 		console.log(vote);
 		// AppActions.addItem(vote);
-	}
+	},
 
-	render() {
+	render: function() {
 		return (
 			<div className="panel panel-success">
 				<div className="panel-heading">
@@ -52,6 +56,6 @@ class QuickVoteForm extends Component{
 			</div>
 		);
 	}
-}
+});
 
 export default QuickVoteForm;

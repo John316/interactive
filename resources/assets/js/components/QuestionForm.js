@@ -1,39 +1,41 @@
-import React, {Component} from 'react';
+import React from 'react';
 import AppActions from '../actions/AppActions';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
-//import injectTapEventPlugin from 'react-tap-event-plugin';
-//injectTapEventPlugin();
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
-
-
-
-class QuestionForm extends Component{
-
-	state = {
+function getAppState(){
+	return {
 		titleText : 'You can ask question',
 		thankYouText : 'Thank You for your message!',
 		buttonText : 'Send',
 		text: ""
-	}
+	};
+}
 
-	handleTextChange(event) {
+var QuestionForm = React.createClass({
+
+	getInitialState: function(){
+		return getAppState();
+	},
+
+	handleTextChange: function (event) {
 		this.setState( {text: event.target.value});
-	}
+	},
 
-	handleAddQuestion () {
+	handleAddQuestion: function () {
 		var newQuestion = {
 			id: Date.now(),
 			text: this.state.text
-		}
-		
-	
+		};
+
 		AppActions.addItem(newQuestion);
 
 		this.setState({text: '' });
-	}
+	},
 
-	render() {
+	render: function() {
 		return (
 			<div className="panel panel-success">
 				<div className="panel-heading">
@@ -45,18 +47,18 @@ class QuestionForm extends Component{
 						<div className="form-group">
 							<input type="text"
 								   value={this.state.text}
-								   onChange={this.handleTextChange.bind(this)}
+								   onChange={this.handleTextChange}
 								   className="form-control"
 								   placeholder="Enter question" />
 						</div>
 						<MuiThemeProvider>
-							<RaisedButton label={this.state.buttonText} onClick={this.handleAddQuestion.bind(this)} />
+							<RaisedButton label={this.state.buttonText} onClick={this.handleAddQuestion} />
 						</MuiThemeProvider>
 					</form>
 				</div>
 			</div>
 		);
 	}
-};
+});
 
 export default QuestionForm;
