@@ -24,3 +24,4 @@ ReactDOM.render(
 	<QuickVoteForm />,
 	document.getElementById('quick-vote-form')
 );
+// comment

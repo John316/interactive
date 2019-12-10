@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {Component} from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import {Card, CardText} from 'material-ui/Card';
 
-var Question = React.createClass({
-    render: function() {
+class Question extends Component{
+    render() {
         return (
             <MuiThemeProvider>
                 <Card className="message-body" >
@@ -16,6 +16,6 @@ var Question = React.createClass({
             </MuiThemeProvider>
         );
     }
-});
+}
 
 export default Question;
